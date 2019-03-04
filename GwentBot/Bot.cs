@@ -111,14 +111,19 @@ namespace GwentBot
 
         private Bitmap CropLetterbox(Bitmap bitmap)
         {
-            LogImage(bitmap);
-
             var bounds = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
 
 
             // Подрезка боковых рамок окна и заголовка окна
             var borderSize = SystemInformation.BorderSize;
-            int titleHeight = (int)(SystemInformation.CaptionHeight * 1.5);
+            // Windows возвращает высоту заголовка на 4 пикселя больше чем есть на самом деле
+            int titleHeight = SystemInformation.CaptionHeight
+                + SystemInformation.FixedFrameBorderSize.Height * 2
+                + SystemInformation.BorderSize.Height;
+
+
+
+            //int titleHeight = (bitmap.Height - borderSize.Height * 2) - 720;
 
             var workAreaRec = new Rectangle(borderSize.Width, titleHeight + borderSize.Height,
                 bitmap.Width - borderSize.Width * 2, bitmap.Height - titleHeight - borderSize.Height * 2);
