@@ -8,5 +8,6 @@
         Title="MainWindow" Height="139.655" Width="342.759">
     <StackPanel>
         <Button Name="btStart" Height="70" Click="BtStart_Click">Старт</Button>
+        <Button Name="btCheckVisability" Click="Button_Click">Проверить видимость игры</Button>
     </StackPanel>
 </Window>

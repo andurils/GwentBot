@@ -1,6 +1,4 @@
-﻿using AutoIt;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
+﻿using OpenCvSharp.Extensions;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -15,21 +13,11 @@ namespace GwentBot
 {
     internal class Bot
     {
+        private readonly string gameWindowTatle = "Gwent";
+
         public Bot()
         {
-            AutoItX.AutoItSetOption("SendKeyDownDelay", 20);
-
             isWork = true;
-        }
-
-        private readonly bool testRun = true;
-        private int logImgNum;
-
-        private readonly string testImgPath = "testImg/testWind.tif";
-
-        public void StopWokr()
-        {
-            isWork = false;
         }
 
         public bool isWork { get; private set; }
@@ -41,51 +29,52 @@ namespace GwentBot
                 while (isWork)
                 {
                     if (IsGameWindowActive())
-                        GetGameScreenshot();
+                    {
+                        var gameScreen = GetGameScreenshot();
+
+                        if (testRun)
+                            LogImage(gameScreen);
+
+                        isWork = false;
+                    }
                 }
             });
         }
 
+        public void StopWork()
+        {
+            isWork = false;
+        }
 
+        #region CreatingGameWindowImage
 
+        public bool IsGameWindowFullVisible()
+        {
+            bool result = false;
+            var gameWindowRect = GetGameWindowRectangle();
+            if (gameWindowRect.X + gameWindowRect.Width < Screen.PrimaryScreen.Bounds.Width
+                && gameWindowRect.Y + gameWindowRect.Height < Screen.PrimaryScreen.Bounds.Height)
+                result = true;
 
+            return result;
+        }
 
-
-
-
-
-
-
+        /// <summary>
+        /// Возвращает скриншот рабочей зоны окна игры.
+        /// Перед скриншотом нужно проверять видимость игрового окна с помощью: isGameWindowFullVisible()
+        /// </summary>
+        /// <returns></returns>
         private Bitmap GetGameScreenshot()
         {
-            var gameProcWin = GetWindowRectangle();
-            Bitmap gameScreen = null;
-            var i = gameProcWin.Width + gameProcWin.Height;
-
-            gameScreen = GetScreenshotWindow(gameProcWin);
-
-            gameScreen = CropLetterbox(gameScreen);
-
-            if (testRun)
-                LogImage(gameScreen);
+            var gameWindowRect = GetGameWindowWorkZoneRectangle();
+            Bitmap gameScreen = GetScreenshotScreenArea(gameWindowRect);
 
             return gameScreen;
         }
 
-
-        private Rectangle GetWindowRectangle()
+        private Rectangle GetGameWindowRectangle()
         {
-
-            //var bitmap = new Mat(testImgPath).ToBitmap();
-
-            //var units = GraphicsUnit.Point;
-            //var bmpRectangleF = bitmap.GetBounds(ref units);
-            //var bmpRectangle = Rectangle.Round(bmpRectangleF);
-
-            //return bmpRectangle;
-
-
-            var res = DwmGetWindowAttribute(GetGameProcess().MainWindowHandle,
+            DwmGetWindowAttribute(GetGameProcess().MainWindowHandle,
                 9,
                 out var rect,
                 Marshal.SizeOf(typeof(Rect)));
@@ -93,12 +82,25 @@ namespace GwentBot
             return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
 
-        /// <summary>
-        ///     Получить скриншот области экрана
-        /// </summary>
-        /// <param name="rect">Область скриншота</param>
-        /// <returns></returns>
-        private Bitmap GetScreenshotWindow(Rectangle rect)
+        private Rectangle GetGameWindowWorkZoneRectangle()
+        {
+            var rect = GetGameWindowRectangle();
+
+            var borderSize = SystemInformation.BorderSize;
+            int titleHeight = SystemInformation.CaptionHeight
+                + SystemInformation.FixedFrameBorderSize.Height * 2
+                + SystemInformation.BorderSize.Height;
+
+            var workAreaRect = new Rectangle(
+                rect.X + borderSize.Width,
+                rect.Y + titleHeight + borderSize.Height,
+                rect.Width - borderSize.Width * 2,
+                rect.Height - titleHeight - borderSize.Height * 2);
+
+            return workAreaRect;
+        }
+
+        private Bitmap GetScreenshotScreenArea(Rectangle rect)
         {
             var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
             using (var graphics = Graphics.FromImage(bmp))
@@ -109,38 +111,9 @@ namespace GwentBot
             return bmp;
         }
 
-        private Bitmap CropLetterbox(Bitmap bitmap)
-        {
-            var bounds = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+        #endregion CreatingGameWindowImage
 
-
-            // Подрезка боковых рамок окна и заголовка окна
-            var borderSize = SystemInformation.BorderSize;
-            // Windows возвращает высоту заголовка на 4 пикселя больше чем есть на самом деле
-            int titleHeight = SystemInformation.CaptionHeight
-                + SystemInformation.FixedFrameBorderSize.Height * 2
-                + SystemInformation.BorderSize.Height;
-
-
-
-            //int titleHeight = (bitmap.Height - borderSize.Height * 2) - 720;
-
-            var workAreaRec = new Rectangle(borderSize.Width, titleHeight + borderSize.Height,
-                bitmap.Width - borderSize.Width * 2, bitmap.Height - titleHeight - borderSize.Height * 2);
-            bitmap = bitmap.Clone(workAreaRec, bitmap.PixelFormat);
-
-            //bounds = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-
-            return bitmap;
-        }
-
-        private void LogImage(Bitmap bmp)
-        {
-            if (Directory.Exists("outTestImg") == false)
-                Directory.CreateDirectory("outTestImg");
-            bmp.ToMat().ImWrite("outTestImg/" + logImgNum + ".tif");
-            logImgNum++;
-        }
+        #region WorkWithTheGameProcess
 
         internal bool IsGameWindowActive()
         {
@@ -157,20 +130,37 @@ namespace GwentBot
 
         private Process GetGameProcess()
         {
-            return Process.GetProcessesByName("Gwent").FirstOrDefault();
+            return Process.GetProcessesByName(gameWindowTatle).FirstOrDefault();
         }
 
-        #region WinApi
+        #endregion WorkWithTheGameProcess
 
-        [DllImport(@"dwmapi.dll")]
-        private static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, out Rect pvAttribute,
-int cbAttribute);
+        #region DebugLog
+
+        private readonly bool testRun = true;
+        private int logImgNum;
+
+        private void LogImage(Bitmap bmp)
+        {
+            if (Directory.Exists("outTestImg") == false)
+                Directory.CreateDirectory("outTestImg");
+            bmp.ToMat().ImWrite("outTestImg/" + logImgNum + ".tif");
+            logImgNum++;
+        }
+
+        #endregion DebugLog
+
+        #region WinApiSupportMethods
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll")]
         public static extern uint GetWindowThreadProcessId(IntPtr hwnd, ref int pid);
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetForegroundWindow();
+        [DllImport(@"dwmapi.dll")]
+        private static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, out Rect pvAttribute,
+int cbAttribute);
 
         [Serializable]
         [StructLayout(LayoutKind.Sequential)]
@@ -187,6 +177,6 @@ int cbAttribute);
             }
         }
 
-        #endregion WInApi
+        #endregion WinApiSupportMethods
     }
 }

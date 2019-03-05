@@ -20,17 +20,26 @@ namespace GwentBot
     /// </summary>
     public partial class MainWindow : Window
     {
-        Bot gBot = null;
+        Bot gBot;
+
         public MainWindow()
         {
             InitializeComponent();
-            
+            gBot = new Bot();
         }
 
         private void BtStart_Click(object sender, RoutedEventArgs e)
         {
-            Bot gBot = new Bot();
             gBot.StartWorkAsync();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var visability = gBot.IsGameWindowFullVisible();
+            if (visability)
+                btCheckVisability.Background = new SolidColorBrush(Colors.Green);
+            else
+                btCheckVisability.Background = new SolidColorBrush(Colors.Red);
         }
     }
 }
