@@ -1,4 +1,6 @@
-﻿using OpenCvSharp.Extensions;
+﻿using AutoIt;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -15,15 +17,12 @@ namespace GwentBot
     {
         private readonly string gameWindowTatle = "Gwent";
 
-        public Bot()
-        {
-            isWork = true;
-        }
-
         public bool isWork { get; private set; }
 
         public async void StartWorkAsync()
         {
+            isWork = true;
+
             await Task.Run(() =>
             {
                 while (isWork)
@@ -31,12 +30,42 @@ namespace GwentBot
                     if (IsGameWindowActive())
                     {
                         var gameScreen = GetGameScreenshot();
+                        var gameScreenRect = GetGameWindowWorkZoneRectangle();
 
-                        if (testRun)
-                            LogImage(gameScreen);
+                        var cordBattleInviteBtn = RunTemplateMatch(
+                            gameScreen,
+                            new Bitmap("testImg/InvitingToFight-temp.jpg"));
 
-                        isWork = false;
+                        if (cordBattleInviteBtn.X != -1 && cordBattleInviteBtn.Y != -1)
+                        {
+                            AutoItX.MouseClick(
+                                "LEFT",
+                                (gameScreenRect.X + cordBattleInviteBtn.X) + cordBattleInviteBtn.Width / 2,
+                                (gameScreenRect.Y + cordBattleInviteBtn.Y) + cordBattleInviteBtn.Width / 2);
+
+                            for (int i = 0; i < 20; i++)
+                            {
+                                gameScreen = GetGameScreenshot();
+                                gameScreenRect = GetGameWindowWorkZoneRectangle();
+
+                                var startGameBtn = RunTemplateMatch(
+                                    gameScreen,
+                                    new Bitmap("testImg/Start_a_friendly_match-temp.jpg"),
+                                    0.8);
+
+                                if (startGameBtn.X != -1 && startGameBtn.Y != -1)
+                                {
+                                    AutoItX.MouseClick(
+                                        "LEFT",
+                                        (gameScreenRect.X + startGameBtn.X) + startGameBtn.Width / 2,
+                                        (gameScreenRect.Y + startGameBtn.Y) + startGameBtn.Width / 2);
+                                }
+
+                                    AutoItX.Sleep(1000);
+                            }
+                        }
                     }
+                    AutoItX.Sleep(3000);
                 }
             });
         }
@@ -45,6 +74,66 @@ namespace GwentBot
         {
             isWork = false;
         }
+
+        #region OpenCV Test
+
+        public void TestOpenCV()
+        {
+            var dsf = RunTemplateMatch(new Bitmap("testImg/Invitingtofight-src.jpg"),
+                new Bitmap("testImg/Invitingtofight-temp.jpg"));
+        }
+
+        /// <summary>
+        /// Ищет объекты в изображении по заданному шаблону. Возвращает 
+        /// Если объект не найден возвращает Rect со всеми полями -1
+        /// </summary>
+        /// <param name="gameScreen"></param>
+        /// <param name="temp"></param>
+        /// <returns></returns>
+        public Rect RunTemplateMatch(Bitmap gameScreen, Bitmap temp, double thresHold = 0.95)
+        {
+            // Источник кода: https://github.com/shimat/opencvsharp/issues/182
+
+            Rect tempPos = new Rect(-1, -1, -1, -1);
+
+            using (Mat refMat = gameScreen.ToMat())
+            using (Mat tplMat = temp.ToMat())
+            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
+            {
+                //Convert input images to gray
+                Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
+
+                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
+                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
+
+                while (true)
+                {
+                    double minval, maxval;
+                    OpenCvSharp.Point minloc, maxloc;
+                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
+
+                    if (maxval >= thresHold)
+                    {
+                        tempPos = new Rect(new OpenCvSharp.Point(maxloc.X, maxloc.Y), new OpenCvSharp.Size(tplMat.Width, tplMat.Height));
+
+                        //Draw a rectangle of the matching area
+                        Cv2.Rectangle(refMat, tempPos, Scalar.LimeGreen, 2);
+
+                        //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
+                        Rect outRect;
+                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.FixedRange);
+                    }
+                    else
+                        break;
+
+                }
+
+                return tempPos;
+            }
+        }
+
+        #endregion OpenCV Test
 
         #region CreatingGameWindowImage
 
@@ -77,12 +166,12 @@ namespace GwentBot
             DwmGetWindowAttribute(GetGameProcess().MainWindowHandle,
                 9,
                 out var rect,
-                Marshal.SizeOf(typeof(Rect)));
+                Marshal.SizeOf(typeof(WinApiRect)));
 
             return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
 
-        private Rectangle GetGameWindowWorkZoneRectangle()
+        public Rectangle GetGameWindowWorkZoneRectangle()
         {
             var rect = GetGameWindowRectangle();
 
@@ -159,12 +248,12 @@ namespace GwentBot
         public static extern uint GetWindowThreadProcessId(IntPtr hwnd, ref int pid);
 
         [DllImport(@"dwmapi.dll")]
-        private static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, out Rect pvAttribute,
+        private static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, out WinApiRect pvAttribute,
 int cbAttribute);
 
         [Serializable]
         [StructLayout(LayoutKind.Sequential)]
-        private struct Rect
+        private struct WinApiRect
         {
             public readonly int Left;
             public readonly int Top;
