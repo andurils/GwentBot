@@ -22,9 +22,10 @@ namespace GwentBot
             ArenaModeTab,
         }
 
-        internal GlobalGameStates GetCurrentGlobalGameStatus(Bitmap gameScreen)
+        internal GlobalGameStates GetCurrentGlobalGameStatus()
         {
-            GlobalGameStates result = GlobalGameStates.Unknown;
+            Mat gameScreen = GetGameScreenshot().ToMat();
+
 
             foreach (int itemValue in Enum.GetValues(typeof(GlobalGameStates)))
             {
@@ -32,71 +33,107 @@ namespace GwentBot
 
                 switch (item)
                 {
-                    case GlobalGameStates.Unknown:
-                        break;
                     case GlobalGameStates.Main:
                         if (CheckMainGlobalGameStates(gameScreen))
-                            result = item;
+                            return item;
                         break;
                     case GlobalGameStates.GameModesTab:
-                        if (CheckCheckGameModesTabGlobalGameStates(gameScreen))
-                            result = item;
+                        if (CheckGameModesTabGlobalGameStates(gameScreen))
+                            return item;
                         break;
                     case GlobalGameStates.ArenaModeTab:
                         if (CheckArenaModeTabGlobalGameStates(gameScreen))
-                            result = item;
+                            return item;
                         break;
                 }
             }
-
-            return result;
+            return GlobalGameStates.Unknown;
         }
 
-        private bool CheckMainGlobalGameStates(Bitmap gameScreen)
+        private bool CheckMainGlobalGameStates(Mat gameScreen)
         {
-            //TODO: Реализовать метод
+            if (CheckGameModesTabGlobalGameStates(gameScreen))
+                return false;
+
+            var tempPos = PatternSearchROI(gameScreen,
+                new Mat(@"PatternsForCV\Main-OutButton.png"),
+                new Rect(758, 428, 90, 45));
+
+            if (tempPos == Rect.Empty)
+                return false;
+            else
+                return true;
+
+
             return false;
         }
 
-        private bool CheckCheckGameModesTabGlobalGameStates(Bitmap gameScreen)
+        private bool CheckGameModesTabGlobalGameStates(Mat gameScreen)
         {
-            var result = false;
-            //TODO: Реализовать метод
-            return result;
+            var tempPos = PatternSearchROI(gameScreen,
+                new Mat(@"PatternsForCV\GameModesTab-DeckDropDownArrow.jpg"),
+                new Rect(493, 363, 46, 37));
+
+            if (tempPos == Rect.Empty)
+                return false;
+            else
+                return true;
         }
 
-        private bool CheckArenaModeTabGlobalGameStates(Bitmap gameScreen)
+        private bool CheckArenaModeTabGlobalGameStates(Mat gameScreen)
         {
-            //TODO: Реализовать метод
-            var result = false;
+            var tempPos = PatternSearch(gameScreen, 
+                new Mat(@"PatternsForCV\ArenaModeTab-ContractText.png"));
 
 
-            return result;
+            if (tempPos == Rect.Empty)
+                return false;
+            else
+                return true;
         }
 
         #region OpenCVGeneralmethods
 
         /// <summary>
-        /// Ищет объекты в изображении по заданному шаблону. Возвращает 
+        /// Ищет объекты в определенной части озображения изображении по заданному шаблону.
         /// Если объект не найден возвращает Rect со всеми полями -1
         /// </summary>
         /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
         /// <param name="temp">Шаблон</param>
         /// <param name="thresHold">Допустимая погрешность</param>
-        /// <returns></returns>
+        /// <returns>Возвращает координаты найденного шаблона. Координаты приведены к координатам
+        /// gameScreen. Если шаблон не найден то вернется Rect.Empty</returns>
         internal Rect PatternSearchROI(Mat gameScreen, Mat temp, Rect regionOfInterest, double thresHold = 0.95)
         {
             if (regionOfInterest != Rect.Empty)
                 gameScreen = new Mat(gameScreen, regionOfInterest);
 
-            return PatternSearch(gameScreen, temp, thresHold);
+                Rect tempPos = PatternSearch(gameScreen, temp, thresHold);
+
+            if (tempPos == Rect.Empty)
+                return Rect.Empty;
+
+            return new Rect(
+                tempPos.X + regionOfInterest.X,
+                tempPos.Y + regionOfInterest.Y,
+                tempPos.Width,
+                tempPos.Height); ;
         }
 
+        /// <summary>
+        /// Ищет объекты в изображении по заданному шаблону.
+        /// Если объект не найден возвращает Rect со всеми полями -1
+        /// </summary>
+        /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
+        /// <param name="temp">Шаблон</param>
+        /// <param name="thresHold">Допустимая погрешность</param>
+        /// <returns>Возвращает координаты найденного шаблона.
+        ///  Если шаблон не найден то вернется Rect.Empty</returns>
         internal Rect PatternSearch(Mat gameScreen, Mat temp, double thresHold = 0.95)
         {
             // Источник кода: https://github.com/shimat/opencvsharp/issues/182
 
-            Rect tempPos = new Rect(-1, -1, -1, -1);
+            Rect tempPos = Rect.Empty;
 
             using (Mat refMat = gameScreen)
             using (Mat tplMat = temp)

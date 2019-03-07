@@ -36,12 +36,6 @@ namespace GwentBot
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             gBot.StopWork();
-
-            var visability = gBot.IsGameWindowFullVisible();
-            if (visability)
-                btCheckVisability.Background = new SolidColorBrush(Colors.Green);
-            else
-                btCheckVisability.Background = new SolidColorBrush(Colors.Red);
         }
     }
 }

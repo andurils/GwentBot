@@ -1,14 +1,4 @@
-﻿using OpenCvSharp;
-using OpenCvSharp.Extensions;
-using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Threading.Tasks;
 
 namespace GwentBot
 {
@@ -22,8 +12,18 @@ namespace GwentBot
 
             await Task.Run(() =>
             {
+                var cv = new ComputerVision();
                 while (isWork)
                 {
+                    if (cv.IsGameWindowActive())
+                    {
+                        if (cv.GetCurrentGlobalGameStatus() == ComputerVision.GlobalGameStates.ArenaModeTab)
+                        {
+                            AutoIt.AutoItX.MouseMove(100, 100);
+                            isWork = false;
+                        }
+
+                    }
 
 
                 }
