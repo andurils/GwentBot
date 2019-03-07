@@ -124,6 +124,9 @@
     <Content Include="PatternsForCV\GameModesTab-DeckDropDownArrow.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PatternsForCV\HeavyLoading-CardDescriptionAngle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PatternsForCV\MainMenu-InvitToFightButton.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

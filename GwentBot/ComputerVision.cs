@@ -14,98 +14,106 @@ namespace GwentBot
     internal class ComputerVision
     {
         private readonly string gameWindowTatle = "Gwent";
+
         internal enum GlobalGameStates
         {
             Unknown,
             MainMenu,
             GameModesTab,
             ArenaModeTab,
+            HeavyLoading,
         }
 
         internal GlobalGameStates GetCurrentGlobalGameStatus()
         {
-            Mat gameScreen = GetGameScreenshot().ToMat();
-
-
-            foreach (int itemValue in Enum.GetValues(typeof(GlobalGameStates)))
+            using (Mat gameScreen = GetGameScreenshot().ToMat())
             {
-                var item = (GlobalGameStates)itemValue;
-
-                switch (item)
+                foreach (int itemValue in Enum.GetValues(typeof(GlobalGameStates)))
                 {
-                    case GlobalGameStates.MainMenu:
-                        if (CheckMainMenuGlobalGameStates(gameScreen))
-                            return item;
-                        break;
-                    case GlobalGameStates.GameModesTab:
-                        if (CheckGameModesTabGlobalGameStates(gameScreen))
-                            return item;
-                        break;
-                    case GlobalGameStates.ArenaModeTab:
-                        if (CheckArenaModeTabGlobalGameStates(gameScreen))
-                            return item;
-                        break;
-                }
+                    var item = (GlobalGameStates)itemValue;
+
+                    switch (item)
+                    {
+                        case GlobalGameStates.MainMenu:
+                            if (CheckMainMenuGlobalGameStates(gameScreen))
+                                return item;
+                            break;
+
+                        case GlobalGameStates.GameModesTab:
+                            if (CheckGameModesTabGlobalGameStates(gameScreen))
+                                return item;
+                            break;
+
+                        case GlobalGameStates.ArenaModeTab:
+                            if (CheckArenaModeTabGlobalGameStates(gameScreen))
+                                return item;
+                            break;
+
+                        case GlobalGameStates.HeavyLoading:
+                            if (CheckHeavyLoadingGlobalGameStates(gameScreen))
+                                return item;
+                            break;
+                    }
+                } 
             }
             return GlobalGameStates.Unknown;
         }
 
-        private bool CheckMainMenuGlobalGameStates(Mat gameScreen)
+        private bool CheckArenaModeTabGlobalGameStates(Mat gameScreen)
         {
-            if (CheckGameModesTabGlobalGameStates(gameScreen))
-                return false;
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearch(localGameScreen,
+                        new Mat(@"PatternsForCV\ArenaModeTab-ContractText.png"));
 
-            var tempPos = PatternSearchROI(gameScreen,
-                new Mat(@"PatternsForCV\MainMenu-OutButton.png"),
-                new Rect(758, 428, 90, 45));
-
-            return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos == Rect.Empty) ? false : true;
+            }
         }
 
         private bool CheckGameModesTabGlobalGameStates(Mat gameScreen)
         {
-            var tempPos = PatternSearchROI(gameScreen,
-                new Mat(@"PatternsForCV\GameModesTab-DeckDropDownArrow.jpg"),
-                new Rect(493, 363, 46, 37));
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchROI(localGameScreen,
+                        new Mat(@"PatternsForCV\GameModesTab-DeckDropDownArrow.jpg"),
+                        new Rect(493, 363, 46, 37));
 
-            return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos == Rect.Empty) ? false : true;
+            }
         }
 
-        private bool CheckArenaModeTabGlobalGameStates(Mat gameScreen)
+        private bool CheckHeavyLoadingGlobalGameStates(Mat gameScreen)
         {
-            var tempPos = PatternSearch(gameScreen, 
-                new Mat(@"PatternsForCV\ArenaModeTab-ContractText.png"));
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchROI(localGameScreen,
+                        new Mat(@"PatternsForCV\HeavyLoading-CardDescriptionAngle.png"),
+                        new Rect(650, 25, 150, 125));
 
-            return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos == Rect.Empty) ? false : true;
+            }
+        }
+
+        private bool CheckMainMenuGlobalGameStates(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                if (CheckGameModesTabGlobalGameStates(localGameScreen))
+                    return false;
+
+                var tempPos = PatternSearchROI(localGameScreen,
+                    new Mat(@"PatternsForCV\MainMenu-OutButton.png"),
+                    new Rect(758, 428, 90, 45));
+
+                return (tempPos == Rect.Empty) ? false : true;
+            }
         }
 
         #region OpenCVGeneralmethods
-
-        /// <summary>
-        /// Ищет объекты в определенной части озображения изображении по заданному шаблону.
-        /// Если объект не найден возвращает Rect со всеми полями -1
-        /// </summary>
-        /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
-        /// <param name="temp">Шаблон</param>
-        /// <param name="thresHold">Допустимая погрешность</param>
-        /// <returns>Возвращает координаты найденного шаблона. Координаты приведены к координатам
-        /// gameScreen. Если шаблон не найден то вернется Rect.Empty</returns>
-        internal Rect PatternSearchROI(Mat gameScreen, Mat temp, Rect regionOfInterest, double thresHold = 0.95)
-        {
-            if (regionOfInterest != Rect.Empty)
-                gameScreen = new Mat(gameScreen, regionOfInterest);
-
-                Rect tempPos = PatternSearch(gameScreen, temp, thresHold);
-
-            if (tempPos == Rect.Empty)
-                return Rect.Empty;
-
-            return new Rect(
-                tempPos.X + regionOfInterest.X,
-                tempPos.Y + regionOfInterest.Y,
-                tempPos.Width,
-                tempPos.Height); ;
-        }
 
         /// <summary>
         /// Ищет объекты в изображении по заданному шаблону.
@@ -152,16 +160,59 @@ namespace GwentBot
                     }
                     else
                         break;
-
                 }
 
                 return tempPos;
             }
         }
 
-        #endregion OpenCV Test
+        /// <summary>
+        /// Ищет объекты в определенной части озображения изображении по заданному шаблону.
+        /// Если объект не найден возвращает Rect со всеми полями -1
+        /// </summary>
+        /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
+        /// <param name="temp">Шаблон</param>
+        /// <param name="thresHold">Допустимая погрешность</param>
+        /// <returns>Возвращает координаты найденного шаблона. Координаты приведены к координатам
+        /// gameScreen. Если шаблон не найден то вернется Rect.Empty</returns>
+        internal Rect PatternSearchROI(Mat gameScreen, Mat temp, Rect regionOfInterest, double thresHold = 0.95)
+        {
+            if (regionOfInterest != Rect.Empty)
+                gameScreen = new Mat(gameScreen, regionOfInterest);
+
+            Rect tempPos = PatternSearch(gameScreen, temp, thresHold);
+
+            if (tempPos == Rect.Empty)
+                return Rect.Empty;
+
+            return new Rect(
+                tempPos.X + regionOfInterest.X,
+                tempPos.Y + regionOfInterest.Y,
+                tempPos.Width,
+                tempPos.Height); ;
+        }
+
+        #endregion OpenCVGeneralmethods
 
         #region CreatingGameWindowImage
+
+        internal Rectangle GetGameWindowWorkZoneRectangle()
+        {
+            var rect = GetGameWindowRectangle();
+
+            var borderSize = SystemInformation.BorderSize;
+            int titleHeight = SystemInformation.CaptionHeight
+                + SystemInformation.FixedFrameBorderSize.Height * 2
+                + SystemInformation.BorderSize.Height;
+
+            var workAreaRect = new Rectangle(
+                rect.X + borderSize.Width,
+                rect.Y + titleHeight + borderSize.Height,
+                rect.Width - borderSize.Width * 2,
+                rect.Height - titleHeight - borderSize.Height * 2);
+
+            return workAreaRect;
+        }
 
         internal bool IsGameWindowFullVisible()
         {
@@ -195,24 +246,6 @@ namespace GwentBot
                 Marshal.SizeOf(typeof(WinApiRect)));
 
             return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
-        }
-
-        internal Rectangle GetGameWindowWorkZoneRectangle()
-        {
-            var rect = GetGameWindowRectangle();
-
-            var borderSize = SystemInformation.BorderSize;
-            int titleHeight = SystemInformation.CaptionHeight
-                + SystemInformation.FixedFrameBorderSize.Height * 2
-                + SystemInformation.BorderSize.Height;
-
-            var workAreaRect = new Rectangle(
-                rect.X + borderSize.Width,
-                rect.Y + titleHeight + borderSize.Height,
-                rect.Width - borderSize.Width * 2,
-                rect.Height - titleHeight - borderSize.Height * 2);
-
-            return workAreaRect;
         }
 
         private Bitmap GetScreenshotScreenArea(Rectangle rect)
@@ -293,7 +326,5 @@ int cbAttribute);
         }
 
         #endregion WinApiSupportMethods
-
-
     }
 }

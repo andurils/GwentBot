@@ -24,7 +24,7 @@ namespace GwentBot
                         GlobalGameStatusChanged(Enum.GetName(globalStatus.GetType(), globalStatus));
                     }
 
-                    Thread.Sleep(500);
+                    Thread.Sleep(1000);
                 }
             });
         }
