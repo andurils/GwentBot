@@ -84,6 +84,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bot.cs" />
+    <Compile Include="ComputerVision.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -117,13 +118,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="testImg\InvitingToFight-src.jpg">
+    <Content Include="PatternsForCV\GameModesTab-DeckDropDownArrow.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="testImg\InvitingToFight-temp.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="testImg\Start_a_friendly_match-temp.jpg">
+    <Content Include="PatternsForCV\Main-InvitToFightButton.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
