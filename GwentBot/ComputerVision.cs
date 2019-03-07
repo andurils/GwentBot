@@ -17,7 +17,7 @@ namespace GwentBot
         internal enum GlobalGameStates
         {
             Unknown,
-            Main,
+            MainMenu,
             GameModesTab,
             ArenaModeTab,
         }
@@ -33,8 +33,8 @@ namespace GwentBot
 
                 switch (item)
                 {
-                    case GlobalGameStates.Main:
-                        if (CheckMainGlobalGameStates(gameScreen))
+                    case GlobalGameStates.MainMenu:
+                        if (CheckMainMenuGlobalGameStates(gameScreen))
                             return item;
                         break;
                     case GlobalGameStates.GameModesTab:
@@ -50,22 +50,16 @@ namespace GwentBot
             return GlobalGameStates.Unknown;
         }
 
-        private bool CheckMainGlobalGameStates(Mat gameScreen)
+        private bool CheckMainMenuGlobalGameStates(Mat gameScreen)
         {
             if (CheckGameModesTabGlobalGameStates(gameScreen))
                 return false;
 
             var tempPos = PatternSearchROI(gameScreen,
-                new Mat(@"PatternsForCV\Main-OutButton.png"),
+                new Mat(@"PatternsForCV\MainMenu-OutButton.png"),
                 new Rect(758, 428, 90, 45));
 
-            if (tempPos == Rect.Empty)
-                return false;
-            else
-                return true;
-
-
-            return false;
+            return (tempPos == Rect.Empty) ? false : true;
         }
 
         private bool CheckGameModesTabGlobalGameStates(Mat gameScreen)
@@ -74,10 +68,7 @@ namespace GwentBot
                 new Mat(@"PatternsForCV\GameModesTab-DeckDropDownArrow.jpg"),
                 new Rect(493, 363, 46, 37));
 
-            if (tempPos == Rect.Empty)
-                return false;
-            else
-                return true;
+            return (tempPos == Rect.Empty) ? false : true;
         }
 
         private bool CheckArenaModeTabGlobalGameStates(Mat gameScreen)
@@ -85,11 +76,7 @@ namespace GwentBot
             var tempPos = PatternSearch(gameScreen, 
                 new Mat(@"PatternsForCV\ArenaModeTab-ContractText.png"));
 
-
-            if (tempPos == Rect.Empty)
-                return false;
-            else
-                return true;
+            return (tempPos == Rect.Empty) ? false : true;
         }
 
         #region OpenCVGeneralmethods

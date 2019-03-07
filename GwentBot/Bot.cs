@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GwentBot
 {
     internal class Bot
     {
         public bool isWork { get; private set; }
+        internal event Action<string> GlobalGameStatusChanged;
 
         public async void StartWorkAsync()
         {
@@ -17,15 +20,11 @@ namespace GwentBot
                 {
                     if (cv.IsGameWindowActive())
                     {
-                        if (cv.GetCurrentGlobalGameStatus() == ComputerVision.GlobalGameStates.ArenaModeTab)
-                        {
-                            AutoIt.AutoItX.MouseMove(100, 100);
-                            isWork = false;
-                        }
-
+                        var globalStatus = cv.GetCurrentGlobalGameStatus();
+                        GlobalGameStatusChanged(Enum.GetName(globalStatus.GetType(), globalStatus));
                     }
 
-
+                    Thread.Sleep(500);
                 }
             });
         }

@@ -124,10 +124,10 @@
     <Content Include="PatternsForCV\GameModesTab-DeckDropDownArrow.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PatternsForCV\Main-InvitToFightButton.jpg">
+    <Content Include="PatternsForCV\MainMenu-InvitToFightButton.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PatternsForCV\Main-OutButton.png">
+    <Content Include="PatternsForCV\MainMenu-OutButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

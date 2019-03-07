@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GwentBot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="139.655" Width="342.759">
+        Title="MainWindow" Height="148.322" Width="342.759">
     <StackPanel>
         <Button Name="btStart" Height="70" Click="BtStart_Click">Старт</Button>
         <Button Name="btCheckVisability" Click="Button_Click">Проверить видимость игры</Button>
+        <TextBlock Name="tbGlobalStateList"></TextBlock>
     </StackPanel>
 </Window>

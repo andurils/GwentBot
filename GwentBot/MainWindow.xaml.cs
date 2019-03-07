@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace GwentBot
 {
@@ -20,12 +7,19 @@ namespace GwentBot
     /// </summary>
     public partial class MainWindow : Window
     {
-        Bot gBot;
+        private Bot gBot;
 
         public MainWindow()
         {
             InitializeComponent();
             gBot = new Bot();
+            gBot.GlobalGameStatusChanged += (string msg) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    tbGlobalStateList.Text = msg;
+                });
+            };
         }
 
         private void BtStart_Click(object sender, RoutedEventArgs e)
