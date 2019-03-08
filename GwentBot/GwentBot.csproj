@@ -118,21 +118,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PatternsForCV\ArenaModeTab-ContractText.png">
+    <Content Include="PatternsForCV\GlobalGameStates\ArenaModeTab\ContractText.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PatternsForCV\GameModesTab-DeckDropDownArrow.jpg">
+    <Content Include="PatternsForCV\GlobalGameStates\GameModesTab\DeckDropDownArrow.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PatternsForCV\HeavyLoading-CardDescriptionAngle.png">
+    <Content Include="PatternsForCV\GlobalGameStates\HeavyLoading\CardDescriptionAngle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PatternsForCV\MainMenu-InvitToFightButton.jpg">
+    <Content Include="PatternsForCV\GlobalGameStates\MainMenu\OutButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PatternsForCV\MainMenu-OutButton.png">
+    <Content Include="PatternsForCV\StartGameStates\GameLoadingScreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PatternsForCV\StartGameStates\WelcomeScreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\GameLoadingScreen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoItX.Dotnet.3.3.14.5\build\AutoItX.Dotnet.targets" Condition="Exists('..\packages\AutoItX.Dotnet.3.3.14.5\build\AutoItX.Dotnet.targets')" />

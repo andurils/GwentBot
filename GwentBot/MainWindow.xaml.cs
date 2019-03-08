@@ -13,7 +13,7 @@ namespace GwentBot
         {
             InitializeComponent();
             gBot = new Bot();
-            gBot.GlobalGameStatusChanged += (string msg) =>
+            gBot.GameStatusChanged += (string msg) =>
             {
                 Dispatcher.Invoke(() =>
                 {

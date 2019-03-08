@@ -7,7 +7,7 @@ namespace GwentBot
     internal class Bot
     {
         public bool isWork { get; private set; }
-        internal event Action<string> GlobalGameStatusChanged;
+        internal event Action<string> GameStatusChanged;
 
         public async void StartWorkAsync()
         {
@@ -20,8 +20,10 @@ namespace GwentBot
                 {
                     if (cv.IsGameWindowActive())
                     {
-                        var globalStatus = cv.GetCurrentGlobalGameStatus();
-                        GlobalGameStatusChanged(Enum.GetName(globalStatus.GetType(), globalStatus));
+                        //var globalStatus = cv.GetCurrentGlobalGameStatus();
+                        var startGameStates = cv.GetCurrentStartGameStates();
+
+                        GameStatusChanged(Enum.GetName(startGameStates.GetType(), startGameStates));
                     }
 
                     Thread.Sleep(1000);

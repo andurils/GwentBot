@@ -24,6 +24,18 @@ namespace GwentBot
             HeavyLoading,
         }
 
+        internal enum FriendlyGameSessionStates
+        {
+
+        }
+
+        internal enum StartGameStates
+        {
+            Unknown,
+            GameLoadingScreen,
+            WelcomeScreen,
+        }
+
         internal GlobalGameStates GetCurrentGlobalGameStatus()
         {
             using (Mat gameScreen = GetGameScreenshot().ToMat())
@@ -35,22 +47,22 @@ namespace GwentBot
                     switch (item)
                     {
                         case GlobalGameStates.MainMenu:
-                            if (CheckMainMenuGlobalGameStates(gameScreen))
+                            if (CheckGGSMainMenu(gameScreen))
                                 return item;
                             break;
 
                         case GlobalGameStates.GameModesTab:
-                            if (CheckGameModesTabGlobalGameStates(gameScreen))
+                            if (CheckGGSGameModesTab(gameScreen))
                                 return item;
                             break;
 
                         case GlobalGameStates.ArenaModeTab:
-                            if (CheckArenaModeTabGlobalGameStates(gameScreen))
+                            if (CheckGGSArenaModeTab(gameScreen))
                                 return item;
                             break;
 
                         case GlobalGameStates.HeavyLoading:
-                            if (CheckHeavyLoadingGlobalGameStates(gameScreen))
+                            if (CheckGGSHeavyLoading(gameScreen))
                                 return item;
                             break;
                     }
@@ -58,60 +70,111 @@ namespace GwentBot
             }
             return GlobalGameStates.Unknown;
         }
-
-        private bool CheckArenaModeTabGlobalGameStates(Mat gameScreen)
+        internal StartGameStates GetCurrentStartGameStates()
         {
-            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
-            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            using (Mat gameScreen = GetGameScreenshot().ToMat())
             {
-                var tempPos = PatternSearch(localGameScreen,
-                        new Mat(@"PatternsForCV\ArenaModeTab-ContractText.png"));
+                foreach (int itemValue in Enum.GetValues(typeof(StartGameStates)))
+                {
+                    var item = (StartGameStates)itemValue;
 
-                return (tempPos == Rect.Empty) ? false : true;
+                    switch (item)
+                    {
+                        case StartGameStates.GameLoadingScreen:
+                            if (CheckSGSGameLoadingScreen(gameScreen))
+                                return item;
+                            break;
+                        case StartGameStates.WelcomeScreen:
+                            if (CheckSGSWelcomeScreen(gameScreen))
+                                return item;
+                            break;
+                    }
+                }
             }
+            return StartGameStates.Unknown;
         }
 
-        private bool CheckGameModesTabGlobalGameStates(Mat gameScreen)
+        private bool CheckSGSWelcomeScreen(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
                 var tempPos = PatternSearchROI(localGameScreen,
-                        new Mat(@"PatternsForCV\GameModesTab-DeckDropDownArrow.jpg"),
+                        new Mat(@"PatternsForCV\StartGameStates\WelcomeScreen.png"),
+                        new Rect(330, 10, 200, 70));
+
+                return (tempPos == Rect.Empty) ? false : true;
+            }
+        }
+
+        private bool CheckSGSGameLoadingScreen(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearch(localGameScreen,
+                        new Mat(@"PatternsForCV\StartGameStates\GameLoadingScreen.png"));
+
+                return (tempPos == Rect.Empty) ? false : true;
+            }
+        }
+
+        #region GlobalGameStates Checks
+        private bool CheckGGSArenaModeTab(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearch(localGameScreen,
+                        new Mat(@"PatternsForCV\GlobalGameStates\ArenaModeTab\ContractText.png"));
+
+                return (tempPos == Rect.Empty) ? false : true;
+            }
+        }
+
+        private bool CheckGGSGameModesTab(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchROI(localGameScreen,
+                        new Mat(@"PatternsForCV\GlobalGameStates\GameModesTab\DeckDropDownArrow.jpg"),
                         new Rect(493, 363, 46, 37));
 
                 return (tempPos == Rect.Empty) ? false : true;
             }
         }
 
-        private bool CheckHeavyLoadingGlobalGameStates(Mat gameScreen)
+        private bool CheckGGSHeavyLoading(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
                 var tempPos = PatternSearchROI(localGameScreen,
-                        new Mat(@"PatternsForCV\HeavyLoading-CardDescriptionAngle.png"),
+                        new Mat(@"PatternsForCV\GlobalGameStates\HeavyLoading\CardDescriptionAngle.png"),
                         new Rect(650, 25, 150, 125));
 
                 return (tempPos == Rect.Empty) ? false : true;
             }
         }
 
-        private bool CheckMainMenuGlobalGameStates(Mat gameScreen)
+        private bool CheckGGSMainMenu(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                if (CheckGameModesTabGlobalGameStates(localGameScreen))
+                if (CheckGGSGameModesTab(localGameScreen))
                     return false;
 
                 var tempPos = PatternSearchROI(localGameScreen,
-                    new Mat(@"PatternsForCV\MainMenu-OutButton.png"),
+                    new Mat(@"PatternsForCV\GlobalGameStates\MainMenu\OutButton.png"),
                     new Rect(758, 428, 90, 45));
 
                 return (tempPos == Rect.Empty) ? false : true;
             }
         }
+
+        #endregion
 
         #region OpenCVGeneralmethods
 
@@ -189,7 +252,7 @@ namespace GwentBot
                 tempPos.X + regionOfInterest.X,
                 tempPos.Y + regionOfInterest.Y,
                 tempPos.Width,
-                tempPos.Height); ;
+                tempPos.Height);
         }
 
         #endregion OpenCVGeneralmethods
@@ -265,6 +328,9 @@ namespace GwentBot
 
         internal bool IsGameWindowActive()
         {
+            if (IsGameRunning() == false)
+                return false;
+
             var gameProcess = GetGameProcess();
 
             var fwHwnd = GetForegroundWindow();
@@ -281,11 +347,15 @@ namespace GwentBot
             return Process.GetProcessesByName(gameWindowTatle).FirstOrDefault();
         }
 
+        internal bool IsGameRunning()
+        {
+            return (GetGameProcess() != null) ? true : false;
+        }
+
         #endregion WorkWithTheGameProcess
 
         #region DebugLog
 
-        private readonly bool testRun = true;
         private int logImgNum;
 
         private void LogImage(Bitmap bmp)
