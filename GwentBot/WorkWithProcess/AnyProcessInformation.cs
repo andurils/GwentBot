@@ -21,7 +21,7 @@ namespace GwentBot.WorkWithProcess
 
         public bool IsGameRunning()
         {
-            return (GetGameProcess() != null) ? true : false;
+            return (GetGameProcess() != null);
         }
 
         public bool IsGameWindowActive()

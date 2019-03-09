@@ -1,5 +1,4 @@
 ﻿using GwentBot.ComputerVision;
-using GwentBot.WorkWithProcess;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,18 +7,18 @@ namespace GwentBot
 {
     public class Bot
     {
-        public bool isWork { get; private set; }
+        public bool IsWork { get; private set; }
         public event Action<string> GameStatusChanged;
 
         public async void StartWorkAsync()
         {
-            isWork = true;
+            IsWork = true;
 
-            await Task.Run((Action)(() =>
+            await Task.Run(() =>
             {
                 var screenShotCreator = new GwentWindowScreenShotCreator();
-                var cv = new OpenCVGwentStateChecker(screenShotCreator);
-                while (isWork)
+                var cv = new OpenCvGwentStateChecker(screenShotCreator);
+                while (IsWork)
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
@@ -32,12 +31,12 @@ namespace GwentBot
 
                     Thread.Sleep(1000);
                 }
-            }));
+            });
         }
 
         public void StopWork()
         {
-            isWork = false;
+            IsWork = false;
         }
 
 

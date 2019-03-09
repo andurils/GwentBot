@@ -67,7 +67,7 @@
     <Compile Include="ComputerVision\GwentWindowScreenShotCreator.cs" />
     <Compile Include="ComputerVision\IGwentStateChecker.cs" />
     <Compile Include="ComputerVision\IWindowScreenShotCreator.cs" />
-    <Compile Include="ComputerVision\OpenCVGwentStateChecker.cs" />
+    <Compile Include="ComputerVision\OpenCvGwentStateChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkWithProcess\AnyProcessInformation.cs" />
     <Compile Include="WorkWithProcess\GwentProcessInformation.cs" />

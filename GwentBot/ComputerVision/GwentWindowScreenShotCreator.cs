@@ -2,7 +2,7 @@
 
 namespace GwentBot.ComputerVision
 {
-    internal class GwentWindowScreenShotCreator : AnyWindowScreenShotCreator, IWindowScreenShotCreator
+    internal class GwentWindowScreenShotCreator : AnyWindowScreenShotCreator
     {
         internal GwentWindowScreenShotCreator() : base(new GwentProcessInformation())
         {

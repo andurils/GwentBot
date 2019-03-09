@@ -1,6 +1,6 @@
 ﻿namespace GwentBot.WorkWithProcess
 {
-    internal class GwentProcessInformation : AnyProcessInformation, IProcessInformation
+    internal class GwentProcessInformation : AnyProcessInformation
     {
         internal GwentProcessInformation() : base("Gwent")
         {

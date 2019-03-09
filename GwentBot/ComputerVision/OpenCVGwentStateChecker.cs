@@ -4,14 +4,14 @@ using System;
 
 namespace GwentBot.ComputerVision
 {
-    internal class OpenCVGwentStateChecker : IGwentStateChecker
+    internal class OpenCvGwentStateChecker : IGwentStateChecker
     {
-        public OpenCVGwentStateChecker(IWindowScreenShotCreator screenShotCreator)
+        public OpenCvGwentStateChecker(IWindowScreenShotCreator screenShotCreator)
         {
             ScreenShotCreator = screenShotCreator;
         }
 
-        public IWindowScreenShotCreator ScreenShotCreator { get; private set; }
+        public IWindowScreenShotCreator ScreenShotCreator { get; }
 
         public FriendlyGameStartStates GetCurrentFriendlyGameStartStates()
         {
@@ -24,17 +24,17 @@ namespace GwentBot.ComputerVision
                     switch (item)
                     {
                         case FriendlyGameStartStates.LoadingMatchSettings:
-                            if (CheckFGSSLoadingMatchSettings(gameScreen))
+                            if (CheckFgssLoadingMatchSettings(gameScreen))
                                 return item;
                             break;
 
                         case FriendlyGameStartStates.MatchSettings:
-                            if (CheckFGSSMatchSettings(gameScreen))
+                            if (CheckFgssMatchSettings(gameScreen))
                                 return item;
                             break;
 
                         case FriendlyGameStartStates.WaitingReadinessOpponent:
-                            if (CheckFGSSWaitingReadinessOpponent(gameScreen))
+                            if (CheckFgssWaitingReadinessOpponent(gameScreen))
                                 return item;
                             break;
                     }
@@ -59,22 +59,22 @@ namespace GwentBot.ComputerVision
                     switch (item)
                     {
                         case GlobalGameStates.MainMenu:
-                            if (CheckGGSMainMenu(gameScreen))
+                            if (CheckGgsMainMenu(gameScreen))
                                 return item;
                             break;
 
                         case GlobalGameStates.GameModesTab:
-                            if (CheckGGSGameModesTab(gameScreen))
+                            if (CheckGgsGameModesTab(gameScreen))
                                 return item;
                             break;
 
                         case GlobalGameStates.ArenaModeTab:
-                            if (CheckGGSArenaModeTab(gameScreen))
+                            if (CheckGgsArenaModeTab(gameScreen))
                                 return item;
                             break;
 
                         case GlobalGameStates.HeavyLoading:
-                            if (CheckGGSHeavyLoading(gameScreen))
+                            if (CheckGgsHeavyLoading(gameScreen))
                                 return item;
                             break;
                     }
@@ -94,12 +94,12 @@ namespace GwentBot.ComputerVision
                     switch (item)
                     {
                         case StartGameStates.GameLoadingScreen:
-                            if (CheckSGSGameLoadingScreen(gameScreen))
+                            if (CheckSgsGameLoadingScreen(gameScreen))
                                 return item;
                             break;
 
                         case StartGameStates.WelcomeScreen:
-                            if (CheckSGSWelcomeScreen(gameScreen))
+                            if (CheckSgsWelcomeScreen(gameScreen))
                                 return item;
                             break;
                     }
@@ -110,25 +110,25 @@ namespace GwentBot.ComputerVision
 
         #region FriendlyGameStartStates Checks
 
-        private bool CheckFGSSLoadingMatchSettings(Mat gameScreen)
+        private bool CheckFgssLoadingMatchSettings(Mat gameScreen)
         {
             return false;
         }
 
-        private bool CheckFGSSMatchSettings(Mat gameScreen)
+        private bool CheckFgssMatchSettings(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                var tempPos = PatternSearchROI(localGameScreen,
+                var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\MatchSettings-HeaderText.png"),
                         new Rect(220, 10, 410, 80));
 
-                return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos != Rect.Empty);
             }
         }
 
-        private bool CheckFGSSWaitingReadinessOpponent(Mat gameScreen)
+        private bool CheckFgssWaitingReadinessOpponent(Mat gameScreen)
         {
             return false;
         }
@@ -137,7 +137,7 @@ namespace GwentBot.ComputerVision
 
         #region StartGameStates Checks
 
-        private bool CheckSGSGameLoadingScreen(Mat gameScreen)
+        private bool CheckSgsGameLoadingScreen(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
@@ -145,20 +145,20 @@ namespace GwentBot.ComputerVision
                 var tempPos = PatternSearch(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\StartGameStates\GameLoadingScreen-GameNamePart.png"));
 
-                return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos != Rect.Empty);
             }
         }
 
-        private bool CheckSGSWelcomeScreen(Mat gameScreen)
+        private bool CheckSgsWelcomeScreen(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                var tempPos = PatternSearchROI(localGameScreen,
+                var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\StartGameStates\WelcomeScreen-HelloText.png"),
                         new Rect(330, 10, 200, 70));
 
-                return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos != Rect.Empty);
             }
         }
 
@@ -166,7 +166,7 @@ namespace GwentBot.ComputerVision
 
         #region GlobalGameStates Checks
 
-        private bool CheckGGSArenaModeTab(Mat gameScreen)
+        private bool CheckGgsArenaModeTab(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
@@ -174,52 +174,52 @@ namespace GwentBot.ComputerVision
                 var tempPos = PatternSearch(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\ArenaModeTab-ContractText.png"));
 
-                return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos != Rect.Empty);
             }
         }
 
-        private bool CheckGGSGameModesTab(Mat gameScreen)
+        private bool CheckGgsGameModesTab(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                if (CheckFGSSMatchSettings(gameScreen))
+                if (CheckFgssMatchSettings(gameScreen))
                     return false;
 
-                var tempPos = PatternSearchROI(localGameScreen,
+                var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.jpg"),
                         new Rect(493, 363, 46, 37));
 
-                return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos != Rect.Empty);
             }
         }
 
-        private bool CheckGGSHeavyLoading(Mat gameScreen)
+        private bool CheckGgsHeavyLoading(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                var tempPos = PatternSearchROI(localGameScreen,
+                var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\HeavyLoading-CardDescriptionAngle.png"),
                         new Rect(650, 25, 150, 125));
 
-                return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos != Rect.Empty);
             }
         }
 
-        private bool CheckGGSMainMenu(Mat gameScreen)
+        private bool CheckGgsMainMenu(Mat gameScreen)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                if (CheckGGSGameModesTab(localGameScreen))
+                if (CheckGgsGameModesTab(localGameScreen))
                     return false;
 
-                var tempPos = PatternSearchROI(localGameScreen,
+                var tempPos = PatternSearchRoi(localGameScreen,
                     new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png"),
                     new Rect(758, 428, 90, 45));
 
-                return (tempPos == Rect.Empty) ? false : true;
+                return (tempPos != Rect.Empty);
             }
         }
 
@@ -236,7 +236,7 @@ namespace GwentBot.ComputerVision
         /// <param name="thresHold">Допустимая погрешность</param>
         /// <returns>Возвращает координаты найденного шаблона.
         ///  Если шаблон не найден то вернется Rect.Empty</returns>
-        internal Rect PatternSearch(Mat gameScreen, Mat temp, double thresHold = 0.95)
+        private Rect PatternSearch(Mat gameScreen, Mat temp, double thresHold = 0.95)
         {
             // Источник кода: https://github.com/shimat/opencvsharp/issues/182
 
@@ -255,20 +255,17 @@ namespace GwentBot.ComputerVision
 
                 while (true)
                 {
-                    double minval, maxval;
-                    OpenCvSharp.Point minloc, maxloc;
-                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
+                    Cv2.MinMaxLoc(res, out _, out double maxval, out _, out Point maxloc);
 
                     if (maxval >= thresHold)
                     {
-                        tempPos = new Rect(new OpenCvSharp.Point(maxloc.X, maxloc.Y), new OpenCvSharp.Size(tplMat.Width, tplMat.Height));
+                        tempPos = new Rect(new Point(maxloc.X, maxloc.Y), new Size(tplMat.Width, tplMat.Height));
 
                         //Draw a rectangle of the matching area
                         Cv2.Rectangle(refMat, tempPos, Scalar.LimeGreen, 2);
 
                         //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
-                        Rect outRect;
-                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.FixedRange);
+                        Cv2.FloodFill(res, maxloc, new Scalar(0), out _, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.FixedRange);
                     }
                     else
                         break;
@@ -284,10 +281,11 @@ namespace GwentBot.ComputerVision
         /// </summary>
         /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
         /// <param name="temp">Шаблон</param>
+        /// <param name="regionOfInterest">Область интереса в которой ищется шаблон</param>
         /// <param name="thresHold">Допустимая погрешность</param>
         /// <returns>Возвращает координаты найденного шаблона. Координаты приведены к координатам
         /// gameScreen. Если шаблон не найден то вернется Rect.Empty</returns>
-        internal Rect PatternSearchROI(Mat gameScreen, Mat temp, Rect regionOfInterest, double thresHold = 0.95)
+        private Rect PatternSearchRoi(Mat gameScreen, Mat temp, Rect regionOfInterest, double thresHold = 0.95)
         {
             if (regionOfInterest != Rect.Empty)
                 gameScreen = new Mat(gameScreen, regionOfInterest);
