@@ -1,34 +1,38 @@
-﻿using System;
+﻿using GwentBot.ComputerVision;
+using GwentBot.WorkWithProcess;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace GwentBot
 {
-    internal class Bot
+    public class Bot
     {
         public bool isWork { get; private set; }
-        internal event Action<string> GameStatusChanged;
+        public event Action<string> GameStatusChanged;
 
         public async void StartWorkAsync()
         {
             isWork = true;
 
-            await Task.Run(() =>
+            await Task.Run((Action)(() =>
             {
-                var cv = new ComputerVision();
+                var screenShotCreator = new GwentWindowScreenShotCreator();
+                var cv = new OpenCVGwentStateChecker(screenShotCreator);
                 while (isWork)
                 {
-                    if (cv.IsGameWindowActive())
+                    if (screenShotCreator.IsGameWindowFullVisible())
                     {
-                        //var globalStatus = cv.GetCurrentGlobalGameStatus();
-                        var startGameStates = cv.GetCurrentStartGameStates();
+                        var globalStatus = cv.GetCurrentGlobalGameStates();
+                        //var startGameStates = cv.GetCurrentStartGameStates();
+                        //var frendlyGameStates = cv.GetCurrentFriendlyGameStartStates();
 
-                        GameStatusChanged(Enum.GetName(startGameStates.GetType(), startGameStates));
+                        GameStatusChanged(Enum.GetName(globalStatus.GetType(), globalStatus));
                     }
 
                     Thread.Sleep(1000);
                 }
-            });
+            }));
         }
 
         public void StopWork()

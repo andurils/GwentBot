@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GwentBot.Properties
+namespace GwentBot.GUI.Properties
 {
 
 

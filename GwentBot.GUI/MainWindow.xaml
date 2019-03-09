@@ -1,14 +1,16 @@
-﻿<Window x:Class="GwentBot.MainWindow"
+﻿<Window x:Class="GwentBot.GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GwentBot"
+        xmlns:local="clr-namespace:GwentBot.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="148.322" Width="342.759">
-    <StackPanel>
+        Title="MainWindow" Height="150" Width="200">
+    <Grid>
+            <StackPanel>
         <Button Name="btStart" Height="70" Click="BtStart_Click">Старт</Button>
         <Button Name="btCheckVisability" Click="Button_Click">Проверить видимость игры</Button>
         <TextBlock Name="tbGlobalStateList"></TextBlock>
     </StackPanel>
+    </Grid>
 </Window>
