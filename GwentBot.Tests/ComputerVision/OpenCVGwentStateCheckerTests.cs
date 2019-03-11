@@ -32,6 +32,7 @@ namespace GwentBot.Tests.ComputerVision
         [DataRow(@"ComputerVision\GameModesTab\NorthTableSrc.png")]
         [DataRow(@"ComputerVision\GameModesTab\ScoiataelTable.png")]
         [DataRow(@"ComputerVision\GameModesTab\SkelligeTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png")]
         public void GetCurrentGlobalGameStates_GameModesTabSrc_IdentifierGameModesTab(string srcpath)
         {
             var shotCreatorMock = new Mock<IWindowScreenShotCreator>();

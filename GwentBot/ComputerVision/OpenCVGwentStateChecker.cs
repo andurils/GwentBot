@@ -244,7 +244,8 @@ namespace GwentBot.ComputerVision
 
             using (Mat refMat = gameScreen)
             using (Mat tplMat = temp)
-            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
+            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1,
+                refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
             {
                 //Convert input images to gray
                 Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
@@ -259,13 +260,16 @@ namespace GwentBot.ComputerVision
 
                     if (maxval >= thresHold)
                     {
-                        tempPos = new Rect(new Point(maxloc.X, maxloc.Y), new Size(tplMat.Width, tplMat.Height));
+                        tempPos = new Rect(new Point(maxloc.X, maxloc.Y),
+                            new Size(tplMat.Width, tplMat.Height));
 
                         //Draw a rectangle of the matching area
                         Cv2.Rectangle(refMat, tempPos, Scalar.LimeGreen, 2);
 
                         //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
-                        Cv2.FloodFill(res, maxloc, new Scalar(0), out _, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.FixedRange);
+                        Cv2.FloodFill(res, maxloc, new Scalar(0), out _,
+                            new Scalar(0.1), new Scalar(1.0),
+                            FloodFillFlags.FixedRange);
                     }
                     else
                         break;
