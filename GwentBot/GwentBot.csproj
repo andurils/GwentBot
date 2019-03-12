@@ -84,6 +84,9 @@
     <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\MatchSettings-HeaderText.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\ArenaModeTab-ContractText.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

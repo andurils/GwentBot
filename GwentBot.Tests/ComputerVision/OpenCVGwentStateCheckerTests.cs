@@ -193,7 +193,15 @@ namespace GwentBot.Tests.ComputerVision
         [DataRow(@"ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\SkelligeTable.png")]
         public void GetCurrentFriendlyGameStartStates_WaitingReadinessOpponentSrc_IdentifierWaitingReadinessOpponent(string strPath)
         {
-            throw new NotImplementedException();
+            //arrage
+            var gameScreenshotPath = strPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentFriendlyGameStartStates();
+
+            //assert
+            Assert.AreEqual(FriendlyGameStartStates.WaitingReadinessOpponent, result);
         }
 
         #endregion FriendlyGameStartStates Checks

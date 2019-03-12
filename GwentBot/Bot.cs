@@ -23,11 +23,19 @@ namespace GwentBot
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
-                        //var status = cv.GetCurrentGlobalGameStates();
-                        //var status = cv.GetCurrentStartGameStates();
-                        var status = cv.GetCurrentFriendlyGameStartStates();
+                        var globalStat = cv.GetCurrentGlobalGameStates();
+                        var startGameStates = cv.GetCurrentStartGameStates();
+                        var friendlyGameStat = cv.GetCurrentFriendlyGameStartStates();
 
-                        GameStatusChanged(Enum.GetName(status.GetType(), status));
+                        if(globalStat != GlobalGameStates.Unknown)
+                            GameStatusChanged(Enum.GetName(globalStat.GetType(), globalStat));
+
+                        if (startGameStates != StartGameStates.Unknown)
+                            GameStatusChanged(Enum.GetName(startGameStates.GetType(), startGameStates));
+
+                        if (friendlyGameStat != FriendlyGameStartStates.Unknown)
+                            GameStatusChanged(Enum.GetName(friendlyGameStat.GetType(), friendlyGameStat));
+
                     }
 
                     Thread.Sleep(1000);

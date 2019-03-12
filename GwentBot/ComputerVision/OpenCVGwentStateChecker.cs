@@ -172,7 +172,42 @@ namespace GwentBot.ComputerVision
 
         private bool CheckFgssWaitingReadinessOpponent(Mat gameScreen)
         {
-            return false;
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var rectROI = new Rect(305, 370, 245, 20);
+
+                var originalImgROI = new Mat(
+                    localGameScreen,
+                    rectROI);
+
+                var hsvChannels = originalImgROI.CvtColor(ColorConversionCodes.BGR2HSV)
+                    .Split();
+
+                Mat editImgROI = new Mat();
+                originalImgROI.CopyTo(editImgROI);
+                editImgROI.SetTo(Scalar.Black);
+
+                for (int y = 0; y < originalImgROI.Cols; y++)
+                {
+                    for (int x = 0; x < originalImgROI.Rows; x++)
+                    {
+                        //var h = hsvChannels[0].At<char>(x, y);
+                        var s = hsvChannels[1].At<char>(x, y);
+                        var v = hsvChannels[2].At<char>(x, y);
+
+                        if (s < 50 && v > 160)
+                        {
+                            editImgROI.Set(x, y, new Vec3b(255, 255, 255));
+                        }
+                    }
+                }
+
+                var tempPos = PatternSearch(editImgROI,
+                        new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif"));
+
+                return (tempPos != Rect.Empty);
+            }
         }
 
         #endregion FriendlyGameStartStates Checks
