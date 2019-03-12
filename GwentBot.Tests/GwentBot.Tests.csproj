@@ -77,10 +77,40 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\MonsterTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\NilfgaardTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\NorthTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\ScoiataelTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\SkelligeTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\GameModesTab\Monster TableSrc.png">
+    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\MonsterTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NilfgaardTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NorthTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\ScoiataelTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\SkelligeTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameModesTab\MonsterTableSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GameModesTab\NilfgaardTable.png">

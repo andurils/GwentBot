@@ -78,6 +78,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\LoadingMatchSettings-Text.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\MatchSettings-HeaderText.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

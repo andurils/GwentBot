@@ -1,4 +1,5 @@
-﻿using GwentBot.ComputerVision;
+﻿using System;
+using GwentBot.ComputerVision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Drawing;
@@ -27,7 +28,7 @@ namespace GwentBot.Tests.ComputerVision
 
         [DataTestMethod]
         [DataRow(@"ComputerVision\GlobalGameStates\GameModesTabSrc.png")]
-        [DataRow(@"ComputerVision\GameModesTab\Monster TableSrc.png")]
+        [DataRow(@"ComputerVision\GameModesTab\MonsterTableSrc.png")]
         [DataRow(@"ComputerVision\GameModesTab\NilfgaardTable.png")]
         [DataRow(@"ComputerVision\GameModesTab\NorthTableSrc.png")]
         [DataRow(@"ComputerVision\GameModesTab\ScoiataelTable.png")]
@@ -145,9 +146,23 @@ namespace GwentBot.Tests.ComputerVision
 
         #region FriendlyGameStartStates Checks
 
-        [TestMethod]
-        public void GetCurrentFriendlyGameStartStates_LoadingMatchSettingsSrc_IdentifierLoadingMatchSettings()
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\MonsterTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\NorthTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\SkelligeTable.png")]
+        public void GetCurrentFriendlyGameStartStates_LoadingMatchSettingsSrc_IdentifierLoadingMatchSettings(string srcPath)
         {
+            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
+            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
+            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
+                new Bitmap(srcPath));
+            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
+
+            var result = stateChecker.GetCurrentFriendlyGameStartStates();
+
+            Assert.AreEqual(FriendlyGameStartStates.LoadingMatchSettings, result);
         }
 
         [TestMethod]
@@ -180,9 +195,15 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(FriendlyGameStartStates.Unknown, result);
         }
 
-        [TestMethod]
-        public void GetCurrentFriendlyGameStartStates_WaitingReadinessOpponentSrc_IdentifierWaitingReadinessOpponent()
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\MonsterTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NorthTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\SkelligeTable.png")]
+        public void GetCurrentFriendlyGameStartStates_WaitingReadinessOpponentSrc_IdentifierWaitingReadinessOpponent(string strPath)
         {
+            throw new NotImplementedException();
         }
 
         #endregion FriendlyGameStartStates Checks

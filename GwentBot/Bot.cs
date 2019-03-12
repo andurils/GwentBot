@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using GwentBot.WorkWithProcess;
 
 namespace GwentBot
 {
@@ -22,11 +23,11 @@ namespace GwentBot
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
-                        var globalStatus = cv.GetCurrentGlobalGameStates();
-                        //var startGameStates = cv.GetCurrentStartGameStates();
-                        //var frendlyGameStates = cv.GetCurrentFriendlyGameStartStates();
+                        //var status = cv.GetCurrentGlobalGameStates();
+                        //var status = cv.GetCurrentStartGameStates();
+                        var status = cv.GetCurrentFriendlyGameStartStates();
 
-                        GameStatusChanged(Enum.GetName(globalStatus.GetType(), globalStatus));
+                        GameStatusChanged(Enum.GetName(status.GetType(), status));
                     }
 
                     Thread.Sleep(1000);
