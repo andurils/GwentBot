@@ -14,15 +14,14 @@ namespace GwentBot.Tests.ComputerVision
         [TestMethod]
         public void GetCurrentGlobalGameStates_ArenaModeTabSrc_IdentifierArenaModeTab()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\GlobalGameStates\ArenaModeTabSrc.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalGameStates\ArenaModeTabSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentGlobalGameStates();
 
+            //assert
             Assert.AreEqual(GlobalGameStates.ArenaModeTab, result);
         }
 
@@ -34,62 +33,58 @@ namespace GwentBot.Tests.ComputerVision
         [DataRow(@"ComputerVision\GameModesTab\ScoiataelTable.png")]
         [DataRow(@"ComputerVision\GameModesTab\SkelligeTable.png")]
         [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png")]
-        public void GetCurrentGlobalGameStates_GameModesTabSrc_IdentifierGameModesTab(string srcpath)
+        public void GetCurrentGlobalGameStates_GameModesTabSrc_IdentifierGameModesTab(string srcPath)
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(srcpath));
+            //arrage
+            var gameScreenshotPath = srcPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentGlobalGameStates();
 
+            //assert
             Assert.AreEqual(GlobalGameStates.GameModesTab, result);
         }
 
         [TestMethod]
         public void GetCurrentGlobalGameStates_HeavyLoadingSrc_IdentifierHeavyLoading()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\GlobalGameStates\HeavyLoadingSrc.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalGameStates\HeavyLoadingSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentGlobalGameStates();
 
+            //assert
             Assert.AreEqual(GlobalGameStates.HeavyLoading, result);
         }
 
         [TestMethod]
         public void GetCurrentGlobalGameStates_MainMenuSrc_IdentifierMainMenu()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\GlobalGameStates\MainMenuSrc.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalGameStates\MainMenuSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentGlobalGameStates();
 
+            //assert
             Assert.AreEqual(GlobalGameStates.MainMenu, result);
         }
 
         [TestMethod]
         public void GetCurrentGlobalGameStates_UnknownSrc_IdentifierUnknown()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentGlobalGameStates();
 
+            //assert
             Assert.AreEqual(GlobalGameStates.Unknown, result);
         }
 
@@ -100,45 +95,42 @@ namespace GwentBot.Tests.ComputerVision
         [TestMethod]
         public void GetCurrentStartGameStates_GameLoadingScreenSrc_IdentifierGameLoadingScreen()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\StartGameStates\GameLoadingScreen.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\StartGameStates\GameLoadingScreen.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentStartGameStates();
 
+            //assert
             Assert.AreEqual(StartGameStates.GameLoadingScreen, result);
         }
 
         [TestMethod]
         public void GetCurrentStartGameStates_UnknownSrc_IdentifierUnknown()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentStartGameStates();
 
+            //assert
             Assert.AreEqual(StartGameStates.Unknown, result);
         }
 
         [TestMethod]
         public void GetCurrentStartGameStates_WelcomeScreenSrc_IdentifierWelcomeScreen()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\StartGameStates\WelcomeScreen.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\StartGameStates\WelcomeScreen.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentStartGameStates();
 
+            //assert
             Assert.AreEqual(StartGameStates.WelcomeScreen, result);
         }
 
@@ -154,44 +146,42 @@ namespace GwentBot.Tests.ComputerVision
         [DataRow(@"ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\SkelligeTable.png")]
         public void GetCurrentFriendlyGameStartStates_LoadingMatchSettingsSrc_IdentifierLoadingMatchSettings(string srcPath)
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(srcPath));
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
+            //arrage
+            var gameScreenshotPath = srcPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
+            //act
             var result = stateChecker.GetCurrentFriendlyGameStartStates();
 
+            //assert
             Assert.AreEqual(FriendlyGameStartStates.LoadingMatchSettings, result);
         }
 
         [TestMethod]
         public void GetCurrentFriendlyGameStartStates_MatchSettingsSrc_IdentifierMatchSettings()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentFriendlyGameStartStates();
 
+            //assert
             Assert.AreEqual(FriendlyGameStartStates.MatchSettings, result);
         }
 
         [TestMethod]
         public void GetCurrentFriendlyGameStartStates_UnknownSrc_IdentifierUnknown()
         {
-            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
-            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
-            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
-                new Bitmap(@"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png"));
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
-            var stateChecker = new OpenCvGwentStateChecker(shotCreatorMock.Object);
-
+            //act
             var result = stateChecker.GetCurrentFriendlyGameStartStates();
 
+            //assert
             Assert.AreEqual(FriendlyGameStartStates.Unknown, result);
         }
 
@@ -207,5 +197,19 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         #endregion FriendlyGameStartStates Checks
+
+        #region Support Test Method
+
+        private OpenCvGwentStateChecker CreationOpenCvGwentStateChecker(string gameScreenshot)
+        {
+            var shotCreatorMock = new Mock<IWindowScreenShotCreator>();
+            shotCreatorMock.Setup(o => o.IsGameWindowFullVisible()).Returns(true);
+            shotCreatorMock.Setup(o => o.GetGameScreenshot()).Returns(
+                new Bitmap(gameScreenshot));
+
+            return new OpenCvGwentStateChecker(shotCreatorMock.Object);
+        }
+
+        #endregion
     }
 }
