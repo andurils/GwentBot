@@ -2,10 +2,10 @@
 {
     internal enum FriendlyGameStartStates
     {
-        Unknown,
         LoadingMatchSettings,
         MatchSettings,
         WaitingReadinessOpponent,
+        Unknown,
     }
 
     internal enum GameSessionStates
@@ -14,18 +14,18 @@
 
     internal enum GlobalGameStates
     {
-        Unknown,
-        MainMenu,
-        GameModesTab,
         ArenaModeTab,
         HeavyLoading,
+        GameModesTab,      
+        MainMenu,
+        Unknown,
     }
 
     internal enum StartGameStates
     {
-        Unknown,
         GameLoadingScreen,
         WelcomeScreen,
+        Unknown,
     }
 
     internal interface IGwentStateChecker

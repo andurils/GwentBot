@@ -58,8 +58,13 @@ namespace GwentBot.ComputerVision
 
                     switch (item)
                     {
-                        case GlobalGameStates.MainMenu:
-                            if (CheckGgsMainMenu(gameScreen))
+                        case GlobalGameStates.ArenaModeTab:
+                            if (CheckGgsArenaModeTab(gameScreen))
+                                return item;
+                            break;
+
+                        case GlobalGameStates.HeavyLoading:
+                            if (CheckGgsHeavyLoading(gameScreen))
                                 return item;
                             break;
 
@@ -68,13 +73,8 @@ namespace GwentBot.ComputerVision
                                 return item;
                             break;
 
-                        case GlobalGameStates.ArenaModeTab:
-                            if (CheckGgsArenaModeTab(gameScreen))
-                                return item;
-                            break;
-
-                        case GlobalGameStates.HeavyLoading:
-                            if (CheckGgsHeavyLoading(gameScreen))
+                        case GlobalGameStates.MainMenu:
+                            if (CheckGgsMainMenu(gameScreen))
                                 return item;
                             break;
                     }
@@ -115,6 +115,8 @@ namespace GwentBot.ComputerVision
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
+                localGameScreen.ImWrite("outTestImg/" + DateTime.Now.Millisecond + ".tif");
+
                 var rectROI = new Rect(370, 370, 120, 20);
 
                 var originalImgROI = new Mat(
@@ -136,9 +138,20 @@ namespace GwentBot.ComputerVision
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
+                localGameScreen.ImWrite("outTestImg/" + DateTime.Now.Millisecond + ".tif");
                 var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\MatchSettings-HeaderText.png"),
                         new Rect(220, 10, 410, 80));
+
+                var rectROI = new Rect(370, 370, 120, 20);
+
+                var originalImgROI = new Mat(
+                    localGameScreen,
+                    rectROI);
+
+                var editImgROI = GetNoiseFreeText(originalImgROI, 60);
+                
+                
 
                 return (tempPos != Rect.Empty);
             }
@@ -216,6 +229,8 @@ namespace GwentBot.ComputerVision
             {
                 if (CheckFgssMatchSettings(gameScreen))
                     return false;
+
+                localGameScreen.ImWrite("outTestImg/" + DateTime.Now.Millisecond + ".tif");
 
                 var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.jpg"),
