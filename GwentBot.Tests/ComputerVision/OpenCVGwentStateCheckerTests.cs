@@ -32,7 +32,6 @@ namespace GwentBot.Tests.ComputerVision
         [DataRow(@"ComputerVision\GameModesTab\NorthTableSrc.png")]
         [DataRow(@"ComputerVision\GameModesTab\ScoiataelTable.png")]
         [DataRow(@"ComputerVision\GameModesTab\SkelligeTable.png")]
-        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png")]
         public void GetCurrentGlobalGameStates_GameModesTabSrc_IdentifierGameModesTab(string srcPath)
         {
             //arrage
@@ -44,6 +43,25 @@ namespace GwentBot.Tests.ComputerVision
 
             //assert
             Assert.AreEqual(GlobalGameStates.GameModesTab, result);
+        }
+
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\MonsterTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\NorthTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\SkelligeTable.png")]
+        public void GetCurrentGlobalGameStates_FriendlyGameStartStatesSrc_IdentifierUnknown(string srcPath)
+        {
+            //arrage
+            var gameScreenshotPath = srcPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalGameStates();
+
+            //assert
+            Assert.AreEqual(GlobalGameStates.Unknown, result);
         }
 
         [TestMethod]
@@ -157,11 +175,16 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(FriendlyGameStartStates.LoadingMatchSettings, result);
         }
 
-        [TestMethod]
-        public void GetCurrentFriendlyGameStartStates_MatchSettingsSrc_IdentifierMatchSettings()
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\MonsterTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\NorthTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\SkelligeTable.png")]
+        public void GetCurrentFriendlyGameStartStates_MatchSettingsSrc_IdentifierMatchSettings(string srcPath)
         {
             //arrage
-            var gameScreenshotPath = @"ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png";
+            var gameScreenshotPath = srcPath;
             var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
             //act

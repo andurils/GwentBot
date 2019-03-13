@@ -92,7 +92,19 @@
     <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettingsSrc.png">
+    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\MonsterTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\NorthTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\MonsterTable.png">
