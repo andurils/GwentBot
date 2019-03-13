@@ -112,12 +112,6 @@ namespace GwentBot.ComputerVision
 
         private bool CheckFgssLoadingMatchSettings(Mat gameScreen)
         {
-
-
-
-            //originalImgROI.ImWrite("outTestImg/" + "1" + ".tif");
-
-
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
@@ -127,27 +121,7 @@ namespace GwentBot.ComputerVision
                     localGameScreen,
                     rectROI);
 
-                var hsvChannels = originalImgROI.CvtColor(ColorConversionCodes.BGR2HSV)
-                    .Split();
-
-                Mat editImgROI = new Mat();
-                originalImgROI.CopyTo(editImgROI);
-                editImgROI.SetTo(Scalar.Black);
-
-                for (int y = 0; y < originalImgROI.Cols; y++)
-                {
-                    for (int x = 0; x < originalImgROI.Rows; x++)
-                    {
-                        //var h = hsvChannels[0].At<char>(x, y);
-                        var s = hsvChannels[1].At<char>(x, y);
-                        var v = hsvChannels[2].At<char>(x, y);
-
-                        if (s < 60 && v > 150)
-                        {
-                            editImgROI.Set(x, y, new Vec3b(255, 255, 255));
-                        }
-                    }
-                }
+                var editImgROI = GetNoiseFreeText(originalImgROI, 60);
 
                 var tempPos = PatternSearch(editImgROI,
                         new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\LoadingMatchSettings-Text.tif"));
@@ -181,27 +155,7 @@ namespace GwentBot.ComputerVision
                     localGameScreen,
                     rectROI);
 
-                var hsvChannels = originalImgROI.CvtColor(ColorConversionCodes.BGR2HSV)
-                    .Split();
-
-                Mat editImgROI = new Mat();
-                originalImgROI.CopyTo(editImgROI);
-                editImgROI.SetTo(Scalar.Black);
-
-                for (int y = 0; y < originalImgROI.Cols; y++)
-                {
-                    for (int x = 0; x < originalImgROI.Rows; x++)
-                    {
-                        //var h = hsvChannels[0].At<char>(x, y);
-                        var s = hsvChannels[1].At<char>(x, y);
-                        var v = hsvChannels[2].At<char>(x, y);
-
-                        if (s < 50 && v > 160)
-                        {
-                            editImgROI.Set(x, y, new Vec3b(255, 255, 255));
-                        }
-                    }
-                }
+                var editImgROI = GetNoiseFreeText(originalImgROI);
 
                 var tempPos = PatternSearch(editImgROI,
                         new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif"));
@@ -381,6 +335,44 @@ namespace GwentBot.ComputerVision
                 tempPos.Y + regionOfInterest.Y,
                 tempPos.Width,
                 tempPos.Height);
+        }
+
+        /// <summary>
+        /// Возвращает отделенный от фона белый текст.
+        /// </summary>
+        /// <param name="imgROI">Зона интереса на изображении</param>
+        /// <param name="saturation">Насыщенность</param>
+        /// <param name="value">Значение цвета</param>
+        /// <returns>Белый текст на черном фоне</returns>
+        private Mat GetNoiseFreeText(Mat imgROI, int saturation = 50, int value = 150)
+        {
+            var fullRectGameScreen = new Rect(0, 0, imgROI.Width, imgROI.Height);
+            using (var localGameScreenROI = new Mat(imgROI, fullRectGameScreen))
+            {
+                var hsvChannels = localGameScreenROI.CvtColor(ColorConversionCodes.BGR2HSV)
+                    .Split();
+
+                Mat editImgROI = new Mat();
+                localGameScreenROI.CopyTo(editImgROI);
+                editImgROI.SetTo(Scalar.Black);
+
+                for (int y = 0; y < localGameScreenROI.Cols; y++)
+                {
+                    for (int x = 0; x < localGameScreenROI.Rows; x++)
+                    {
+                        //var h = hsvChannels[0].At<char>(x, y);
+                        var s = hsvChannels[1].At<char>(x, y);
+                        var v = hsvChannels[2].At<char>(x, y);
+
+                        if (s < saturation && v > value)
+                        {
+                            editImgROI.Set(x, y, new Vec3b(255, 255, 255));
+                        }
+                    }
+                }
+
+                return editImgROI;
+            }
         }
 
         #endregion OpenCVGeneralmethods

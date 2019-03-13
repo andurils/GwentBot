@@ -44,11 +44,13 @@ namespace GwentBot.ComputerVision
 
         public bool IsGameWindowFullVisible()
         {
+            if (false == WorkingProcessInformation.IsGameWindowActive())
+                return false;
+
             bool result = false;
             var gameWindowRect = GetGameWindowRectangle();
-            if (WorkingProcessInformation.IsGameWindowActive()
-                && gameWindowRect.X + gameWindowRect.Width < Screen.PrimaryScreen.Bounds.Width
-                && gameWindowRect.Y + gameWindowRect.Height < Screen.PrimaryScreen.Bounds.Height)
+            if (gameWindowRect.X + gameWindowRect.Width < Screen.PrimaryScreen.Bounds.Width && 
+                gameWindowRect.Y + gameWindowRect.Height < Screen.PrimaryScreen.Bounds.Height)
                 result = true;
 
             return result;
