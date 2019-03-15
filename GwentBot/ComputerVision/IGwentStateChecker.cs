@@ -8,6 +8,14 @@
         Unknown,
     }
 
+    internal enum CoinTossStates
+    {
+        StartToss,
+        СoinWon,
+        CoinLost,
+        Unknown
+    }
+
     internal enum GameSessionStates
     {
     }

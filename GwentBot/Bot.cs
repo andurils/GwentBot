@@ -8,7 +8,7 @@ namespace GwentBot
 {
     public class Bot
     {
-        public bool IsWork { get; private set; }
+        private bool IsWork { get; set; }
         public event Action<string> GameStatusChanged;
 
         public async void StartWorkAsync()
@@ -26,19 +26,21 @@ namespace GwentBot
                         var globalStat = cv.GetCurrentGlobalGameStates();
                         var startGameStates = cv.GetCurrentStartGameStates();
                         var friendlyGameStat = cv.GetCurrentFriendlyGameStartStates();
+                        var coinTossStat = cv.GetCurrentCoinTossStates();
 
                         if(globalStat != GlobalGameStates.Unknown)
                             GameStatusChanged(Enum.GetName(globalStat.GetType(), globalStat));
-
-                        if (startGameStates != StartGameStates.Unknown)
+                        else if (startGameStates != StartGameStates.Unknown)
                             GameStatusChanged(Enum.GetName(startGameStates.GetType(), startGameStates));
-
-                        if (friendlyGameStat != FriendlyGameStartStates.Unknown)
+                        else if (friendlyGameStat != FriendlyGameStartStates.Unknown)
                             GameStatusChanged(Enum.GetName(friendlyGameStat.GetType(), friendlyGameStat));
-
+                        else if (coinTossStat != CoinTossStates.Unknown)
+                            GameStatusChanged(Enum.GetName(coinTossStat.GetType(), coinTossStat));
+                        else
+                            GameStatusChanged("Unknown");
                     }
 
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                 }
             });
         }

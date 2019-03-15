@@ -43,6 +43,34 @@ namespace GwentBot.ComputerVision
             return FriendlyGameStartStates.Unknown;
         }
 
+        public CoinTossStates GetCurrentCoinTossStates()
+        {
+            using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
+            {
+                foreach (int itemValue in Enum.GetValues(typeof(CoinTossStates)))
+                {
+                    var item = (CoinTossStates)itemValue;
+
+                    switch (item)
+                    {
+                        case CoinTossStates.StartToss:
+                            if (CheckCtsStartToss(gameScreen))
+                                return item;
+                            break;
+                        case CoinTossStates.СoinWon:
+                            if (CheckCtsСoinWon(gameScreen))
+                                return item;
+                            break;
+                        case CoinTossStates.CoinLost:
+                            if (CheckCtsCoinLost(gameScreen))
+                                return item;
+                            break;
+                    }
+                }
+            }
+            return CoinTossStates.Unknown;
+        }
+
         public GameSessionStates GetCurrentGameSessionStates()
         {
             throw new NotImplementedException();
@@ -108,6 +136,49 @@ namespace GwentBot.ComputerVision
             return StartGameStates.Unknown;
         }
 
+        #region CoinTossStates Checks
+
+        private bool CheckCtsStartToss(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\CoinTossStates\StartToss.png"),
+                        new Rect(380, 200, 90, 80));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckCtsСoinWon(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\CoinTossStates\СoinWon.png"),
+                        new Rect(380, 200, 90, 80));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckCtsCoinLost(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\CoinTossStates\CoinLost.png"),
+                        new Rect(380, 200, 90, 80));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        #endregion
+
         #region FriendlyGameStartStates Checks
 
         private bool CheckFgssLoadingMatchSettings(Mat gameScreen)
@@ -115,8 +186,6 @@ namespace GwentBot.ComputerVision
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                localGameScreen.ImWrite("outTestImg/" + DateTime.Now.Millisecond + ".tif");
-
                 var rectROI = new Rect(370, 370, 120, 20);
 
                 var originalImgROI = new Mat(
@@ -138,20 +207,9 @@ namespace GwentBot.ComputerVision
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                localGameScreen.ImWrite("outTestImg/" + DateTime.Now.Millisecond + ".tif");
                 var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\MatchSettings-HeaderText.png"),
                         new Rect(220, 10, 410, 80));
-
-                var rectROI = new Rect(370, 370, 120, 20);
-
-                var originalImgROI = new Mat(
-                    localGameScreen,
-                    rectROI);
-
-                var editImgROI = GetNoiseFreeText(originalImgROI, 60);
-                
-                
 
                 return (tempPos != Rect.Empty);
             }
@@ -229,8 +287,6 @@ namespace GwentBot.ComputerVision
             {
                 if (CheckFgssMatchSettings(gameScreen))
                     return false;
-
-                localGameScreen.ImWrite("outTestImg/" + DateTime.Now.Millisecond + ".tif");
 
                 var tempPos = PatternSearchRoi(localGameScreen,
                         new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.jpg"),

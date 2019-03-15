@@ -78,6 +78,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="ComputerVision\PatternsForCV\CoinTossStates\CoinLost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\CoinTossStates\StartToss.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\CoinTossStates\СoinWon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\LoadingMatchSettings-Text.tif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

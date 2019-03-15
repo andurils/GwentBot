@@ -77,6 +77,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="ComputerVision\CoinTossStates\CoinLostSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\CoinTossStates\StartTossSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\CoinTossStates\СoinWonSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\MonsterTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

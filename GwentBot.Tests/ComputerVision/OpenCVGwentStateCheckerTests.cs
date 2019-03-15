@@ -1,5 +1,4 @@
-﻿using System;
-using GwentBot.ComputerVision;
+﻿using GwentBot.ComputerVision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Drawing;
@@ -9,6 +8,66 @@ namespace GwentBot.Tests.ComputerVision
     [TestClass]
     public class OpenCvGwentStateCheckerTests
     {
+        #region CoinTossStates Checks
+
+        [TestMethod]
+        public void GetCurrentCoinTossStates_StartTossSrc_IdentifierStartToss()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\CoinTossStates\StartTossSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentCoinTossStates();
+
+            //assert
+            Assert.AreEqual(CoinTossStates.StartToss, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentCoinTossStates_СoinWonSrc_IdentifierСoinWon()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\CoinTossStates\СoinWonSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentCoinTossStates();
+
+            //assert
+            Assert.AreEqual(CoinTossStates.СoinWon, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentCoinTossStates_CoinLostSrc_IdentifierCoinLost()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\CoinTossStates\CoinLostSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentCoinTossStates();
+
+            //assert
+            Assert.AreEqual(CoinTossStates.CoinLost, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentCoinTossStates_UnknownSrc_IdentifierUnknown()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentCoinTossStates();
+
+            //assert
+            Assert.AreEqual(CoinTossStates.Unknown, result);
+        }
+
+        #endregion
+
         #region GlobalGameStates Checks
 
         [TestMethod]
