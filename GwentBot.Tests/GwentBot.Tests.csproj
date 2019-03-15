@@ -146,6 +146,42 @@
     <Content Include="ComputerVision\GameModesTab\SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\GameSessionStates\EnemyTurnPlaySrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\MulliganSrc-MonsterTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\MulliganSrc-NilfgaardTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\MulliganSrc-NorthTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\MulliganSrc-ScoiataelTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\MulliganSrc-SkelligeTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\MyTurnPlaySrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\OpponentChangesCardsSrc-MonsterTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\OpponentChangesCardsSrc-NilfgaardTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\OpponentChangesCardsSrc-NorthTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\OpponentChangesCardsSrc-ScoiataelTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\OpponentChangesCardsSrc-SkelligeTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\GlobalGameStates\ArenaModeTabSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

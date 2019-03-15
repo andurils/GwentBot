@@ -18,6 +18,11 @@
 
     internal enum GameSessionStates
     {
+        Mulligan,
+        OpponentChangesCards,
+        MyTurnPlay,
+        EnemyTurnPlay,
+        Unknown
     }
 
     internal enum GlobalGameStates

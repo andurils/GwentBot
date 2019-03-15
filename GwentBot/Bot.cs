@@ -2,7 +2,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using GwentBot.WorkWithProcess;
 
 namespace GwentBot
 {
@@ -27,8 +26,9 @@ namespace GwentBot
                         var startGameStates = cv.GetCurrentStartGameStates();
                         var friendlyGameStat = cv.GetCurrentFriendlyGameStartStates();
                         var coinTossStat = cv.GetCurrentCoinTossStates();
+                        var gameSesStat = cv.GetCurrentGameSessionStates();
 
-                        if(globalStat != GlobalGameStates.Unknown)
+                        if (globalStat != GlobalGameStates.Unknown)
                             GameStatusChanged(Enum.GetName(globalStat.GetType(), globalStat));
                         else if (startGameStates != StartGameStates.Unknown)
                             GameStatusChanged(Enum.GetName(startGameStates.GetType(), startGameStates));
@@ -36,6 +36,8 @@ namespace GwentBot
                             GameStatusChanged(Enum.GetName(friendlyGameStat.GetType(), friendlyGameStat));
                         else if (coinTossStat != CoinTossStates.Unknown)
                             GameStatusChanged(Enum.GetName(coinTossStat.GetType(), coinTossStat));
+                        else if (gameSesStat != GameSessionStates.Unknown)
+                            GameStatusChanged(Enum.GetName(gameSesStat.GetType(), gameSesStat));
                         else
                             GameStatusChanged("Unknown");
                     }

@@ -96,6 +96,18 @@
     <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\EnemyTurnPlaySrc-Button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\Mulligan-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\MyTurnPlay-PassButton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\OpponentChangesCards-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\ArenaModeTab-ContractText.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

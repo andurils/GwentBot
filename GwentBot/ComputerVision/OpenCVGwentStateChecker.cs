@@ -71,11 +71,6 @@ namespace GwentBot.ComputerVision
             return CoinTossStates.Unknown;
         }
 
-        public GameSessionStates GetCurrentGameSessionStates()
-        {
-            throw new NotImplementedException();
-        }
-
         public GlobalGameStates GetCurrentGlobalGameStates()
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
@@ -135,6 +130,101 @@ namespace GwentBot.ComputerVision
             }
             return StartGameStates.Unknown;
         }
+
+        public GameSessionStates GetCurrentGameSessionStates()
+        {
+            using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
+            {
+                foreach (int itemValue in Enum.GetValues(typeof(GameSessionStates)))
+                {
+                    var item = (GameSessionStates)itemValue;
+
+                    switch (item)
+                    {
+                        case GameSessionStates.Mulligan:
+                            if (CheckGssMulligan(gameScreen))
+                                return item;
+                            break;
+                        case GameSessionStates.OpponentChangesCards:
+                            if (CheckGssOpponentChangesCards(gameScreen))
+                                return item;
+                            break;
+                        case GameSessionStates.MyTurnPlay:
+                            if (CheckGssMyTurnPlay(gameScreen))
+                                return item;
+                            break;
+                        case GameSessionStates.EnemyTurnPlay:
+                            if (CheckGssEnemyTurnPlay(gameScreen))
+                                return item;
+                            break;
+                    }
+                }
+            }
+            return GameSessionStates.Unknown;
+        }
+
+        #region GameSessionStates Checks
+
+        private bool CheckGssMulligan(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\Mulligan-Text.png"),
+                        new Rect(320, 440, 110, 25));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckGssOpponentChangesCards(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var rectROI = new Rect(290, 5, 280, 45);
+
+                var originalImgROI = new Mat(
+                    localGameScreen,
+                    rectROI);
+
+                var gameScreenEditImgROI = GetNoiseFreeText(originalImgROI, 80);
+                var patternMat = new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\OpponentChangesCards-Text.png");
+
+                var tempPos = PatternSearch(gameScreenEditImgROI, patternMat);
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckGssMyTurnPlay(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\MyTurnPlay-PassButton.png"),
+                        new Rect(800, 190, 47, 50));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckGssEnemyTurnPlay(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\EnemyTurnPlaySrc-Button.png"),
+                        new Rect(800, 190, 47, 50));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        #endregion
 
         #region CoinTossStates Checks
 
@@ -342,42 +432,46 @@ namespace GwentBot.ComputerVision
         {
             // Источник кода: https://github.com/shimat/opencvsharp/issues/182
 
-            Rect tempPos = Rect.Empty;
-
-            using (Mat refMat = gameScreen)
-            using (Mat tplMat = temp)
-            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1,
-                refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
-                //Convert input images to gray
-                Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
-                Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                Rect tempPos = Rect.Empty;
 
-                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
-                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
-
-                while (true)
+                using (Mat refMat = localGameScreen)
+                using (Mat tplMat = temp)
+                using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1,
+                    refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
                 {
-                    Cv2.MinMaxLoc(res, out _, out double maxval, out _, out Point maxloc);
+                    //Convert input images to gray
+                    Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                    Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
 
-                    if (maxval >= thresHold)
+                    Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
+                    Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
+
+                    while (true)
                     {
-                        tempPos = new Rect(new Point(maxloc.X, maxloc.Y),
-                            new Size(tplMat.Width, tplMat.Height));
+                        Cv2.MinMaxLoc(res, out _, out double maxval, out _, out Point maxloc);
 
-                        //Draw a rectangle of the matching area
-                        Cv2.Rectangle(refMat, tempPos, Scalar.LimeGreen, 2);
+                        if (maxval >= thresHold)
+                        {
+                            tempPos = new Rect(new Point(maxloc.X, maxloc.Y),
+                                new Size(tplMat.Width, tplMat.Height));
 
-                        //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
-                        Cv2.FloodFill(res, maxloc, new Scalar(0), out _,
-                            new Scalar(0.1), new Scalar(1.0),
-                            FloodFillFlags.FixedRange);
+                            //Draw a rectangle of the matching area
+                            Cv2.Rectangle(refMat, tempPos, Scalar.LimeGreen, 2);
+
+                            //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
+                            Cv2.FloodFill(res, maxloc, new Scalar(0), out _,
+                                new Scalar(0.1), new Scalar(1.0),
+                                FloodFillFlags.FixedRange);
+                        }
+                        else
+                            break;
                     }
-                    else
-                        break;
-                }
 
-                return tempPos;
+                    return tempPos;
+                } 
             }
         }
 

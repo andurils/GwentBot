@@ -8,6 +8,90 @@ namespace GwentBot.Tests.ComputerVision
     [TestClass]
     public class OpenCvGwentStateCheckerTests
     {
+        #region GameSessionStates Checks
+
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-MonsterTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-SkelligeTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-NorthTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-ScoiataelTable.png")]
+        public void GameSessionStates_MulliganSrc_IdentifierMulligan(string srcImgPath)
+        {
+            //arrage
+            var gameScreenshotPath = srcImgPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.Mulligan, result);
+        }
+
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-MonsterTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-NorthTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-SkelligeTable.png")]
+        public void GameSessionStates_OpponentChangesCardsSrc_IdentifierOpponentChangesCards(string srcImgPath)
+        {
+            //arrage
+            var gameScreenshotPath = srcImgPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.OpponentChangesCards, result);
+        }
+
+        [TestMethod]
+        public void GameSessionStates_MyTurnPlaySrc_IdentifierMyTurnPlay()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\MyTurnPlaySrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.MyTurnPlay, result);
+        }
+
+        [TestMethod]
+        public void GameSessionStates_EnemyTurnPlaySrc_IdentifierEnemyTurnPlay()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\EnemyTurnPlaySrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.EnemyTurnPlay, result);
+        }
+
+        [TestMethod]
+        public void GameSessionStates_UnknownSrc_IdentifierUnknown()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.Unknown, result);
+        }
+
+        #endregion
+
         #region CoinTossStates Checks
 
         [TestMethod]
