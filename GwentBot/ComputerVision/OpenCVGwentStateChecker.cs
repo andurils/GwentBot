@@ -171,6 +171,76 @@ namespace GwentBot.ComputerVision
             return GameSessionStates.Unknown;
         }
 
+        public Notifications GetCurrentNotifications()
+        {
+            using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
+            {
+                foreach (int itemValue in Enum.GetValues(typeof(Notifications)))
+                {
+                    var item = (Notifications)itemValue;
+
+                    switch (item)
+                    {
+                        case Notifications.FriendlyDuel:
+                            if (CheckNotifFriendlyDuel(gameScreen))
+                                return item;
+                            break;
+                        case Notifications.ReceivedReward:
+                            if (CheckNotifReceivedReward(gameScreen))
+                                return item;
+                            break;
+                        case Notifications.RewardsTab:
+                            if (CheckNotifRewardsTab(gameScreen))
+                                return item;
+                            break;
+                    }
+                }
+            }
+            return Notifications.NoNotifications;
+        }
+
+        #region Notifications Checks
+
+        private bool CheckNotifFriendlyDuel(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png"),
+                        new Rect(780, 40, 67, 50));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckNotifReceivedReward(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\Notifications\ReceivedReward.png"),
+                        new Rect(780, 40, 67, 50));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckNotifRewardsTab(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\Notifications\RewardsTab.png"),
+                        new Rect(390, 440, 70, 25));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        #endregion
 
 
         #region GameSessionStates Checks

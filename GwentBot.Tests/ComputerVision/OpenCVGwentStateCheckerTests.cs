@@ -413,5 +413,65 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         #endregion
+
+        #region Notifications Ckecks
+
+        [TestMethod]
+        public void GetCurrentNotifications_RewardsTabSrc_IdentifierRewardsTab()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\Notifications\RewardsTabSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentNotifications();
+
+            //assert
+            Assert.AreEqual(Notifications.RewardsTab, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentNotifications_ReceivedRewardSrc_IdentifierReceivedReward()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\Notifications\ReceivedRewardSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentNotifications();
+
+            //assert
+            Assert.AreEqual(Notifications.ReceivedReward, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentNotifications_FriendlyDuelSrc_IdentifierFriendlyDuel()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\Notifications\FriendlyDuelSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentNotifications();
+
+            //assert
+            Assert.AreEqual(Notifications.FriendlyDuel, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentNotifications_UnknownSrc_IdentifierNoNotifications()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentNotifications();
+
+            //assert
+            Assert.AreEqual(Notifications.NoNotifications, result);
+        }
+
+        #endregion
     }
 }

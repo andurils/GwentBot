@@ -27,6 +27,7 @@ namespace GwentBot
                         var friendlyGameStat = cv.GetCurrentFriendlyGameStartStates();
                         var coinTossStat = cv.GetCurrentCoinTossStates();
                         var gameSesStat = cv.GetCurrentGameSessionStates();
+                        var notif = cv.GetCurrentNotifications();
 
                         if (globalStat != GlobalGameStates.Unknown)
                             GameStatusChanged(Enum.GetName(globalStat.GetType(), globalStat));
@@ -40,6 +41,9 @@ namespace GwentBot
                             GameStatusChanged(Enum.GetName(gameSesStat.GetType(), gameSesStat));
                         else
                             GameStatusChanged("Unknown");
+
+                        if (notif != Notifications.NoNotifications)
+                            GameStatusChanged(Enum.GetName(notif.GetType(), notif));
                     }
 
                     Thread.Sleep(500);

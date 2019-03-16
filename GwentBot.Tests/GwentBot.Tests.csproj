@@ -200,6 +200,15 @@
     <Content Include="ComputerVision\GlobalGameStates\MainMenuSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\Notifications\FriendlyDuelSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\Notifications\ReceivedRewardSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\Notifications\RewardsTabSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\StartGameStates\GameLoadingScreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

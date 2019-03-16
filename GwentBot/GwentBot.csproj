@@ -126,6 +126,15 @@
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\Notifications\ReceivedReward.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\Notifications\RewardsTab.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\StartGameStates\GameLoadingScreen-GameNamePart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

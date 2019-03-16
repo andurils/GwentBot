@@ -16,6 +16,14 @@
         Unknown
     }
 
+    internal enum Notifications
+    {
+        FriendlyDuel,
+        ReceivedReward,
+        RewardsTab,
+        NoNotifications
+    }
+
     internal enum GameSessionStates
     {
         Mulligan,
@@ -31,7 +39,7 @@
     {
         ArenaModeTab,
         HeavyLoading,
-        GameModesTab,      
+        GameModesTab,
         MainMenu,
         Unknown,
     }
