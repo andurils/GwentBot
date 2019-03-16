@@ -10,13 +10,41 @@ namespace GwentBot.Tests.ComputerVision
     {
         #region GameSessionStates Checks
 
+        [TestMethod]
+        public void GetCurrentGameSessionStates_WinAlertSrc_IdentifierWinAlert()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\WinAlertSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.WinAlert, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGameSessionStates_LosingAlertSrc_IdentifierLosingAlert()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\LosingAlertSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.LosingAlert, result);
+        }
+
         [DataTestMethod]
         [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-MonsterTable.png")]
         [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-NilfgaardTable.png")]
         [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-SkelligeTable.png")]
         [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-NorthTable.png")]
         [DataRow(@"ComputerVision\GameSessionStates\MulliganSrc-ScoiataelTable.png")]
-        public void GameSessionStates_MulliganSrc_IdentifierMulligan(string srcImgPath)
+        public void GetCurrentGameSessionStates_MulliganSrc_IdentifierMulligan(string srcImgPath)
         {
             //arrage
             var gameScreenshotPath = srcImgPath;
@@ -35,7 +63,7 @@ namespace GwentBot.Tests.ComputerVision
         [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-NorthTable.png")]
         [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-ScoiataelTable.png")]
         [DataRow(@"ComputerVision\GameSessionStates\OpponentChangesCardsSrc-SkelligeTable.png")]
-        public void GameSessionStates_OpponentChangesCardsSrc_IdentifierOpponentChangesCards(string srcImgPath)
+        public void GetCurrentGameSessionStates_OpponentChangesCardsSrc_IdentifierOpponentChangesCards(string srcImgPath)
         {
             //arrage
             var gameScreenshotPath = srcImgPath;
@@ -49,7 +77,7 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         [TestMethod]
-        public void GameSessionStates_MyTurnPlaySrc_IdentifierMyTurnPlay()
+        public void GetCurrentGameSessionStates_MyTurnPlaySrc_IdentifierMyTurnPlay()
         {
             //arrage
             var gameScreenshotPath = @"ComputerVision\GameSessionStates\MyTurnPlaySrc.png";
@@ -63,7 +91,7 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         [TestMethod]
-        public void GameSessionStates_EnemyTurnPlaySrc_IdentifierEnemyTurnPlay()
+        public void GetCurrentGameSessionStates_EnemyTurnPlaySrc_IdentifierEnemyTurnPlay()
         {
             //arrage
             var gameScreenshotPath = @"ComputerVision\GameSessionStates\EnemyTurnPlaySrc.png";
@@ -77,7 +105,7 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         [TestMethod]
-        public void GameSessionStates_UnknownSrc_IdentifierUnknown()
+        public void GetCurrentGameSessionStates_UnknownSrc_IdentifierUnknown()
         {
             //arrage
             var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";

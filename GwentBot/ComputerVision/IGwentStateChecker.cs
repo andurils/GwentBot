@@ -22,6 +22,8 @@
         OpponentChangesCards,
         MyTurnPlay,
         EnemyTurnPlay,
+        WinAlert,
+        LosingAlert,
         Unknown
     }
 

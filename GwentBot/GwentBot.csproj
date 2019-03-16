@@ -99,6 +99,9 @@
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\EnemyTurnPlaySrc-Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\LosingAlert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\Mulligan-Text.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -106,6 +109,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\OpponentChangesCards-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\WinAlert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\ArenaModeTab-ContractText.png">

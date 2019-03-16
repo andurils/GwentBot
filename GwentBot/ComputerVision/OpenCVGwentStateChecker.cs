@@ -157,13 +157,49 @@ namespace GwentBot.ComputerVision
                             if (CheckGssEnemyTurnPlay(gameScreen))
                                 return item;
                             break;
+                        case GameSessionStates.WinAlert:
+                            if (CheckGssWinAlert(gameScreen))
+                                return item;
+                            break;
+                        case GameSessionStates.LosingAlert:
+                            if (CheckGssLosingAlert(gameScreen))
+                                return item;
+                            break;
                     }
                 }
             }
             return GameSessionStates.Unknown;
         }
 
+
+
         #region GameSessionStates Checks
+
+        private bool CheckGssWinAlert(Mat gameScreen)
+        {
+                var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\WinAlert.png"),
+                        new Rect(310, 200, 230, 100));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckGssLosingAlert(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var tempPos = PatternSearchRoi(localGameScreen,
+                        new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\LosingAlert.png"),
+                        new Rect(310, 200, 230, 100));
+
+                return (tempPos != Rect.Empty);
+            }
+        }
 
         private bool CheckGssMulligan(Mat gameScreen)
         {
