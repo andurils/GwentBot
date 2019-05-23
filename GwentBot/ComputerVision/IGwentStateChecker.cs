@@ -62,5 +62,9 @@
         GlobalGameStates GetCurrentGlobalGameStates();
 
         StartGameStates GetCurrentStartGameStates();
+
+        CoinTossStates GetCurrentCoinTossStates();
+
+        Notifications GetCurrentNotifications();
     }
 }

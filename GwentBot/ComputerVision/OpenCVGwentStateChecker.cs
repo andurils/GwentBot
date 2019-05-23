@@ -242,7 +242,6 @@ namespace GwentBot.ComputerVision
 
         #endregion
 
-
         #region GameSessionStates Checks
 
         private bool CheckGssWinAlert(Mat gameScreen)
