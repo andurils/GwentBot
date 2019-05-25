@@ -152,6 +152,12 @@
     <Content Include="ComputerVision\GameSessionStates\LosingAlertSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\GameSessionStates\MatchResultsScreenSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\MatchRewardsScreenSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\GameSessionStates\MulliganSrc-MonsterTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

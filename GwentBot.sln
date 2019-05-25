@@ -1,18 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwentBot", "GwentBot\GwentBot.csproj", "{A0BCA157-2EBA-4B8E-8F30-643C9AFF7E56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwentBot.GUI", "GwentBot.GUI\GwentBot.GUI.csproj", "{F499C93F-B489-45A2-8F28-8762DA03A7F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwentBot.Tests", "GwentBot.Tests\GwentBot.Tests.csproj", "{CC183D3A-FB48-4256-9AA2-44C015462999}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7DD87D7C-2651-4C6A-B0DF-0834E5BF16D5}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

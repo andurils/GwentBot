@@ -102,6 +102,12 @@
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\LosingAlert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\MatchResultsScreen-VsText.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\MatchRewardsScreen-FlagWithExperience.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\Mulligan-Text.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

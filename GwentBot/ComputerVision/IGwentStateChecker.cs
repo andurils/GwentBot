@@ -32,6 +32,8 @@
         EnemyTurnPlay,
         WinAlert,
         LosingAlert,
+        MatchResultsScreen,
+        MatchRewardsScreen,
         Unknown
     }
 

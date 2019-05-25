@@ -118,6 +118,34 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GameSessionStates.Unknown, result);
         }
 
+        [TestMethod]
+        public void GetCurrentGameSessionStates_MatchResultsScreenSrc_IdentifierMatchResultsScreen()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\MatchResultsScreenSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.MatchResultsScreen, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGameSessionStates_MatchRewardsScreenSrc_IdentifieraMatchRewardsScreen()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\MatchRewardsScreenSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.MatchRewardsScreen, result);
+        }
+
         #endregion
 
         #region CoinTossStates Checks

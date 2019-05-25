@@ -136,6 +136,20 @@ namespace GwentBot.ComputerVision
                             if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
                                 return item;
                             break;
+                        case GameSessionStates.MatchResultsScreen:
+                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\MatchResultsScreen-VsText.png";
+                            gameScreenRoi = new Rect(380, 80, 100, 70);
+
+                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
+                                return item;
+                            break;
+                        case GameSessionStates.MatchRewardsScreen:
+                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\MatchRewardsScreen-FlagWithExperience.png";
+                            gameScreenRoi = new Rect(650, 60, 150, 150);
+
+                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
+                                return item;
+                            break;
                     }
                 }
             }
