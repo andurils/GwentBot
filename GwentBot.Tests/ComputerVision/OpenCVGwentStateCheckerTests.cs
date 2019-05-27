@@ -148,7 +148,7 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GameSessionStates.MatchRewardsScreen, result);
         }
 
-        #endregion
+        #endregion GameSessionStates Checks
 
         #region CoinTossStates Checks
 
@@ -177,7 +177,7 @@ namespace GwentBot.Tests.ComputerVision
             var result = stateChecker.GetCurrentCoinTossStates();
 
             //assert
-            Assert.AreEqual(CoinTossStates.СoinWon, result);
+            Assert.AreEqual(CoinTossStates.CoinWon, result);
         }
 
         [TestMethod]
@@ -208,7 +208,7 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(CoinTossStates.Unknown, result);
         }
 
-        #endregion
+        #endregion CoinTossStates Checks
 
         #region GlobalGameStates Checks
 
@@ -442,7 +442,7 @@ namespace GwentBot.Tests.ComputerVision
             return new OpenCvGwentStateChecker(shotCreatorMock.Object);
         }
 
-        #endregion
+        #endregion Support Test Method
 
         #region Notifications Ckecks
 
@@ -502,6 +502,6 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(Notifications.NoNotifications, result);
         }
 
-        #endregion
+        #endregion Notifications Ckecks
     }
 }

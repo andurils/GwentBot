@@ -10,6 +10,7 @@ namespace GwentBot
     public class Bot
     {
         private bool IsWork { get; set; }
+
         public event Action<string> GameStatusChanged;
 
         public async void StartWorkAsync()
@@ -57,7 +58,5 @@ namespace GwentBot
         {
             IsWork = false;
         }
-
-
     }
 }

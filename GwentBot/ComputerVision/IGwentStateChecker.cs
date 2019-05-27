@@ -13,7 +13,7 @@ namespace GwentBot.ComputerVision
     internal enum CoinTossStates
     {
         StartToss,
-        СoinWon,
+        CoinWon,
         CoinLost,
         Unknown
     }

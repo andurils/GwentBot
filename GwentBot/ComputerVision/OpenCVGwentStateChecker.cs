@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using System;
 
 namespace GwentBot.ComputerVision
 {
@@ -19,37 +18,23 @@ namespace GwentBot.ComputerVision
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
             {
-                foreach (int itemValue in Enum.GetValues(typeof(CoinTossStates)))
-                {
-                    var item = (CoinTossStates)itemValue;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\CoinTossStates\StartToss.png",
+                    new Rect(380, 200, 90, 80)))
+                    return CoinTossStates.StartToss;
 
-                    switch (item)
-                    {
-                        case CoinTossStates.StartToss:
-                            string patternPath = @"ComputerVision\PatternsForCV\CoinTossStates\StartToss.png";
-                            var gameScreenRoi = new Rect(380, 200, 90, 80);
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\CoinTossStates\СoinWon.png",
+                    new Rect(380, 200, 90, 80)))
+                    return CoinTossStates.CoinWon;
 
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case CoinTossStates.СoinWon:
-                            patternPath = @"ComputerVision\PatternsForCV\CoinTossStates\СoinWon.png";
-                            gameScreenRoi = new Rect(380, 200, 90, 80);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case CoinTossStates.CoinLost:
-                            patternPath = @"ComputerVision\PatternsForCV\CoinTossStates\CoinLost.png";
-                            gameScreenRoi = new Rect(380, 200, 90, 80);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-                    }
-                }
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\CoinTossStates\CoinLost.png",
+                    new Rect(380, 200, 90, 80)))
+                    return CoinTossStates.CoinLost;
             }
             return CoinTossStates.Unknown;
         }
@@ -58,28 +43,14 @@ namespace GwentBot.ComputerVision
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
             {
-                foreach (int itemValue in Enum.GetValues(typeof(FriendlyGameStartStates)))
-                {
-                    var item = (FriendlyGameStartStates)itemValue;
+                if (CheckFgssLoadingMatchSettings(gameScreen))
+                    return FriendlyGameStartStates.LoadingMatchSettings;
 
-                    switch (item)
-                    {
-                        case FriendlyGameStartStates.LoadingMatchSettings:
-                            if (CheckFgssLoadingMatchSettings(gameScreen))
-                                return item;
-                            break;
+                if (CheckFgssMatchSettings(gameScreen))
+                    return FriendlyGameStartStates.MatchSettings;
 
-                        case FriendlyGameStartStates.MatchSettings:
-                            if (CheckFgssMatchSettings(gameScreen))
-                                return item;
-                            break;
-
-                        case FriendlyGameStartStates.WaitingReadinessOpponent:
-                            if (CheckFgssWaitingReadinessOpponent(gameScreen))
-                                return item;
-                            break;
-                    }
-                }
+                if (CheckFgssWaitingReadinessOpponent(gameScreen))
+                    return FriendlyGameStartStates.WaitingReadinessOpponent;
             }
             return FriendlyGameStartStates.Unknown;
         }
@@ -88,72 +59,50 @@ namespace GwentBot.ComputerVision
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
             {
-                foreach (int itemValue in Enum.GetValues(typeof(GameSessionStates)))
-                {
-                    var item = (GameSessionStates)itemValue;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\Mulligan-Text.png",
+                    new Rect(320, 440, 110, 25)))
+                    return GameSessionStates.Mulligan;
 
-                    switch (item)
-                    {
-                        case GameSessionStates.Mulligan:
-                            string patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\Mulligan-Text.png";
-                            var gameScreenRoi = new Rect(320, 440, 110, 25);
+                if (CheckGssOpponentChangesCards(gameScreen))
+                    return GameSessionStates.OpponentChangesCards;
 
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\MyTurnPlay-PassButton.png",
+                    new Rect(800, 190, 47, 50)))
+                    return GameSessionStates.MyTurnPlay;
 
-                        case GameSessionStates.OpponentChangesCards:
-                            if (CheckGssOpponentChangesCards(gameScreen))
-                                return item;
-                            break;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\EnemyTurnPlaySrc-Button.png",
+                    new Rect(800, 190, 47, 50)))
+                    return GameSessionStates.EnemyTurnPlay;
 
-                        case GameSessionStates.MyTurnPlay:
-                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\MyTurnPlay-PassButton.png";
-                            gameScreenRoi = new Rect(800, 190, 47, 50);
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\WinAlert.png",
+                    new Rect(310, 200, 230, 100)))
+                    return GameSessionStates.WinAlert;
 
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\LosingAlert.png",
+                    new Rect(310, 200, 230, 100)))
+                    return GameSessionStates.LosingAlert;
 
-                        case GameSessionStates.EnemyTurnPlay:
-                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\EnemyTurnPlaySrc-Button.png";
-                            gameScreenRoi = new Rect(800, 190, 47, 50);
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\MatchResultsScreen-VsText.png",
+                    new Rect(380, 80, 100, 70)))
+                    return GameSessionStates.MatchResultsScreen;
 
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case GameSessionStates.WinAlert:
-                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\WinAlert.png";
-                            gameScreenRoi = new Rect(310, 200, 230, 100);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case GameSessionStates.LosingAlert:
-                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\LosingAlert.png";
-                            gameScreenRoi = new Rect(310, 200, 230, 100);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-                        case GameSessionStates.MatchResultsScreen:
-                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\MatchResultsScreen-VsText.png";
-                            gameScreenRoi = new Rect(380, 80, 100, 70);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-                        case GameSessionStates.MatchRewardsScreen:
-                            patternPath = @"ComputerVision\PatternsForCV\GameSessionStates\MatchRewardsScreen-FlagWithExperience.png";
-                            gameScreenRoi = new Rect(650, 60, 150, 150);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-                    }
-                }
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\MatchRewardsScreen-FlagWithExperience.png",
+                    new Rect(650, 60, 150, 150)))
+                    return GameSessionStates.MatchRewardsScreen;
             }
             return GameSessionStates.Unknown;
         }
@@ -162,39 +111,23 @@ namespace GwentBot.ComputerVision
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
             {
-                foreach (int itemValue in Enum.GetValues(typeof(GlobalGameStates)))
-                {
-                    var item = (GlobalGameStates)itemValue;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalGameStates\ArenaModeTab-ContractText.png",
+                    Rect.Empty))
+                    return GlobalGameStates.ArenaModeTab;
 
-                    switch (item)
-                    {
-                        case GlobalGameStates.ArenaModeTab:
-                            string patternPath = @"ComputerVision\PatternsForCV\GlobalGameStates\ArenaModeTab-ContractText.png";
-                            var gameScreenRoi = Rect.Empty;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalGameStates\HeavyLoading-CardDescriptionAngle.png",
+                    new Rect(650, 25, 150, 125)))
+                    return GlobalGameStates.HeavyLoading;
 
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
+                if (CheckGgsGameModesTab(gameScreen))
+                    return GlobalGameStates.GameModesTab;
 
-                        case GlobalGameStates.HeavyLoading:
-                            patternPath = @"ComputerVision\PatternsForCV\GlobalGameStates\HeavyLoading-CardDescriptionAngle.png";
-                            gameScreenRoi = new Rect(650, 25, 150, 125);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case GlobalGameStates.GameModesTab:
-                            if (CheckGgsGameModesTab(gameScreen))
-                                return item;
-                            break;
-
-                        case GlobalGameStates.MainMenu:
-                            if (CheckGgsMainMenu(gameScreen))
-                                return item;
-                            break;
-                    }
-                }
+                if (CheckGgsMainMenu(gameScreen))
+                    return GlobalGameStates.MainMenu;
             }
             return GlobalGameStates.Unknown;
         }
@@ -203,37 +136,23 @@ namespace GwentBot.ComputerVision
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
             {
-                foreach (int itemValue in Enum.GetValues(typeof(Notifications)))
-                {
-                    var item = (Notifications)itemValue;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png",
+                    new Rect(780, 40, 67, 50)))
+                    return Notifications.FriendlyDuel;
 
-                    switch (item) //-V3002
-                    {
-                        case Notifications.FriendlyDuel:
-                            string patternPath = @"ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png";
-                            var gameScreenRoi = new Rect(780, 40, 67, 50);
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\Notifications\ReceivedReward.png",
+                    new Rect(780, 40, 67, 50)))
+                    return Notifications.ReceivedReward;
 
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case Notifications.ReceivedReward:
-                            patternPath = @"ComputerVision\PatternsForCV\Notifications\ReceivedReward.png";
-                            gameScreenRoi = new Rect(780, 40, 67, 50);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case Notifications.RewardsTab:
-                            patternPath = @"ComputerVision\PatternsForCV\Notifications\RewardsTab.png";
-                            gameScreenRoi = new Rect(390, 440, 70, 25);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-                    }
-                }
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\Notifications\RewardsTab.png",
+                    new Rect(390, 440, 70, 25)))
+                    return Notifications.RewardsTab;
             }
             return Notifications.NoNotifications;
         }
@@ -242,29 +161,17 @@ namespace GwentBot.ComputerVision
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
             {
-                foreach (int itemValue in Enum.GetValues(typeof(StartGameStates)))
-                {
-                    var item = (StartGameStates)itemValue;
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\StartGameStates\GameLoadingScreen-GameNamePart.png",
+                    Rect.Empty))
+                    return StartGameStates.GameLoadingScreen;
 
-                    switch (item)
-                    {
-                        case StartGameStates.GameLoadingScreen:
-                            var patternPath = @"ComputerVision\PatternsForCV\StartGameStates\GameLoadingScreen-GameNamePart.png";
-                            var gameScreenRoi = Rect.Empty;
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-
-                        case StartGameStates.WelcomeScreen:
-                            patternPath = @"ComputerVision\PatternsForCV\StartGameStates\WelcomeScreen-HelloText.png";
-                            gameScreenRoi = new Rect(330, 10, 200, 70);
-
-                            if (GenericCheck(gameScreen, patternPath, gameScreenRoi))
-                                return item;
-                            break;
-                    }
-                }
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\StartGameStates\WelcomeScreen-HelloText.png",
+                    new Rect(330, 10, 200, 70)))
+                    return StartGameStates.WelcomeScreen;
             }
             return StartGameStates.Unknown;
         }
@@ -277,11 +184,7 @@ namespace GwentBot.ComputerVision
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
                 var rectRoi = new Rect(290, 5, 280, 45);
-
-                var originalImgRoi = new Mat(
-                    localGameScreen,
-                    rectRoi);
-
+                var originalImgRoi = new Mat(localGameScreen, rectRoi);
                 var gameScreenEditImgRoi = GetNoiseFreeText(originalImgRoi, 80);
                 var patternMat = new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\OpponentChangesCards-Text.png");
 
@@ -301,15 +204,12 @@ namespace GwentBot.ComputerVision
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
                 var rectRoi = new Rect(370, 370, 120, 20);
-
-                var originalImgRoi = new Mat(
-                    localGameScreen,
-                    rectRoi);
-
+                var originalImgRoi = new Mat(localGameScreen, rectRoi);
                 var editImgRoi = GetNoiseFreeText(originalImgRoi, 60);
 
-                var tempPos = PatternSearch(editImgRoi,
-                        new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\LoadingMatchSettings-Text.tif"));
+                var tempPos = PatternSearch(
+                    editImgRoi,
+                    new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\LoadingMatchSettings-Text.tif"));
 
                 return (tempPos != Rect.Empty);
             }
@@ -334,15 +234,12 @@ namespace GwentBot.ComputerVision
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
                 var rectRoi = new Rect(305, 370, 245, 20);
-
-                var originalImgRoi = new Mat(
-                    localGameScreen,
-                    rectRoi);
-
+                var originalImgRoi = new Mat(localGameScreen, rectRoi);
                 var editImgRoi = GetNoiseFreeText(originalImgRoi);
 
-                var tempPos = PatternSearch(editImgRoi,
-                        new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif"));
+                var tempPos = PatternSearch(
+                    editImgRoi,
+                    new Mat(@"ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif"));
 
                 return (tempPos != Rect.Empty);
             }
@@ -360,9 +257,10 @@ namespace GwentBot.ComputerVision
                 if (CheckFgssMatchSettings(gameScreen))
                     return false;
 
-                var tempPos = PatternSearchRoi(localGameScreen,
-                        new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.jpg"),
-                        new Rect(493, 363, 46, 37));
+                var tempPos = PatternSearchRoi(
+                    localGameScreen,
+                    new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.jpg"),
+                    new Rect(493, 363, 46, 37));
 
                 return (tempPos != Rect.Empty);
             }
@@ -376,7 +274,8 @@ namespace GwentBot.ComputerVision
                 if (CheckGgsGameModesTab(localGameScreen))
                     return false;
 
-                var tempPos = PatternSearchRoi(localGameScreen,
+                var tempPos = PatternSearchRoi(
+                    localGameScreen,
                     new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png"),
                     new Rect(758, 428, 90, 45));
 
@@ -389,7 +288,7 @@ namespace GwentBot.ComputerVision
         #region OpenCVGeneralmethods
 
         /// <summary>
-        /// Более общий метод для проверок состояний
+        /// Обобщенный метод для проверок состояний
         /// </summary>
         /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
         /// <param name="patternPath">Шаблон</param>
@@ -403,15 +302,16 @@ namespace GwentBot.ComputerVision
             {
                 if (gameScreenRoi != Rect.Empty)
                 {
-                    var tempPos = PatternSearchRoi(localGameScreen,
-                        new Mat(patternPath), gameScreenRoi);
+                    var tempPos = PatternSearchRoi(
+                        localGameScreen,
+                        new Mat(patternPath),
+                        gameScreenRoi);
 
                     return (tempPos != Rect.Empty);
                 }
                 else
                 {
-                    var tempPos = PatternSearch(localGameScreen,
-                        new Mat(patternPath));
+                    var tempPos = PatternSearch(localGameScreen, new Mat(patternPath));
 
                     return (tempPos != Rect.Empty);
                 }
@@ -458,7 +358,6 @@ namespace GwentBot.ComputerVision
 
         /// <summary>
         /// Ищет объекты в изображении по заданному шаблону.
-        /// Если объект не найден возвращает Rect со всеми полями -1
         /// </summary>
         /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
         /// <param name="temp">Шаблон</param>
@@ -513,8 +412,7 @@ namespace GwentBot.ComputerVision
         }
 
         /// <summary>
-        /// Ищет объекты в определенной части озображения изображении по заданному шаблону.
-        /// Если объект не найден возвращает Rect со всеми полями -1
+        /// Ищет объекты в определенной части изображения по заданному шаблону.
         /// </summary>
         /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
         /// <param name="temp">Шаблон</param>
