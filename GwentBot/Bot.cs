@@ -1,4 +1,6 @@
-﻿using GwentBot.ComputerVision;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using GwentBot.ComputerVision;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,20 +32,20 @@ namespace GwentBot
                         var notif = cv.GetCurrentNotifications();
 
                         if (globalStat != GlobalGameStates.Unknown)
-                            GameStatusChanged(Enum.GetName(globalStat.GetType(), globalStat));
+                            GameStatusChanged?.Invoke(Enum.GetName(globalStat.GetType(), globalStat));
                         else if (startGameStates != StartGameStates.Unknown)
-                            GameStatusChanged(Enum.GetName(startGameStates.GetType(), startGameStates));
+                            GameStatusChanged?.Invoke(Enum.GetName(startGameStates.GetType(), startGameStates));
                         else if (friendlyGameStat != FriendlyGameStartStates.Unknown)
-                            GameStatusChanged(Enum.GetName(friendlyGameStat.GetType(), friendlyGameStat));
+                            GameStatusChanged?.Invoke(Enum.GetName(friendlyGameStat.GetType(), friendlyGameStat));
                         else if (coinTossStat != CoinTossStates.Unknown)
-                            GameStatusChanged(Enum.GetName(coinTossStat.GetType(), coinTossStat));
+                            GameStatusChanged?.Invoke(Enum.GetName(coinTossStat.GetType(), coinTossStat));
                         else if (gameSesStat != GameSessionStates.Unknown)
-                            GameStatusChanged(Enum.GetName(gameSesStat.GetType(), gameSesStat));
+                            GameStatusChanged?.Invoke(Enum.GetName(gameSesStat.GetType(), gameSesStat));
                         else
-                            GameStatusChanged("Unknown");
+                            GameStatusChanged?.Invoke("Unknown");
 
                         if (notif != Notifications.NoNotifications)
-                            GameStatusChanged(Enum.GetName(notif.GetType(), notif));
+                            GameStatusChanged?.Invoke(Enum.GetName(notif.GetType(), notif));
                     }
 
                     Thread.Sleep(500);

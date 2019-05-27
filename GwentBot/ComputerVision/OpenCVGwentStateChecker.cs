@@ -1,4 +1,6 @@
-﻿using OpenCvSharp;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
 
@@ -205,7 +207,7 @@ namespace GwentBot.ComputerVision
                 {
                     var item = (Notifications)itemValue;
 
-                    switch (item)
+                    switch (item) //-V3002
                     {
                         case Notifications.FriendlyDuel:
                             string patternPath = @"ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png";
