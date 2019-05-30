@@ -51,7 +51,7 @@ namespace GwentBot.ComputerVision
 
             bool result = false;
             var gameWindowRect = GetGameWindowRectangle();
-            if (gameWindowRect.X + gameWindowRect.Width < Screen.PrimaryScreen.Bounds.Width && 
+            if (gameWindowRect.X + gameWindowRect.Width < Screen.PrimaryScreen.Bounds.Width &&
                 gameWindowRect.Y + gameWindowRect.Height < Screen.PrimaryScreen.Bounds.Height)
                 result = true;
 

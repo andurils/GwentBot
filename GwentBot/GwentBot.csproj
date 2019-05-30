@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UnitTestsRun|AnyCPU'">
+    <OutputPath>bin\UnitTestsRun\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoItX3.Assembly, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a646454c8d475470, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoItX.Dotnet.3.3.14.5\lib\AutoItX3.Assembly.dll</HintPath>
@@ -65,9 +68,16 @@
     <Compile Include="Bot.cs" />
     <Compile Include="ComputerVision\AnyWindowScreenShotCreator.cs" />
     <Compile Include="ComputerVision\GwentWindowScreenShotCreator.cs" />
-    <Compile Include="ComputerVision\IGwentStateChecker.cs" />
+    <Compile Include="PageObjects\Abstract\IWaitingService.cs" />
+    <Compile Include="PageObjects\ArenaModePage.cs" />
+    <Compile Include="PageObjects\GameModesPage.cs" />
+    <Compile Include="PageObjects\MainMenuPage.cs" />
+    <Compile Include="PageObjects\SupportObjects\DefaultWaitingService.cs" />
+    <Compile Include="StateAbstractions\IGwentStateChecker.cs" />
     <Compile Include="ComputerVision\IWindowScreenShotCreator.cs" />
     <Compile Include="ComputerVision\OpenCvGwentStateChecker.cs" />
+    <Compile Include="PageObjects\Abstract\PageObject.cs" />
+    <Compile Include="PageObjects\SupportObjects\PageObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkWithProcess\AnyProcessInformation.cs" />
     <Compile Include="WorkWithProcess\GwentProcessInformation.cs" />
@@ -123,7 +133,7 @@
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\ArenaModeTab-ContractText.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.jpg">
+    <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\HeavyLoading-CardDescriptionAngle.png">

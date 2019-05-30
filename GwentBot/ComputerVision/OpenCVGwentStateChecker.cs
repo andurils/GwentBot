@@ -1,5 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using GwentBot.StateAbstractions;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 
@@ -259,8 +260,8 @@ namespace GwentBot.ComputerVision
 
                 var tempPos = PatternSearchRoi(
                     localGameScreen,
-                    new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.jpg"),
-                    new Rect(493, 363, 46, 37));
+                    new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.png"),
+                    new Rect(500, 360, 50, 40));
 
                 return (tempPos != Rect.Empty);
             }

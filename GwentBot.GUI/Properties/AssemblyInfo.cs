@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -32,7 +30,6 @@ using System.Windows;
 
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
-
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //где расположены словари ресурсов по конкретным тематикам
                                      //(используется, если ресурс не найден на странице,
@@ -41,7 +38,6 @@ using System.Windows;
                                               //(используется, если ресурс не найден на странице,
                                               // в приложении или в каких-либо словарях ресурсов для конкретной темы)
 )]
-
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //
