@@ -1,29 +1,31 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-using AutoIt;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 
 namespace GwentBot.PageObjects
 {
-    internal class GameModesPage : PageObject
+    internal class GameSessionPage : PageObject
     {
-        public GameModesPage(
+        internal GameSessionPage(
             IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
             base(gwentStateChecker, waitingService)
         {
         }
 
-        internal MainMenuPage GotoMainMenuPage()
+        internal bool MyTurnPlay
         {
-            AutoItX.MouseClick("left", 427, 453);
-            return new MainMenuPage(this.gwentStateChecker, this.waitingService);
+            get
+            {
+                return gwentStateChecker.GetCurrentGameSessionStates() ==
+                    GameSessionStates.MyTurnPlay;
+            }
         }
 
         protected override bool VerifyingPage()
         {
-            return this.gwentStateChecker.GetCurrentGlobalGameStates() ==
-                GlobalGameStates.GameModesTab;
+            return gwentStateChecker.GetCurrentGameSessionStates() !=
+                GameSessionStates.Unknown;
         }
     }
 }

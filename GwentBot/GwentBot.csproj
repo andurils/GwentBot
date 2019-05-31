@@ -70,8 +70,12 @@
     <Compile Include="ComputerVision\GwentWindowScreenShotCreator.cs" />
     <Compile Include="PageObjects\Abstract\IWaitingService.cs" />
     <Compile Include="PageObjects\ArenaModePage.cs" />
+    <Compile Include="PageObjects\Elements\NotificationsElement.cs" />
+    <Compile Include="PageObjects\FriendlyGameMatchSettingsPage.cs" />
     <Compile Include="PageObjects\GameModesPage.cs" />
+    <Compile Include="PageObjects\GameSessionPage.cs" />
     <Compile Include="PageObjects\MainMenuPage.cs" />
+    <Compile Include="PageObjects\RewardsTabPage.cs" />
     <Compile Include="PageObjects\SupportObjects\DefaultWaitingService.cs" />
     <Compile Include="StateAbstractions\IGwentStateChecker.cs" />
     <Compile Include="ComputerVision\IWindowScreenShotCreator.cs" />
@@ -86,9 +90,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PageObjects\Elements\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="ComputerVision\PatternsForCV\CoinTossStates\CoinLost.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

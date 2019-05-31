@@ -3,18 +3,23 @@
 using AutoIt;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GwentBot.PageObjects
 {
-    internal class GameModesPage : PageObject
+    internal class RewardsTabPage : PageObject
     {
-        public GameModesPage(
+        internal RewardsTabPage(
             IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
             base(gwentStateChecker, waitingService)
         {
         }
 
-        internal MainMenuPage GotoMainMenuPage()
+        internal MainMenuPage CloseRewardsTab()
         {
             AutoItX.MouseClick("left", 427, 453);
             return new MainMenuPage(this.gwentStateChecker, this.waitingService);
@@ -22,8 +27,8 @@ namespace GwentBot.PageObjects
 
         protected override bool VerifyingPage()
         {
-            return this.gwentStateChecker.GetCurrentGlobalGameStates() ==
-                GlobalGameStates.GameModesTab;
+            return gwentStateChecker.GetCurrentNotifications() ==
+                Notifications.RewardsTab;
         }
     }
 }

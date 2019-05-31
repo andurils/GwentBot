@@ -1,4 +1,6 @@
-﻿using GwentBot.PageObjects;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,18 +9,8 @@ using Moq;
 namespace GwentBot.Tests.PageObjects
 {
     [TestClass]
-    public class MainMenuPageTests
+    public class ArenaModePageTests
     {
-        [TestMethod]
-        public void VerifyingPageTest_GlobalGameStatesMainMenu_CorrectNewObject()
-        {
-            //arrage
-            //act
-            MainMenuPage mainMenuPage = GetNewMainMenuPage();
-            //assert
-            Assert.IsNotNull(mainMenuPage);
-        }
-
         [TestMethod]
         public void VerifyingPageTest_GlobalGameStatesUnknown_NotCorrectNewObject()
         {
@@ -32,7 +24,7 @@ namespace GwentBot.Tests.PageObjects
                 var waitingService = new Mock<IWaitingService>();
                 waitingService.Setup(o => o.Wait(It.IsAny<int>()));
                 //act
-                var mainMenuPage = new MainMenuPage(
+                var arenaModePage = new ArenaModePage(
                     gwentStateChecker.Object,
                     waitingService.Object);
                 //assert
@@ -41,18 +33,6 @@ namespace GwentBot.Tests.PageObjects
             {
                 Assert.IsTrue(true);
             }
-        }
-
-        private MainMenuPage GetNewMainMenuPage()
-        {
-            var gwentStateChecker = new Mock<IGwentStateChecker>();
-            gwentStateChecker.Setup(o => o.GetCurrentGlobalGameStates())
-                .Returns(GlobalGameStates.MainMenu);
-
-            var waitingService = new Mock<IWaitingService>();
-            waitingService.Setup(o => o.Wait(It.IsAny<int>()));
-
-            return new MainMenuPage(gwentStateChecker.Object, waitingService.Object);
         }
     }
 }

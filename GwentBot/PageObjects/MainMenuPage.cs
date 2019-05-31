@@ -8,10 +8,13 @@ namespace GwentBot.PageObjects
 {
     internal class MainMenuPage : PageObject
     {
-        public MainMenuPage(IGwentStateChecker gwentStateChecker, IWaitingService waitingService)
-            : base(gwentStateChecker, waitingService)
+        public MainMenuPage(
+            IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
+            base(gwentStateChecker, waitingService)
         {
         }
+
+        //TODO: Добавить элемент с нотификациями
 
         internal ArenaModePage GotoArenaModePage()
         {
