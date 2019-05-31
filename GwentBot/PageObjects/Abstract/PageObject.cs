@@ -3,7 +3,6 @@
 using AutoIt;
 using GwentBot.StateAbstractions;
 using System;
-using System.Threading;
 
 namespace GwentBot.PageObjects.Abstract
 {
@@ -22,20 +21,26 @@ namespace GwentBot.PageObjects.Abstract
             this.gwentStateChecker = gwentStateChecker;
             this.waitingService = waitingService;
 
-            int second = 30;
-            for (; second != 0; second--)
-            {
-                if (VerifyingPage()) //-V3068
-                    break;
-                this.waitingService.Wait(1);
-            }
-            if (second == 0)
-                throw new Exception($"Это не страница {this.GetType()}");
+            WaitingGameReadiness();
 
             AutoItX.AutoItSetOption("MouseCoordMode", 2);
             AutoItX.AutoItSetOption("PixelCoordMode", 2);
         }
 
         protected abstract bool VerifyingPage();
+
+        protected virtual void WaitingGameReadiness(int seconds = 30)
+        {
+            seconds = seconds < 0 ? 0 : seconds;
+
+            for (; seconds != 0; seconds--)
+            {
+                if (VerifyingPage()) //-V3068
+                    break;
+                this.waitingService.Wait(1);
+            }
+            if (seconds == 0)
+                throw new Exception($"Это не страница {this.GetType()}");
+        }
     }
 }

@@ -3,18 +3,16 @@
 using GwentBot.ComputerVision;
 using GwentBot.PageObjects;
 using GwentBot.PageObjects.SupportObjects;
-using GwentBot.StateAbstractions;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace GwentBot
 {
     public class Bot
     {
-        private bool IsWork { get; set; }
-
         public event Action<string> GameStatusChanged;
+
+        private bool IsWork { get; set; }
 
         public async void StartWorkAsync()
         {
@@ -65,13 +63,13 @@ namespace GwentBot
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
-                        var mainPage = new MainMenuPage(cv, new DefaultWaitingService());
-                        GameStatusChanged?.Invoke("Главное меню");
-                        var gameModesPage = mainPage.GoToGameModesPage();
-                        GameStatusChanged?.Invoke("Игровые режимы");
-                        var newMainPage = gameModesPage.GoToMainMenuPage();
-                        GameStatusChanged?.Invoke("Главное меню");
-                        IsWork = false;
+                        var mainPage = new MainMenuPage(cv, new DefaultWaitingService())
+                        .GotoGameModesPage()
+                        .GotoMainMenuPage()
+                        .GotoArenaModePage()
+                        .GotoMainMenuPage();
+
+                        //IsWork = false;
                     }
                 }
             });

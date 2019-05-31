@@ -3,7 +3,6 @@
 using AutoIt;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
-using System;
 
 namespace GwentBot.PageObjects
 {
@@ -14,22 +13,22 @@ namespace GwentBot.PageObjects
         {
         }
 
+        internal ArenaModePage GotoArenaModePage()
+        {
+            AutoItX.MouseClick("left", 565, 258);
+            return new ArenaModePage(this.gwentStateChecker, this.waitingService);
+        }
+
+        internal GameModesPage GotoGameModesPage()
+        {
+            AutoItX.MouseClick("left", 425, 240);
+            return new GameModesPage(this.gwentStateChecker, this.waitingService);
+        }
+
         protected override bool VerifyingPage()
         {
             return this.gwentStateChecker.GetCurrentGlobalGameStates() ==
                 GlobalGameStates.MainMenu;
-        }
-
-        internal GameModesPage GoToGameModesPage()
-        {
-            AutoItX.MouseClick("left", 425, 240, 1);
-            return new GameModesPage(this.gwentStateChecker, this.waitingService);
-        }
-
-        internal ArenaModePage GoToArenaModePage()
-        {
-            AutoItX.MouseClick("left", 565, 258, 1);
-            return new ArenaModePage(this.gwentStateChecker, this.waitingService);
         }
     }
 }

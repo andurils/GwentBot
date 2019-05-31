@@ -4,14 +4,6 @@ using GwentBot.ComputerVision;
 
 namespace GwentBot.StateAbstractions
 {
-    internal enum FriendlyGameStartStates
-    {
-        LoadingMatchSettings,
-        MatchSettings,
-        WaitingReadinessOpponent,
-        Unknown,
-    }
-
     internal enum CoinTossStates
     {
         StartToss,
@@ -20,12 +12,12 @@ namespace GwentBot.StateAbstractions
         Unknown
     }
 
-    internal enum Notifications
+    internal enum FriendlyGameStartStates
     {
-        FriendlyDuel,
-        ReceivedReward,
-        RewardsTab,
-        NoNotifications
+        LoadingMatchSettings,
+        MatchSettings,
+        WaitingReadinessOpponent,
+        Unknown,
     }
 
     internal enum GameSessionStates
@@ -50,6 +42,14 @@ namespace GwentBot.StateAbstractions
         Unknown,
     }
 
+    internal enum Notifications
+    {
+        FriendlyDuel,
+        ReceivedReward,
+        RewardsTab,
+        NoNotifications
+    }
+
     internal enum StartGameStates
     {
         GameLoadingScreen,
@@ -61,16 +61,16 @@ namespace GwentBot.StateAbstractions
     {
         IWindowScreenShotCreator ScreenShotCreator { get; }
 
+        CoinTossStates GetCurrentCoinTossStates();
+
         FriendlyGameStartStates GetCurrentFriendlyGameStartStates();
 
         GameSessionStates GetCurrentGameSessionStates();
 
         GlobalGameStates GetCurrentGlobalGameStates();
 
-        StartGameStates GetCurrentStartGameStates();
-
-        CoinTossStates GetCurrentCoinTossStates();
-
         Notifications GetCurrentNotifications();
+
+        StartGameStates GetCurrentStartGameStates();
     }
 }

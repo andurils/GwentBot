@@ -13,16 +13,16 @@ namespace GwentBot.PageObjects
         {
         }
 
+        internal MainMenuPage GotoMainMenuPage()
+        {
+            AutoItX.MouseClick("left", 427, 453);
+            return new MainMenuPage(this.gwentStateChecker, this.waitingService);
+        }
+
         protected override bool VerifyingPage()
         {
             return this.gwentStateChecker.GetCurrentGlobalGameStates() ==
                 GlobalGameStates.GameModesTab;
-        }
-
-        internal MainMenuPage GoToMainMenuPage()
-        {
-            AutoItX.MouseClick("left", 427, 453, 1);
-            return new MainMenuPage(this.gwentStateChecker, this.waitingService);
         }
     }
 }
