@@ -16,6 +16,7 @@ namespace GwentBot.StateAbstractions
     {
         LoadingMatchSettings,
         MatchSettings,
+        CancelGameMessageBox,
         WaitingReadinessOpponent,
         Unknown,
     }

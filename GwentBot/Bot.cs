@@ -3,7 +3,9 @@
 using GwentBot.ComputerVision;
 using GwentBot.PageObjects;
 using GwentBot.PageObjects.SupportObjects;
+using GwentBot.StateAbstractions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GwentBot
@@ -63,11 +65,27 @@ namespace GwentBot
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
-                        var mainPage = new MainMenuPage(cv, new DefaultWaitingService())
-                        .GotoGameModesPage()
-                        .GotoMainMenuPage()
-                        .GotoArenaModePage()
-                        .GotoMainMenuPage();
+                        //var mainPage = new MainMenuPage(cv, new DefaultWaitingService())
+                        //.GotoGameModesPage()
+                        //.GotoMainMenuPage()
+                        //.GotoArenaModePage()
+                        //.GotoMainMenuPage();
+
+                        this.GameStatusChanged("Работаю");
+
+                        var mainPage = new MainMenuPage(cv, new DefaultWaitingService());
+
+                        if (mainPage != null)
+                        {
+                            var currnetNotif = mainPage.Notifications.CheckReceivedNotifications();
+                            if (currnetNotif != Notifications.NoNotifications)
+                                GameStatusChanged("Есть нотификация!");
+                            if (currnetNotif == Notifications.FriendlyDuel)
+                            {
+                                mainPage.Notifications.AcceptFriendlyDuel()
+                                .CancelFriendlyGame();
+                            }
+                        }
 
                         //IsWork = false;
                     }

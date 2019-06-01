@@ -227,6 +227,20 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GlobalGameStates.ArenaModeTab, result);
         }
 
+        [TestMethod]
+        public void GetCurrentGlobalGameStates_FriendlyDuelSrc_MainMenu()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\Notifications\FriendlyDuelSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalGameStates();
+
+            //assert
+            Assert.AreEqual(GlobalGameStates.MainMenu, result);
+        }
+
         [DataTestMethod]
         [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\MonsterTable.png")]
         [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png")]
@@ -357,6 +371,20 @@ namespace GwentBot.Tests.ComputerVision
         #endregion StartGameStates Checks
 
         #region FriendlyGameStartStates Checks
+
+        [TestMethod]
+        public void GetCurrentFriendlyGameStartStates_CancelGameMessageBoxSrc_CancelGameMessageBox()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\Notifications\CancelGameMessageBoxSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentFriendlyGameStartStates();
+
+            //assert
+            Assert.AreEqual(FriendlyGameStartStates.CancelGameMessageBox, result);
+        }
 
         [DataTestMethod]
         [DataRow(@"ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\MonsterTable.png")]

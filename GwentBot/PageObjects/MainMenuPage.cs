@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 using AutoIt;
 using GwentBot.PageObjects.Abstract;
+using GwentBot.PageObjects.Elements;
 using GwentBot.StateAbstractions;
 
 namespace GwentBot.PageObjects
@@ -12,9 +13,10 @@ namespace GwentBot.PageObjects
             IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
             base(gwentStateChecker, waitingService)
         {
+            Notifications = new NotificationsElement(gwentStateChecker, waitingService);
         }
 
-        //TODO: Добавить элемент с нотификациями
+        internal NotificationsElement Notifications { get; }
 
         internal ArenaModePage GotoArenaModePage()
         {

@@ -10,6 +10,29 @@ namespace GwentBot.Tests.PageObjects
     public class MainMenuPageTests
     {
         [TestMethod]
+        public void CheckWorkNotification_FriendlyDuel_RightReceivedNotification()
+        {
+            //arrage
+            var gwentStateChecker = new Mock<IGwentStateChecker>();
+            gwentStateChecker.Setup(o => o.GetCurrentGlobalGameStates())
+                .Returns(GlobalGameStates.MainMenu);
+            gwentStateChecker.Setup(o => o.GetCurrentNotifications())
+                .Returns(Notifications.FriendlyDuel);
+
+            var waitingService = new Mock<IWaitingService>();
+            waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+
+            var mainMenuPage = new MainMenuPage(
+                gwentStateChecker.Object,
+                waitingService.Object);
+            //act
+            Notifications result = mainMenuPage.Notifications
+                .CheckReceivedNotifications();
+            //assert
+            Assert.AreEqual(Notifications.FriendlyDuel, result);
+        }
+
+        [TestMethod]
         public void VerifyingPageTest_GlobalGameStatesMainMenu_CorrectNewObject()
         {
             //arrage

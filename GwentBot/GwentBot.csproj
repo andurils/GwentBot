@@ -146,6 +146,9 @@
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\Notifications\CancelGameMessageBox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

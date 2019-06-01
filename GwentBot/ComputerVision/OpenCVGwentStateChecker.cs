@@ -52,6 +52,12 @@ namespace GwentBot.ComputerVision
 
                 if (CheckFgssWaitingReadinessOpponent(gameScreen))
                     return FriendlyGameStartStates.WaitingReadinessOpponent;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\Notifications\CancelGameMessageBox.png",
+                    new Rect(315, 180, 230, 120)))
+                    return FriendlyGameStartStates.CancelGameMessageBox;
             }
             return FriendlyGameStartStates.Unknown;
         }
@@ -140,19 +146,19 @@ namespace GwentBot.ComputerVision
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png",
-                    new Rect(780, 40, 67, 50)))
+                    new Rect(780, 40, 68, 50)))
                     return Notifications.FriendlyDuel;
 
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\Notifications\ReceivedReward.png",
-                    new Rect(780, 40, 67, 50)))
+                    new Rect(780, 40, 68, 50)))
                     return Notifications.ReceivedReward;
 
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\Notifications\RewardsTab.png",
-                    new Rect(390, 440, 70, 25)))
+                    new Rect(390, 440, 68, 25)))
                     return Notifications.RewardsTab;
             }
             return Notifications.NoNotifications;

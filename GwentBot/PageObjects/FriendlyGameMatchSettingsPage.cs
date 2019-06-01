@@ -22,6 +22,12 @@ namespace GwentBot.PageObjects
         internal MainMenuPage CancelFriendlyGame()
         {
             AutoItX.MouseClick("left", 428, 457);
+            do
+            {
+                waitingService.Wait(1);
+            } while (gwentStateChecker.GetCurrentFriendlyGameStartStates() !=
+                FriendlyGameStartStates.CancelGameMessageBox);
+            AutoItX.Send("{ENTER}");
             return new MainMenuPage(gwentStateChecker, waitingService);
         }
 
