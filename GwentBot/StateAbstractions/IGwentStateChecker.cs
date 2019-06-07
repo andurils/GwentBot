@@ -73,5 +73,7 @@ namespace GwentBot.StateAbstractions
         Notifications GetCurrentNotifications();
 
         StartGameStates GetCurrentStartGameStates();
+
+        byte[] GetGameScreenshotBitmap();
     }
 }

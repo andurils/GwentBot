@@ -68,6 +68,9 @@
     <Compile Include="Bot.cs" />
     <Compile Include="ComputerVision\AnyWindowScreenShotCreator.cs" />
     <Compile Include="ComputerVision\GwentWindowScreenShotCreator.cs" />
+    <Compile Include="Model\Deck.cs" />
+    <Compile Include="Model\Game.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="PageObjects\Abstract\IWaitingService.cs" />
     <Compile Include="PageObjects\ArenaModePage.cs" />
     <Compile Include="PageObjects\Elements\NotificationsElement.cs" />

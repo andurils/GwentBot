@@ -8,8 +8,9 @@ namespace GwentBot.PageObjects
 {
     internal class ArenaModePage : PageObject
     {
-        public ArenaModePage(IGwentStateChecker gwentStateChecker, IWaitingService waitingService)
-            : base(gwentStateChecker, waitingService)
+        public ArenaModePage(
+            IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
+            base(gwentStateChecker, waitingService)
         {
         }
 

@@ -3,6 +3,7 @@
 using GwentBot.StateAbstractions;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using System.IO;
 
 namespace GwentBot.ComputerVision
 {
@@ -181,6 +182,20 @@ namespace GwentBot.ComputerVision
                     return StartGameStates.WelcomeScreen;
             }
             return StartGameStates.Unknown;
+        }
+
+        public byte[] GetGameScreenshotBitmap()
+        {
+            byte[] result;
+
+            using (var ms = new MemoryStream())
+            {
+                ScreenShotCreator.GetGameScreenshot()
+                    .Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                result = ms.ToArray();
+            }
+
+            return result;
         }
 
         #region GameSessionStates Checks
