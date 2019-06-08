@@ -78,6 +78,9 @@
     <Compile Include="PageObjects\GameModesPage.cs" />
     <Compile Include="PageObjects\GameSessionPage.cs" />
     <Compile Include="PageObjects\MainMenuPage.cs" />
+    <Compile Include="PageObjects\MatchResultsScreenPage.cs" />
+    <Compile Include="PageObjects\MatchRewardsScreenPage.cs" />
+    <Compile Include="PageObjects\MulliganPage.cs" />
     <Compile Include="PageObjects\RewardsTabPage.cs" />
     <Compile Include="PageObjects\SupportObjects\DefaultWaitingService.cs" />
     <Compile Include="StateAbstractions\IGwentStateChecker.cs" />
@@ -113,7 +116,13 @@
     <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\EndMulliganMessageBox-Buttons.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\EnemyTurnPlaySrc-Button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\GiveUpMessageBox-Buttons.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\LosingAlert.png">
@@ -149,7 +158,7 @@
     <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\PatternsForCV\Notifications\CancelGameMessageBox.png">
+    <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\CancelGameMessageBox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png">

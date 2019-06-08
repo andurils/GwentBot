@@ -14,6 +14,20 @@ namespace GwentBot.Tests.ComputerVision
         #region GameSessionStates Checks
 
         [TestMethod]
+        public void GetCurrentGameSessionStates_EndMulliganMessageBoxSrc_IdentifierEndMulliganMessageBox()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\EndMulliganMessageBoxSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.EndMulliganMessageBox, result);
+        }
+
+        [TestMethod]
         public void GetCurrentGameSessionStates_EnemyTurnPlaySrc_IdentifierEnemyTurnPlay()
         {
             //arrage
@@ -25,6 +39,20 @@ namespace GwentBot.Tests.ComputerVision
 
             //assert
             Assert.AreEqual(GameSessionStates.EnemyTurnPlay, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGameSessionStates_GiveUpMessageBoxSrc_IdentifierGiveUpMessageBox()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\GiveUpMessageBoxSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.GiveUpMessageBox, result);
         }
 
         [TestMethod]
@@ -376,7 +404,7 @@ namespace GwentBot.Tests.ComputerVision
         public void GetCurrentFriendlyGameStartStates_CancelGameMessageBoxSrc_CancelGameMessageBox()
         {
             //arrage
-            var gameScreenshotPath = @"ComputerVision\Notifications\CancelGameMessageBoxSrc.png";
+            var gameScreenshotPath = @"ComputerVision\FriendlyGameStartStates\CancelGameMessageBoxSrc.png";
             var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
             //act

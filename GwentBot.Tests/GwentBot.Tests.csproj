@@ -154,7 +154,13 @@
     <Content Include="ComputerVision\GameModesTab\SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\GameSessionStates\EndMulliganMessageBoxSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\GameSessionStates\EnemyTurnPlaySrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\GiveUpMessageBoxSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GameSessionStates\LosingAlertSrc.png">
@@ -214,7 +220,7 @@
     <Content Include="ComputerVision\GlobalGameStates\MainMenuSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\Notifications\CancelGameMessageBoxSrc.png">
+    <Content Include="ComputerVision\FriendlyGameStartStates\CancelGameMessageBoxSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\Notifications\FriendlyDuelSrc.png">

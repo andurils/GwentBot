@@ -10,6 +10,8 @@ namespace GwentBot.Model
 {
     public class Game
     {
+        private bool? iWonCoin;
+
         public Game(Deck deck, User user)
         {
             this.Deck = deck;
@@ -20,8 +22,8 @@ namespace GwentBot.Model
 
         public bool? IWonCoin
         {
-            get => IWonCoin;
-            set => IWonCoin = (IWonCoin == null) ? value : IWonCoin;
+            get => iWonCoin;
+            set => iWonCoin = (iWonCoin == null) ? value : iWonCoin;
         }
 
         public byte[] MatchResultsScreenBitmap { get; set; }

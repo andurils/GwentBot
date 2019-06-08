@@ -61,6 +61,7 @@ namespace GwentBot
 
             await Task.Run(() =>
             {
+                GameStatusChanged?.Invoke("Работаю");
                 while (this.IsWork)
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
@@ -71,20 +72,23 @@ namespace GwentBot
                         //.GotoArenaModePage()
                         //.GotoMainMenuPage();
 
-                        this.GameStatusChanged("Работаю");
-
-                        var mainPage = new MainMenuPage(cv, new DefaultWaitingService());
-
-                        if (mainPage != null)
+                        try
                         {
-                            var currnetNotif = mainPage.Notifications.CheckReceivedNotifications();
-                            if (currnetNotif != Notifications.NoNotifications)
-                                GameStatusChanged("Есть нотификация!");
-                            if (currnetNotif == Notifications.FriendlyDuel)
-                            {
-                                mainPage.Notifications.AcceptFriendlyDuel()
-                                .CancelFriendlyGame();
-                            }
+                            var gameSession = new GameSessionPage(
+                                cv, new DefaultWaitingService(), new Model.Game(
+                                    new Model.Deck(), new Model.User("Пользоватеь")));
+
+                            GameStatusChanged?.Invoke("Объект создан");
+
+                            var result = gameSession.GiveUp();
+
+                            GameStatusChanged?.Invoke("Все");
+
+                            IsWork = false;
+                        }
+                        catch (Exception e)
+                        {
+                            GameStatusChanged?.Invoke("Ошибка");
                         }
 
                         //IsWork = false;

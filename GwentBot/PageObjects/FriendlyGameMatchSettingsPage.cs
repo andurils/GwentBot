@@ -34,7 +34,8 @@ namespace GwentBot.PageObjects
         internal GameSessionPage StartGame()
         {
             AutoItX.MouseClick("left", 430, 201);
-            return new GameSessionPage(gwentStateChecker, waitingService);
+            //TODO: Реализовать метод
+            throw new NotImplementedException();
         }
 
         protected override bool VerifyingPage()

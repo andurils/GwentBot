@@ -56,7 +56,7 @@ namespace GwentBot.ComputerVision
 
                 if (GenericCheck(
                     gameScreen,
-                    @"ComputerVision\PatternsForCV\Notifications\CancelGameMessageBox.png",
+                    @"ComputerVision\PatternsForCV\FriendlyGameStartStates\CancelGameMessageBox.png",
                     new Rect(315, 180, 230, 120)))
                     return FriendlyGameStartStates.CancelGameMessageBox;
             }
@@ -73,20 +73,32 @@ namespace GwentBot.ComputerVision
                     new Rect(320, 440, 110, 25)))
                     return GameSessionStates.Mulligan;
 
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\EndMulliganMessageBox-Buttons.png",
+                    new Rect(315, 180, 230, 120)))
+                    return GameSessionStates.EndMulliganMessageBox;
+
                 if (CheckGssOpponentChangesCards(gameScreen))
                     return GameSessionStates.OpponentChangesCards;
 
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\GameSessionStates\MyTurnPlay-PassButton.png",
-                    new Rect(800, 190, 47, 50)))
+                    new Rect(800, 210, 50, 60)))
                     return GameSessionStates.MyTurnPlay;
 
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\GameSessionStates\EnemyTurnPlaySrc-Button.png",
-                    new Rect(800, 190, 47, 50)))
+                    new Rect(800, 210, 50, 60)))
                     return GameSessionStates.EnemyTurnPlay;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\GiveUpMessageBox-Buttons.png",
+                    new Rect(315, 180, 230, 120)))
+                    return GameSessionStates.GiveUpMessageBox;
 
                 if (GenericCheck(
                     gameScreen,
