@@ -1,6 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-using AutoIt;
+﻿using AutoIt;
 using GwentBot.StateAbstractions;
 using System;
 
@@ -35,7 +33,7 @@ namespace GwentBot.PageObjects.Abstract
 
             for (; seconds != 0; seconds--)
             {
-                if (VerifyingPage()) //-V3068
+                if (VerifyingPage())
                     break;
                 this.waitingService.Wait(1);
             }

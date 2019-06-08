@@ -1,5 +1,4 @@
-﻿using System;
-using GwentBot.PageObjects;
+﻿using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

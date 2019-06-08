@@ -1,6 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-using GwentBot.StateAbstractions;
+﻿using GwentBot.StateAbstractions;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.IO;
