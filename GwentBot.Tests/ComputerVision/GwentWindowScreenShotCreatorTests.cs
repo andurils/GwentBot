@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using GwentBot.ComputerVision;
+﻿using GwentBot.ComputerVision;
 using GwentBot.WorkWithProcess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

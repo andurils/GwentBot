@@ -1,9 +1,9 @@
-﻿using System;
-using GwentBot.PageObjects;
+﻿using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 
 namespace GwentBot.Tests.PageObjects
 {
@@ -22,7 +22,7 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
             // Act
-            var arenaModePage = new ArenaModePage(
+            new ArenaModePage(
                 gwentStateChecker.Object,
                 waitingService.Object);
             // Assert  - Expects exception

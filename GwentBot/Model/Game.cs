@@ -6,8 +6,8 @@
 
         public Game(Deck deck, User user)
         {
-            this.Deck = deck;
-            this.User = user;
+            Deck = deck;
+            User = user;
         }
 
         public Deck Deck { get; }
@@ -15,7 +15,7 @@
         public bool? IWonCoin
         {
             get => iWonCoin;
-            set => iWonCoin = (iWonCoin == null) ? value : iWonCoin;
+            set => iWonCoin = iWonCoin ?? value;
         }
 
         public byte[] MatchResultsScreenBitmap { get; set; }

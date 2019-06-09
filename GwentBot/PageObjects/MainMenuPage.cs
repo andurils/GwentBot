@@ -19,18 +19,18 @@ namespace GwentBot.PageObjects
         internal ArenaModePage GotoArenaModePage()
         {
             AutoItX.MouseClick("left", 565, 258);
-            return new ArenaModePage(this.gwentStateChecker, this.waitingService);
+            return new ArenaModePage(gwentStateChecker, waitingService);
         }
 
-        internal GameModesPage GotoGameModesPage()
+        internal GameModesPage GotoGaesPage()
         {
-            AutoItX.MouseClick("left", 425, 240);
-            return new GameModesPage(this.gwentStateChecker, this.waitingService);
+            AutoItX.MouseClick("left", 240);
+            return new GameModesPage(gwentStateChecker, waitingService);
         }
 
         protected override bool VerifyingPage()
         {
-            return this.gwentStateChecker.GetCurrentGlobalGameStates() ==
+            return gwentStateChecker.GetCurrentGlobalGameStates() ==
                 GlobalGameStates.MainMenu;
         }
     }

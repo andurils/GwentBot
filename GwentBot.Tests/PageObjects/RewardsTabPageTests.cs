@@ -40,7 +40,7 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
             // Act
-            var result = new RewardsTabPage(
+            new RewardsTabPage(
                 gwentStateChecker.Object,
                 waitingService.Object);
             // Assert - Expects exception

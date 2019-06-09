@@ -22,7 +22,7 @@ namespace GwentBot
             await Task.Run(() =>
             {
                 GameStatusChanged?.Invoke("Работаю");
-                while (this.IsWork)
+                while (IsWork)
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
@@ -41,7 +41,7 @@ namespace GwentBot
 
                             GameStatusChanged?.Invoke("Объект создан");
 
-                            var result = gameSession.GiveUp();
+                            gameSession.GiveUp();
 
                             GameStatusChanged?.Invoke("Все");
 

@@ -7,7 +7,7 @@ namespace GwentBot.PageObjects
 {
     internal class GameSessionPage : PageObject
     {
-        internal Game game;
+        internal readonly Game game;
 
         internal GameSessionPage(
             IGwentStateChecker gwentStateChecker, IWaitingService waitingService, Game game) :

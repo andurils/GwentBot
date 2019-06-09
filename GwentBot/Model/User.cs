@@ -4,7 +4,7 @@
     {
         public User(string userName)
         {
-            this.UserName = userName;
+            UserName = userName;
         }
 
         public string UserName { get; }

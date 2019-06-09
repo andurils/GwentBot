@@ -1,5 +1,4 @@
-﻿using System;
-using GwentBot.Model;
+﻿using GwentBot.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GwentBot.Tests.Model
@@ -30,7 +29,7 @@ namespace GwentBot.Tests.Model
             var deck = new Deck("TestDeck");
             var user = new User("TestUser");
             var game = new Game(deck, user);
-            bool result = false;
+            bool result;
 
             // Act
             result = deck.Name == game.Deck.Name &

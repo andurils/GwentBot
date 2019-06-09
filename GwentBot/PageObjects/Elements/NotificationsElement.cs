@@ -26,7 +26,7 @@ namespace GwentBot.PageObjects.Elements
 
         internal Notifications CheckReceivedNotifications()
         {
-            return this.gwentStateChecker.GetCurrentNotifications();
+            return gwentStateChecker.GetCurrentNotifications();
         }
 
         protected override bool VerifyingPage()

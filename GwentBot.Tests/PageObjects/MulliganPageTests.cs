@@ -1,10 +1,10 @@
-﻿using System;
-using GwentBot.Model;
+﻿using GwentBot.Model;
 using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 
 namespace GwentBot.Tests.PageObjects
 {
@@ -46,7 +46,7 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
             // Act
-            var result = new MulliganPage(
+            new MulliganPage(
                 gwentStateChecker.Object,
                 waitingService.Object
                 , new Game(new Deck("sdf"), new User("sdf")));

@@ -15,12 +15,12 @@ namespace GwentBot.PageObjects
         internal MainMenuPage GotoMainMenuPage()
         {
             AutoItX.MouseClick("left", 428, 457);
-            return new MainMenuPage(this.gwentStateChecker, this.waitingService);
+            return new MainMenuPage(gwentStateChecker, waitingService);
         }
 
         protected override bool VerifyingPage()
         {
-            return this.gwentStateChecker.GetCurrentGlobalGameStates() ==
+            return gwentStateChecker.GetCurrentGlobalGameStates() ==
                 GlobalGameStates.ArenaModeTab;
         }
     }

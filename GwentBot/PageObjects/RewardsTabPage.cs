@@ -15,7 +15,7 @@ namespace GwentBot.PageObjects
         internal MainMenuPage CloseRewardsTab()
         {
             AutoItX.MouseClick("left", 427, 453);
-            return new MainMenuPage(this.gwentStateChecker, this.waitingService);
+            return new MainMenuPage(gwentStateChecker, waitingService);
         }
 
         protected override bool VerifyingPage()

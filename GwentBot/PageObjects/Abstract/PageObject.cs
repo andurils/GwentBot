@@ -14,6 +14,7 @@ namespace GwentBot.PageObjects.Abstract
         /// Если 30 секунд состояние игры не валидно выбрасывает исключение.
         /// </summary>
         /// <param name="gwentStateChecker">Любой класс реализующий IGwentStateChecker</param>
+        /// <param name="waitingService">Класс инкапсулирующий метод ожидания</param>
         public PageObject(IGwentStateChecker gwentStateChecker, IWaitingService waitingService)
         {
             this.gwentStateChecker = gwentStateChecker;
@@ -35,10 +36,10 @@ namespace GwentBot.PageObjects.Abstract
             {
                 if (VerifyingPage())
                     break;
-                this.waitingService.Wait(1);
+                waitingService.Wait(1);
             }
             if (seconds == 0)
-                throw new Exception($"Это не страница {this.GetType()}");
+                throw new Exception($"Это не страница {GetType()}");
         }
     }
 }
