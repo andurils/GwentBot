@@ -22,9 +22,9 @@ namespace GwentBot.PageObjects
             return new ArenaModePage(gwentStateChecker, waitingService);
         }
 
-        internal GameModesPage GotoGaesPage()
+        internal GameModesPage GotoGameModesPage()
         {
-            AutoItX.MouseClick("left", 240);
+            AutoItX.MouseClick("left", 428, 254);
             return new GameModesPage(gwentStateChecker, waitingService);
         }
 
