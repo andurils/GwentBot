@@ -3,12 +3,47 @@ using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Drawing;
+using System.IO;
 
 namespace GwentBot.Tests.ComputerVision
 {
     [TestClass]
     public class OpenCvGwentStateCheckerTests
     {
+        [TestMethod]
+        public void GetGameScreenshotBitmap_AlwaysUnknownSrc_AlwaysUnknownSrc()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            var originBitmap = new Bitmap(gameScreenshotPath);
+            var receivedBytes = stateChecker.GetGameScreenshotBitmap();
+            Bitmap reciveBitmap;
+
+            using (var ms = new MemoryStream(receivedBytes))
+            {
+                reciveBitmap = (Bitmap)Image.FromStream(ms);
+            }
+
+            //act
+            var result = true;
+            for (int x = 0; x < originBitmap.Width; x++)
+            {
+                for (int y = 0; y < originBitmap.Height; y++)
+                {
+                    if (originBitmap.GetPixel(x, y) != reciveBitmap.GetPixel(x, y))
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            //assert
+            Assert.IsTrue(result);
+        }
+
         #region GameSessionStates Checks
 
         [TestMethod]
@@ -238,6 +273,20 @@ namespace GwentBot.Tests.ComputerVision
         #endregion CoinTossStates Checks
 
         #region GlobalGameStates Checks
+
+        //[TestMethod]
+        //public void GetCurrentGlobalGameStates_GameModesTabSrc_IdentifierMainMenu()
+        //{
+        //    //arrage
+        //    var gameScreenshotPath = @"ComputerVision\GlobalGameStates\ArenaModeTabSrc.png";
+        //    var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+        //    //act
+        //    var result = stateChecker.GetCurrentGlobalGameStates();
+
+        //    //assert
+        //    Assert.AreEqual(GlobalGameStates.MainMenu, result);
+        //}
 
         [TestMethod]
         public void GetCurrentGlobalGameStates_ArenaModeTabSrc_IdentifierArenaModeTab()

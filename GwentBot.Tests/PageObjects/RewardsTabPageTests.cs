@@ -8,20 +8,20 @@ using Moq;
 namespace GwentBot.Tests.PageObjects
 {
     [TestClass]
-    public class FriendlyGameMatchSettingsPageTests
+    public class RewardsTabPageTests
     {
         [TestMethod]
-        public void VerifyingPageTest_FriendlyGameStartStatesUnknown_CorrectNewObject()
+        public void VerifyingPageTest_RewardsTab_CorrectNewObject()
         {
             // Arrage
             var gwentStateChecker = new Mock<IGwentStateChecker>();
-            gwentStateChecker.Setup(o => o.GetCurrentFriendlyGameStartStates())
-                .Returns(FriendlyGameStartStates.MatchSettings);
+            gwentStateChecker.Setup(o => o.GetCurrentNotifications())
+                .Returns(Notifications.RewardsTab);
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
             // Act
-            var result = new FriendlyGameMatchSettingsPage(
+            var result = new RewardsTabPage(
                 gwentStateChecker.Object,
                 waitingService.Object);
             // Assert
@@ -29,21 +29,21 @@ namespace GwentBot.Tests.PageObjects
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public void VerifyingPageTest_FriendlyGameStartStatesUnknown_NotCorrectNewObject()
+        [ExpectedException(exceptionType: typeof(Exception))]
+        public void VerifyingPageTest_RewardsTab_NotCorrectNewObject()
         {
             // Arrage
             var gwentStateChecker = new Mock<IGwentStateChecker>();
-            gwentStateChecker.Setup(o => o.GetCurrentFriendlyGameStartStates())
-                .Returns(FriendlyGameStartStates.Unknown);
+            gwentStateChecker.Setup(o => o.GetCurrentNotifications())
+                .Returns(Notifications.NoNotifications);
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
             // Act
-            new FriendlyGameMatchSettingsPage(
+            var result = new RewardsTabPage(
                 gwentStateChecker.Object,
                 waitingService.Object);
-            // Assert  - Expects exception
+            // Assert - Expects exception
         }
     }
 }

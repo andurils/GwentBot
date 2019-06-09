@@ -1,4 +1,5 @@
-﻿using GwentBot.PageObjects;
+﻿using System;
+using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +13,7 @@ namespace GwentBot.Tests.PageObjects
         [TestMethod]
         public void CheckWorkNotification_FriendlyDuel_RightReceivedNotification()
         {
-            //arrage
+            // Arrage
             var gwentStateChecker = new Mock<IGwentStateChecker>();
             gwentStateChecker.Setup(o => o.GetCurrentGlobalGameStates())
                 .Returns(GlobalGameStates.MainMenu);
@@ -25,45 +26,39 @@ namespace GwentBot.Tests.PageObjects
             var mainMenuPage = new MainMenuPage(
                 gwentStateChecker.Object,
                 waitingService.Object);
-            //act
+            // Act
             Notifications result = mainMenuPage.Notifications
                 .CheckReceivedNotifications();
-            //assert
+            // Assert
             Assert.AreEqual(Notifications.FriendlyDuel, result);
         }
 
         [TestMethod]
         public void VerifyingPageTest_GlobalGameStatesMainMenu_CorrectNewObject()
         {
-            //arrage
-            //act
+            // Arrage
+            // Act
             MainMenuPage mainMenuPage = GetNewMainMenuPage();
             //assert
             Assert.IsNotNull(mainMenuPage);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception))]
         public void VerifyingPageTest_GlobalGameStatesUnknown_NotCorrectNewObject()
         {
-            try
-            {
-                //arrage
-                var gwentStateChecker = new Mock<IGwentStateChecker>();
-                gwentStateChecker.Setup(o => o.GetCurrentGlobalGameStates())
-                    .Returns(GlobalGameStates.Unknown);
+            // Arrage
+            var gwentStateChecker = new Mock<IGwentStateChecker>();
+            gwentStateChecker.Setup(o => o.GetCurrentGlobalGameStates())
+                .Returns(GlobalGameStates.Unknown);
 
-                var waitingService = new Mock<IWaitingService>();
-                waitingService.Setup(o => o.Wait(It.IsAny<int>()));
-                //act
-                var mainMenuPage = new MainMenuPage(
-                    gwentStateChecker.Object,
-                    waitingService.Object);
-                //assert
-            }
-            catch (System.Exception)
-            {
-                Assert.IsTrue(true);
-            }
+            var waitingService = new Mock<IWaitingService>();
+            waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+            // Act
+            var mainMenuPage = new MainMenuPage(
+                gwentStateChecker.Object,
+                waitingService.Object);
+            // Assert  - Expects exception
         }
 
         private MainMenuPage GetNewMainMenuPage()

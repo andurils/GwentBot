@@ -36,7 +36,8 @@ namespace GwentBot
                         {
                             var gameSession = new GameSessionPage(
                                 cv, new DefaultWaitingService(), new Model.Game(
-                                    new Model.Deck(), new Model.User("Пользоватеь")));
+                                    new Model.Deck("Deck"),
+                                    new Model.User("Пользоватеь")));
 
                             GameStatusChanged?.Invoke("Объект создан");
 

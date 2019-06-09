@@ -67,11 +67,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComputerVision\GwentWindowScreenShotCreatorTests.cs" />
     <Compile Include="ComputerVision\OpenCVGwentStateCheckerTests.cs" />
+    <Compile Include="Model\GameTests.cs" />
     <Compile Include="PageObjects\ArenaModePageTests.cs" />
     <Compile Include="PageObjects\MainMenuPageTests.cs" />
     <Compile Include="PageObjects\FriendlyGameMatchSettingsPageTests.cs" />
     <Compile Include="PageObjects\GameSessionPageTests.cs" />
+    <Compile Include="PageObjects\GameModesPageTests.cs" />
+    <Compile Include="PageObjects\MulliganPageTests.cs" />
+    <Compile Include="PageObjects\RewardsTabPageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

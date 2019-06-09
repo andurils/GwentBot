@@ -144,7 +144,10 @@ namespace GwentBot.ComputerVision
                 if (CheckGgsGameModesTab(gameScreen))
                     return GlobalGameStates.GameModesTab;
 
-                if (CheckGgsMainMenu(gameScreen))
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png",
+                    new Rect(758, 428, 90, 45)))
                     return GlobalGameStates.MainMenu;
             }
             return GlobalGameStates.Unknown;
@@ -293,23 +296,6 @@ namespace GwentBot.ComputerVision
                     localGameScreen,
                     new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.png"),
                     new Rect(500, 360, 50, 40));
-
-                return (tempPos != Rect.Empty);
-            }
-        }
-
-        private bool CheckGgsMainMenu(Mat gameScreen)
-        {
-            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
-            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
-            {
-                if (CheckGgsGameModesTab(localGameScreen))
-                    return false;
-
-                var tempPos = PatternSearchRoi(
-                    localGameScreen,
-                    new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png"),
-                    new Rect(758, 428, 90, 45));
 
                 return (tempPos != Rect.Empty);
             }

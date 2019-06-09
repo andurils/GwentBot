@@ -1,5 +1,4 @@
 ﻿using System;
-using GwentBot.Model;
 using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
@@ -9,25 +8,22 @@ using Moq;
 namespace GwentBot.Tests.PageObjects
 {
     [TestClass]
-    public class GameSessionPageTests
+    public class GameModesPageTests
     {
         [TestMethod]
-        public void VerifyingPageTest_GlobalGameStatesArenaModeTab_CorrectNewObject()
+        public void VerifyingPageTest_GlobalGameStatesUnknown_CorrectNewObject()
         {
             // Arrage
             var gwentStateChecker = new Mock<IGwentStateChecker>();
-            gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
-                .Returns(GameSessionStates.MyTurnPlay);
+            gwentStateChecker.Setup(o => o.GetCurrentGlobalGameStates())
+                .Returns(GlobalGameStates.GameModesTab);
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
-
             // Act
-            var arenaModePage = new GameSessionPage(
+            var arenaModePage = new GameModesPage(
                 gwentStateChecker.Object,
-                waitingService.Object
-                , new Game(new Deck("sdf"), new User("sdf")));
-
+                waitingService.Object);
             // Assert
             Assert.IsNotNull(arenaModePage);
         }
@@ -38,17 +34,15 @@ namespace GwentBot.Tests.PageObjects
         {
             // Arrage
             var gwentStateChecker = new Mock<IGwentStateChecker>();
-            gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
-                .Returns(GameSessionStates.Unknown);
+            gwentStateChecker.Setup(o => o.GetCurrentGlobalGameStates())
+                .Returns(GlobalGameStates.Unknown);
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
-
             // Act
-            var arenaModePage = new GameSessionPage(
+            var gameModesPage = new GameModesPage(
                 gwentStateChecker.Object,
-                waitingService.Object
-                , new Game(new Deck("sdf"), new User("sdf")));
+                waitingService.Object);
             // Assert  - Expects exception
         }
     }
