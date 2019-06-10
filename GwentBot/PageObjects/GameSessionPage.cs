@@ -27,11 +27,14 @@ namespace GwentBot.PageObjects
 
         internal MatchResultsRewardsScreenPage GiveUp()
         {
+            var gameSessionState = GameSessionStates.Unknown;
             do
             {
                 waitingService.Wait(1);
-            } while (gwentStateChecker.GetCurrentGameSessionStates() !=
-                GameSessionStates.MyTurnPlay);
+                gameSessionState = gwentStateChecker.GetCurrentGameSessionStates();
+            } while ((gameSessionState != GameSessionStates.MyTurnPlay) &
+                     (gameSessionState != GameSessionStates.EnemyTurnPlay &
+                      gameSessionState != GameSessionStates.OpponentChangesCards));
 
             AutoItX.Send("{ESC}");
             do

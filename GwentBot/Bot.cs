@@ -26,31 +26,11 @@ namespace GwentBot
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
-                        //var mainPage = new MainMenuPage(cv, new DefaultWaitingService())
-                        //.GotoGameModesPage()
-                        //.GotoMainMenuPage()
-                        //.GotoArenaModePage()
-                        //.GotoMainMenuPage();
-
-                        try
-                        {
-                            var gameSession = new GameSessionPage(
-                                cv, new DefaultWaitingService(), new Model.Game(
-                                    new Model.Deck("Deck"),
-                                    new Model.User("Пользоватеь")));
-
-                            var result = gameSession.GiveUp();
-
-                            var dsf = result.ClosePageStatistics();
-                            if (dsf != null)
-                                GameStatusChanged?.Invoke("Конец");
-
-                            IsWork = false;
-                        }
-                        catch
-                        {
-                            GameStatusChanged?.Invoke("Ошибка");
-                        }
+                        var gameModes = new GameModesPage(cv, new DefaultWaitingService())
+                            .GotoSeasonalGameMode()
+                            .EndMulligan()
+                            .GiveUp()
+                            .ClosePageStatistics();
 
                         //IsWork = false;
                     }
