@@ -25,7 +25,7 @@ namespace GwentBot.PageObjects
             }
         }
 
-        internal MatchResultsScreenPage GiveUp()
+        internal MatchResultsRewardsScreenPage GiveUp()
         {
             do
             {
@@ -41,7 +41,7 @@ namespace GwentBot.PageObjects
                 GameSessionStates.GiveUpMessageBox);
             AutoItX.Send("{ENTER}");
 
-            return new MatchResultsScreenPage(gwentStateChecker, waitingService, game);
+            return new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService, game);
         }
 
         protected override bool VerifyingPage()

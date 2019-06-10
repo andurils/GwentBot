@@ -39,11 +39,11 @@ namespace GwentBot
                                     new Model.Deck("Deck"),
                                     new Model.User("Пользоватеь")));
 
-                            GameStatusChanged?.Invoke("Объект создан");
+                            var result = gameSession.GiveUp();
 
-                            gameSession.GiveUp();
-
-                            GameStatusChanged?.Invoke("Все");
+                            var dsf = result.ClosePageStatistics();
+                            if (dsf != null)
+                                GameStatusChanged?.Invoke("Конец");
 
                             IsWork = false;
                         }

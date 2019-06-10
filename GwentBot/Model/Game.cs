@@ -1,4 +1,6 @@
-﻿namespace GwentBot.Model
+﻿using System.Windows.Forms;
+
+namespace GwentBot.Model
 {
     public class Game
     {
@@ -11,6 +13,11 @@
         }
 
         public Deck Deck { get; }
+
+        public bool IsOnlineGame
+        {
+            get { return MatchRewardsScreenBitmap != default(byte[]); }
+        }
 
         public bool? IWonCoin
         {

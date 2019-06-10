@@ -78,8 +78,7 @@
     <Compile Include="PageObjects\GameModesPage.cs" />
     <Compile Include="PageObjects\GameSessionPage.cs" />
     <Compile Include="PageObjects\MainMenuPage.cs" />
-    <Compile Include="PageObjects\MatchResultsScreenPage.cs" />
-    <Compile Include="PageObjects\MatchRewardsScreenPage.cs" />
+    <Compile Include="PageObjects\MatchResultsRewardsScreenPage.cs" />
     <Compile Include="PageObjects\MulliganPage.cs" />
     <Compile Include="PageObjects\RewardsTabPage.cs" />
     <Compile Include="PageObjects\SupportObjects\DefaultWaitingService.cs" />
