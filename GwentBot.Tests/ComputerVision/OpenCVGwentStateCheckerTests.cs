@@ -607,5 +607,65 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         #endregion Notifications Ckecks
+
+        #region GlobalMessageBoxes Checks
+
+        [TestMethod]
+        public void GetCurrentGlobalMessageBoxes_AlwaysUnknownSrc_IdentifierNoMessageBoxes()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GlobalMessageBoxes.NoMessageBoxes, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGlobalMessageBoxes_ConnectionLostSrc_IdentifierConnectionLost()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalMessageBoxes\ConnectionLostSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GlobalMessageBoxes.ConnectionLost, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGlobalMessageBoxes_ErrorConnectingToServiceSrc_IdentifierErrorConnectingToService()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalMessageBoxes\ErrorConnectingToServiceSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GlobalMessageBoxes.ErrorConnectingToService, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGlobalMessageBoxes_ErrorSearchingOpponentSrc_IdentifierErrorSearchingOpponent()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalMessageBoxes\ErrorSearchingOpponentSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GlobalMessageBoxes.ErrorSearchingOpponent, result);
+        }
+
+        #endregion GlobalMessageBoxes Checks
     }
 }

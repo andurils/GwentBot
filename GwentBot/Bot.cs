@@ -26,11 +26,18 @@ namespace GwentBot
                 {
                     if (screenShotCreator.IsGameWindowFullVisible())
                     {
-                        var gameModes = new GameModesPage(cv, new DefaultWaitingService())
-                            .GotoSeasonalGameMode()
-                            .EndMulligan()
-                            .GiveUp()
-                            .ClosePageStatistics();
+                        try
+                        {
+                            var gameModes = new GameModesPage(cv, new DefaultWaitingService())
+                        .GotoClassicGameMode()
+                        .EndMulligan()
+                        .GiveUp()
+                        .ClosePageStatistics();
+                        }
+                        catch (Exception e)
+                        {
+                            GameStatusChanged?.Invoke(e.Message);
+                        }
 
                         //IsWork = false;
                     }

@@ -160,6 +160,15 @@
     <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\CancelGameMessageBox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\GlobalMessageBoxes\ConnectionLost-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GlobalMessageBoxes\ErrorConnectingToService-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GlobalMessageBoxes\ErrorSearchingOpponent-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\Notifications\FriendlyDuel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

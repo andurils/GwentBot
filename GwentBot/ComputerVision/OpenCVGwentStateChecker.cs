@@ -153,6 +153,32 @@ namespace GwentBot.ComputerVision
             return GlobalGameStates.Unknown;
         }
 
+        public GlobalMessageBoxes GetCurrentGlobalMessageBoxes()
+        {
+            using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
+            {
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalMessageBoxes\ConnectionLost-Text.png",
+                    new Rect(300, 180, 300, 120)))
+                    return GlobalMessageBoxes.ConnectionLost;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalMessageBoxes\ErrorConnectingToService-Text.png",
+                    new Rect(310, 170, 240, 130)))
+                    return GlobalMessageBoxes.ErrorConnectingToService;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalMessageBoxes\ErrorSearchingOpponent-Text.png",
+                    new Rect(300, 180, 270, 120)))
+                    return GlobalMessageBoxes.ErrorSearchingOpponent;
+            }
+
+            return GlobalMessageBoxes.NoMessageBoxes;
+        }
+
         public Notifications GetCurrentNotifications()
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())

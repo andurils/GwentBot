@@ -43,6 +43,14 @@ namespace GwentBot.StateAbstractions
         Unknown,
     }
 
+    internal enum GlobalMessageBoxes
+    {
+        ErrorSearchingOpponent,
+        ErrorConnectingToService,
+        ConnectionLost,
+        NoMessageBoxes
+    }
+
     internal enum Notifications
     {
         FriendlyDuel,
