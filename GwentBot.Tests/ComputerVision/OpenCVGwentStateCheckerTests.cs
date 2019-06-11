@@ -182,6 +182,25 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GameSessionStates.OpponentChangesCards, result);
         }
 
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\GameSessionStates\SearchRival\MonsterTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\SearchRival\NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\SearchRival\NorthTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\SearchRival\ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\GameSessionStates\SearchRival\SkelligeTable.png")]
+        public void GetCurrentGameSessionStates_SearchRivalSrc_IdentifierSearchRival(string srcImgPath)
+        {
+            //arrage
+            var gameScreenshotPath = srcImgPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.SearchRival, result);
+        }
+
         [TestMethod]
         public void GetCurrentGameSessionStates_UnknownSrc_IdentifierUnknown()
         {

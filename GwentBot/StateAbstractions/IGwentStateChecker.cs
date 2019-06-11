@@ -21,6 +21,7 @@ namespace GwentBot.StateAbstractions
 
     internal enum GameSessionStates
     {
+        SearchRival,
         Mulligan,
         EndMulliganMessageBox,
         OpponentChangesCards,

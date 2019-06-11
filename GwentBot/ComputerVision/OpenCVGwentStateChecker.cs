@@ -65,6 +65,9 @@ namespace GwentBot.ComputerVision
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
             {
+                if (CheckGssSearchRival(gameScreen))
+                    return GameSessionStates.SearchRival;
+
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\GameSessionStates\Mulligan-Text.png",
@@ -250,6 +253,27 @@ namespace GwentBot.ComputerVision
                 var patternMat = new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\OpponentChangesCards-Text.png");
 
                 var tempPos = PatternSearch(gameScreenEditImgRoi, patternMat);
+
+                return (tempPos != Rect.Empty);
+            }
+        }
+
+        private bool CheckGssSearchRival(Mat gameScreen)
+        {
+            var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
+            {
+                var rectRoi = new Rect(270, 350, 290, 60);
+                var originalImgRoi = new Mat(localGameScreen, rectRoi);
+                var editImgRoi = GetNoiseFreeText(originalImgRoi, 3);
+
+                //TODO: Удалить камментарий
+                //using (new Window(editImgRoi))
+                //    Cv2.WaitKey();
+
+                var tempPos = PatternSearch(
+                    editImgRoi,
+                    new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\SearchRival-Text.png"));
 
                 return (tempPos != Rect.Empty);
             }
