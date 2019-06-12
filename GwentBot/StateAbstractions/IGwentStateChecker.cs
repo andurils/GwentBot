@@ -79,6 +79,8 @@ namespace GwentBot.StateAbstractions
 
         GlobalGameStates GetCurrentGlobalGameStates();
 
+        GlobalMessageBoxes GetCurrentGlobalMessageBoxes();
+
         Notifications GetCurrentNotifications();
 
         StartGameStates GetCurrentStartGameStates();

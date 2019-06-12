@@ -20,6 +20,11 @@ namespace GwentBot.Tests.PageObjects
                 .Returns(CoinTossStates.CoinWon);
             gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
                 .Returns(GameSessionStates.Mulligan);
+            gwentStateChecker.Setup(o => o.GetCurrentGlobalMessageBoxes())
+                .Returns(GlobalMessageBoxes.NoMessageBoxes);
+            gwentStateChecker.SetupSequence(o => o.GetCurrentGlobalGameStates())
+                .Returns(GlobalGameStates.HeavyLoading)
+                .Returns(GlobalGameStates.Unknown);
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
@@ -42,6 +47,11 @@ namespace GwentBot.Tests.PageObjects
                 .Returns(CoinTossStates.CoinWon);
             gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
                 .Returns(GameSessionStates.Unknown);
+            gwentStateChecker.Setup(o => o.GetCurrentGlobalMessageBoxes())
+                .Returns(GlobalMessageBoxes.NoMessageBoxes);
+            gwentStateChecker.SetupSequence(o => o.GetCurrentGlobalGameStates())
+                .Returns(GlobalGameStates.HeavyLoading)
+                .Returns(GlobalGameStates.Unknown);
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
@@ -62,6 +72,11 @@ namespace GwentBot.Tests.PageObjects
                 .Returns(CoinTossStates.CoinLost);
             gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
                 .Returns(GameSessionStates.Mulligan);
+            gwentStateChecker.Setup(o => o.GetCurrentGlobalMessageBoxes())
+                .Returns(GlobalMessageBoxes.NoMessageBoxes);
+            gwentStateChecker.SetupSequence(o => o.GetCurrentGlobalGameStates())
+                .Returns(GlobalGameStates.HeavyLoading)
+                .Returns(GlobalGameStates.Unknown);
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));

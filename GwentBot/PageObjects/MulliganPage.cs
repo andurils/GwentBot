@@ -1,4 +1,5 @@
-﻿using AutoIt;
+﻿using System;
+using AutoIt;
 using GwentBot.Model;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
@@ -47,13 +48,53 @@ namespace GwentBot.PageObjects
 
         protected override void WaitingGameReadiness(int seconds = 30)
         {
-            while (iWonCoin == null)
+            do
             {
-                var coinTossState = gwentStateChecker.GetCurrentCoinTossStates();
-                if (coinTossState == CoinTossStates.CoinWon)
-                    iWonCoin = true;
-                if (coinTossState == CoinTossStates.CoinLost)
-                    iWonCoin = false;
+                waitingService.Wait(1);
+            } while (gwentStateChecker.GetCurrentGameSessionStates() ==
+                     GameSessionStates.SearchRival);
+
+            for (int tick = 0; tick < 15; tick++)
+            {
+                var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
+                if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
+                {
+                    throw new Exception($"Это не страница {GetType()}");
+                }
+
+                if (gwentStateChecker.GetCurrentGlobalGameStates() ==
+                   GlobalGameStates.HeavyLoading)
+                    break;
+                waitingService.Wait(1);
+            }
+
+            do
+            {
+                waitingService.Wait(1);
+            } while (gwentStateChecker.GetCurrentGlobalGameStates() ==
+                     GlobalGameStates.HeavyLoading);
+
+            for (int tick = 0; tick < 15; tick++)
+            {
+                var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
+                if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
+                {
+                    throw new Exception($"Это не страница {GetType()}");
+                }
+
+                switch (gwentStateChecker.GetCurrentCoinTossStates())
+                {
+                    case CoinTossStates.CoinWon:
+                        iWonCoin = true;
+                        break;
+
+                    case CoinTossStates.CoinLost:
+                        iWonCoin = false;
+                        break;
+                }
+                if (iWonCoin != null)
+                    break;
+                waitingService.Wait(1);
             }
 
             base.WaitingGameReadiness(seconds);

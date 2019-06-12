@@ -19,6 +19,9 @@ namespace GwentBot
             var screenShotCreator = new GwentWindowScreenShotCreator();
             var cv = new OpenCvGwentStateChecker(screenShotCreator);
 
+            var pageFactory = new PageObjectFactory(
+                cv, new DefaultWaitingService());
+
             await Task.Run(() =>
             {
                 GameStatusChanged?.Invoke("Работаю");
@@ -28,11 +31,13 @@ namespace GwentBot
                     {
                         try
                         {
+                            pageFactory.CheckAndClearGlobalMessageBoxes();
+
                             var gameModes = new GameModesPage(cv, new DefaultWaitingService())
-                        .GotoClassicGameMode()
-                        .EndMulligan()
-                        .GiveUp()
-                        .ClosePageStatistics();
+                                .GotoSeasonalGameMode()
+                                .EndMulligan()
+                                .GiveUp()
+                                .ClosePageStatistics();
                         }
                         catch (Exception e)
                         {
