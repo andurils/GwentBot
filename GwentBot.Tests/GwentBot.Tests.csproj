@@ -210,6 +210,9 @@
     <Content Include="ComputerVision\GameSessionStates\OpponentChangesCardsSrc-SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\GameSessionStates\OpponentSurrenderedMessageBoxSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\GameSessionStates\SearchRival\MonsterTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -223,6 +226,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GameSessionStates\SearchRival\SkelligeTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionStates\SessionPageOpenSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GameSessionStates\WinAlertSrc.png">

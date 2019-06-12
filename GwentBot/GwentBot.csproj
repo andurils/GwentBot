@@ -142,7 +142,13 @@
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\OpponentChangesCards-Text.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\OpponentSurrenderedMessageBox-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\SearchRival-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionStates\SessionPageOpen-CommunityPanel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\WinAlert.png">

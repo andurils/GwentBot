@@ -182,6 +182,20 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GameSessionStates.OpponentChangesCards, result);
         }
 
+        [TestMethod]
+        public void GetCurrentGameSessionStates_OpponentSurrenderedMessageBoxSrc_IdentifierOpponentSurrenderedMessageBox()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\OpponentSurrenderedMessageBoxSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.OpponentSurrenderedMessageBox, result);
+        }
+
         [DataTestMethod]
         [DataRow(@"ComputerVision\GameSessionStates\SearchRival\MonsterTable.png")]
         [DataRow(@"ComputerVision\GameSessionStates\SearchRival\NilfgaardTable.png")]
@@ -199,6 +213,20 @@ namespace GwentBot.Tests.ComputerVision
 
             //assert
             Assert.AreEqual(GameSessionStates.SearchRival, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGameSessionStates_SessionPageOpenSrc_IdentifierSessionPageOpen()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionStates\SessionPageOpenSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionStates();
+
+            //assert
+            Assert.AreEqual(GameSessionStates.SessionPageOpen, result);
         }
 
         [TestMethod]

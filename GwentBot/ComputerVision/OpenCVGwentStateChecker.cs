@@ -103,6 +103,18 @@ namespace GwentBot.ComputerVision
 
                 if (GenericCheck(
                     gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\SessionPageOpen-CommunityPanel.png",
+                    new Rect(1, 220, 50, 40)))
+                    return GameSessionStates.SessionPageOpen;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionStates\OpponentSurrenderedMessageBox-Text.png",
+                    new Rect(310, 170, 240, 130)))
+                    return GameSessionStates.OpponentSurrenderedMessageBox;
+
+                if (GenericCheck(
+                    gameScreen,
                     @"ComputerVision\PatternsForCV\GameSessionStates\WinAlert.png",
                     new Rect(310, 200, 230, 100)))
                     return GameSessionStates.WinAlert;

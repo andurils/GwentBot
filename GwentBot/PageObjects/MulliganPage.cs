@@ -48,6 +48,13 @@ namespace GwentBot.PageObjects
 
         protected override void WaitingGameReadiness(int seconds = 30)
         {
+            for (int tick = 0; tick < 5; tick++)
+            {
+                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                   GameSessionStates.SearchRival)
+                    break;
+            }
+
             do
             {
                 waitingService.Wait(1);
@@ -96,6 +103,25 @@ namespace GwentBot.PageObjects
                     break;
                 waitingService.Wait(1);
             }
+
+            for (int tick = 0; tick < 5; tick++)
+            {
+                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                    GameSessionStates.SessionPageOpen)
+                    break;
+            }
+
+            do
+            {
+                var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
+                if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
+                {
+                    throw new Exception($"Это не страница {GetType()}");
+                }
+
+                waitingService.Wait(1);
+            } while (gwentStateChecker.GetCurrentGameSessionStates() ==
+                     GameSessionStates.SessionPageOpen);
 
             base.WaitingGameReadiness(seconds);
         }
