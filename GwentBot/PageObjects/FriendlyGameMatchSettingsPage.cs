@@ -2,6 +2,7 @@
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using System;
+using GwentBot.Model;
 
 namespace GwentBot.PageObjects
 {
@@ -25,11 +26,11 @@ namespace GwentBot.PageObjects
             return new MainMenuPage(gwentStateChecker, waitingService);
         }
 
-        internal GameSessionPage StartGame()
+        internal MulliganPage StartGame()
         {
             AutoItX.MouseClick("left", 430, 201);
-            //TODO: Реализовать метод
-            throw new NotImplementedException();
+            Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
+            return new MulliganPage(gwentStateChecker, waitingService, game);
         }
 
         protected override bool VerifyingPage()

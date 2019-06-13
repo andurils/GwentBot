@@ -3,6 +3,7 @@ using GwentBot.PageObjects;
 using GwentBot.PageObjects.SupportObjects;
 using System;
 using System.Threading.Tasks;
+using GwentBot.StateAbstractions;
 
 namespace GwentBot
 {
@@ -19,8 +20,7 @@ namespace GwentBot
             var screenShotCreator = new GwentWindowScreenShotCreator();
             var cv = new OpenCvGwentStateChecker(screenShotCreator);
 
-            var pageFactory = new PageObjectFactory(
-                cv, new DefaultWaitingService());
+            var pageFactory = new PageObjectFactory();
 
             await Task.Run(() =>
             {
@@ -31,7 +31,14 @@ namespace GwentBot
                     {
                         try
                         {
-                            pageFactory.CheckAndClearGlobalMessageBoxes();
+                            if (cv.GetCurrentGlobalGameStates() !=
+                                GlobalGameStates.GameModesTab)
+                            {
+                                pageFactory.CheckAndClearGlobalMessageBoxes();
+
+                                pageFactory
+                                    .CheckAndClearOpponentSurrenderedMessageBox();
+                            }
 
                             var gameModes = new GameModesPage(cv, new DefaultWaitingService())
                                 .GotoSeasonalGameMode()
@@ -41,12 +48,13 @@ namespace GwentBot
                         }
                         catch (Exception e)
                         {
-                            GameStatusChanged?.Invoke(e.Message);
+                            GameStatusChanged?.Invoke(e.Message + e.StackTrace);
                         }
 
                         //IsWork = false;
                     }
                 }
+                GameStatusChanged?.Invoke("Не работаю");
             });
         }
 

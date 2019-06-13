@@ -12,7 +12,7 @@ namespace GwentBot.Tests.PageObjects
     public class GameSessionPageTests
     {
         [TestMethod]
-        public void VerifyingPageTest_GlobalGameStatesArenaModeTab_CorrectNewObject()
+        public void VerifyingPageTest_GameSessionStates_CorrectNewObject()
         {
             // Arrage
             var gwentStateChecker = new Mock<IGwentStateChecker>();
@@ -50,6 +50,27 @@ namespace GwentBot.Tests.PageObjects
                 waitingService.Object
                 , new Game(new Deck("sdf"), new User("sdf")));
             // Assert  - Expects exception
+        }
+
+        [TestMethod]
+        public void VerifyingPageTest_OpponentSurrenderedMessageBox_CorrectNewObject()
+        {
+            // Arrage
+            var gwentStateChecker = new Mock<IGwentStateChecker>();
+            gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
+                .Returns(GameSessionStates.OpponentSurrenderedMessageBox);
+
+            var waitingService = new Mock<IWaitingService>();
+            waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+
+            // Act
+            var arenaModePage = new GameSessionPage(
+                gwentStateChecker.Object,
+                waitingService.Object
+                , new Game(new Deck("sdf"), new User("sdf")));
+
+            // Assert
+            Assert.IsNotNull(arenaModePage);
         }
     }
 }

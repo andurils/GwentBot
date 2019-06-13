@@ -24,12 +24,20 @@ namespace GwentBot.PageObjects
 
         internal GameSessionPage EndMulligan()
         {
-            AutoItX.MouseClick("left", 375, 451);
-            do
+            if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                GameSessionStates.OpponentSurrenderedMessageBox)
             {
+                return new GameSessionPage(gwentStateChecker, waitingService, game);
+            }
+
+            AutoItX.MouseClick("left", 375, 451);
+            for (int tick = 0; tick < 30; tick++)
+            {
+                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                   GameSessionStates.EndMulliganMessageBox)
+                    break;
                 waitingService.Wait(1);
-            } while (gwentStateChecker.GetCurrentGameSessionStates() !=
-                GameSessionStates.EndMulliganMessageBox);
+            }
             AutoItX.Send("{ENTER}");
             return new GameSessionPage(gwentStateChecker, waitingService, game);
         }
@@ -109,6 +117,7 @@ namespace GwentBot.PageObjects
                 if (gwentStateChecker.GetCurrentGameSessionStates() ==
                     GameSessionStates.SessionPageOpen)
                     break;
+                waitingService.Wait(1);
             }
 
             do

@@ -402,6 +402,23 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GlobalGameStates.GameModesTab, result);
         }
 
+        [DataTestMethod]
+        [DataRow(@"ComputerVision\GlobalMessageBoxes\ConnectionLostSrc.png")]
+        [DataRow(@"ComputerVision\GlobalMessageBoxes\ErrorConnectingToServiceSrc.png")]
+        [DataRow(@"ComputerVision\GlobalMessageBoxes\ErrorSearchingOpponentSrc.png")]
+        public void GetCurrentGlobalGameStates_GlobalMessageBoxesSrcs_IdentifierGameModesTab(string srcPath)
+        {
+            //arrage
+            var gameScreenshotPath = srcPath;
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalGameStates();
+
+            //assert
+            Assert.AreNotEqual(GlobalGameStates.GameModesTab, result);
+        }
+
         [TestMethod]
         public void GetCurrentGlobalGameStates_HeavyLoadingSrc_IdentifierHeavyLoading()
         {
