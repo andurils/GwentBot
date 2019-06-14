@@ -3,6 +3,7 @@ using GwentBot.PageObjects;
 using GwentBot.PageObjects.SupportObjects;
 using System;
 using System.Threading.Tasks;
+using GwentBot.Model;
 using GwentBot.StateAbstractions;
 
 namespace GwentBot
@@ -38,6 +39,28 @@ namespace GwentBot
 
                                 pageFactory
                                     .CheckAndClearOpponentSurrenderedMessageBox();
+
+                                var gameSess = cv.GetCurrentGameSessionStates();
+                                GameStatusChanged?.Invoke(gameSess.ToString());
+                                if (gameSess != GameSessionStates.Unknown)
+                                {
+                                    GameStatusChanged?.Invoke("Switch");
+                                    switch (gameSess)
+                                    {
+                                        case GameSessionStates.SessionPageOpen:
+                                            new GameSessionPage(cv, new DefaultWaitingService(),
+                                                    new Game(new Deck(""), new User("")))
+                                                .GiveUp()
+                                                .ClosePageStatistics();
+                                            break;
+
+                                        case GameSessionStates.MatchResultsScreen:
+                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(),
+                                                    new Game(new Deck(""), new User("")))
+                                                .ClosePageStatistics();
+                                            break;
+                                    }
+                                }
                             }
 
                             var gameModes = new GameModesPage(cv, new DefaultWaitingService())
