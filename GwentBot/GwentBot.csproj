@@ -115,6 +115,12 @@
     <Content Include="ComputerVision\PatternsForCV\FriendlyGameStartStates\WaitingReadinessOpponent-Text.tif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionExceptionMessageBoxes\AfkGameLost-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\PatternsForCV\GameSessionExceptionMessageBoxes\LocalClientProblem-Text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\PatternsForCV\GameSessionStates\EndMulliganMessageBox-Buttons.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

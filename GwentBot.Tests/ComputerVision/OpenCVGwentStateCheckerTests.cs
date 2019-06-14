@@ -731,5 +731,51 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         #endregion GlobalMessageBoxes Checks
+
+        #region GameSessionExceptionMessageBoxes
+
+        [TestMethod]
+        public void GetCurrentGameSessionExceptionMessageBoxes_AfkGameLostSrc_IdentifierAfkGameLost()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionExceptionMessageBoxes\AfkGameLostSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionExceptionMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GameSessionExceptionMessageBoxes.AfkGameLost, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGameSessionExceptionMessageBoxes_AlwaysUnknownSrc_IdentifierNoMessageBoxes()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\TestSrcImg\AlwaysUnknownSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionExceptionMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GameSessionExceptionMessageBoxes.NoMessageBoxes, result);
+        }
+
+        [TestMethod]
+        public void GetCurrentGameSessionExceptionMessageBoxes_LocalClientProblemSrc_LocalClientProblem()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GameSessionExceptionMessageBoxes\LocalClientProblemSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGameSessionExceptionMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GameSessionExceptionMessageBoxes.LocalClientProblem, result);
+        }
+
+        #endregion GameSessionExceptionMessageBoxes
     }
 }

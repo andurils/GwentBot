@@ -40,6 +40,9 @@ namespace GwentBot
                                 pageFactory
                                     .CheckAndClearOpponentSurrenderedMessageBox();
 
+                                pageFactory
+                                    .CheckAndClearGameSessionExceptionMessageBoxes();
+
                                 var gameSess = cv.GetCurrentGameSessionStates();
                                 GameStatusChanged?.Invoke(gameSess.ToString());
                                 if (gameSess != GameSessionStates.Unknown)
@@ -55,6 +58,12 @@ namespace GwentBot
                                             break;
 
                                         case GameSessionStates.MatchResultsScreen:
+                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(),
+                                                    new Game(new Deck(""), new User("")))
+                                                .ClosePageStatistics();
+                                            break;
+
+                                        case GameSessionStates.MatchRewardsScreen:
                                             new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(),
                                                     new Game(new Deck(""), new User("")))
                                                 .ClosePageStatistics();

@@ -19,6 +19,13 @@ namespace GwentBot.StateAbstractions
         Unknown,
     }
 
+    internal enum GameSessionExceptionMessageBoxes
+    {
+        AfkGameLost,
+        LocalClientProblem,
+        NoMessageBoxes
+    }
+
     internal enum GameSessionStates
     {
         SearchRival,
@@ -76,6 +83,8 @@ namespace GwentBot.StateAbstractions
         CoinTossStates GetCurrentCoinTossStates();
 
         FriendlyGameStartStates GetCurrentFriendlyGameStartStates();
+
+        GameSessionExceptionMessageBoxes GetCurrentGameSessionExceptionMessageBoxes();
 
         GameSessionStates GetCurrentGameSessionStates();
 

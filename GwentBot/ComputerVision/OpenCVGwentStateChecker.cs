@@ -61,6 +61,25 @@ namespace GwentBot.ComputerVision
             return FriendlyGameStartStates.Unknown;
         }
 
+        public GameSessionExceptionMessageBoxes GetCurrentGameSessionExceptionMessageBoxes()
+        {
+            using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())
+            {
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionExceptionMessageBoxes\LocalClientProblem-Text.png",
+                    new Rect(270, 180, 340, 50)))
+                    return GameSessionExceptionMessageBoxes.LocalClientProblem;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GameSessionExceptionMessageBoxes\AfkGameLost-Text.png",
+                    new Rect(270, 180, 340, 50)))
+                    return GameSessionExceptionMessageBoxes.AfkGameLost;
+            }
+            return GameSessionExceptionMessageBoxes.NoMessageBoxes;
+        }
+
         public GameSessionStates GetCurrentGameSessionStates()
         {
             using (Mat gameScreen = ScreenShotCreator.GetGameScreenshot().ToMat())

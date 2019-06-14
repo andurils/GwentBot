@@ -23,8 +23,21 @@ namespace GwentBot.PageObjects
 
         internal GameModesPage ClosePageStatistics()
         {
-            game.MatchResultsScreenBitmap = gwentStateChecker.GetGameScreenshotBitmap();
-            ClickNextButton();
+            var resultsPage = gwentStateChecker.GetCurrentGameSessionStates();
+            switch (resultsPage)
+            {
+                case GameSessionStates.MatchResultsScreen:
+                    game.MatchResultsScreenBitmap = gwentStateChecker.GetGameScreenshotBitmap();
+                    ClickNextButton();
+                    break;
+
+                case GameSessionStates.MatchRewardsScreen:
+                    game.MatchRewardsScreenBitmap = gwentStateChecker.GetGameScreenshotBitmap();
+                    SaveLogExpImage(game.MatchRewardsScreenBitmap);
+                    ClickNextButton();
+                    return new GameModesPage(gwentStateChecker, waitingService);
+            }
+
             bool? onlineGame = null;
             for (int tick = 0; tick < 10; tick++)
             {
@@ -62,7 +75,9 @@ namespace GwentBot.PageObjects
         protected override bool VerifyingPage()
         {
             return (gwentStateChecker.GetCurrentGameSessionStates() ==
-                    GameSessionStates.MatchResultsScreen);
+                    GameSessionStates.MatchResultsScreen) ||
+                   (gwentStateChecker.GetCurrentGameSessionStates() ==
+                   GameSessionStates.MatchRewardsScreen);
         }
 
         private void ClickNextButton()

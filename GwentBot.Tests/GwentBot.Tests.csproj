@@ -75,6 +75,7 @@
     <Compile Include="PageObjects\FriendlyGameMatchSettingsPageTests.cs" />
     <Compile Include="PageObjects\GameSessionPageTests.cs" />
     <Compile Include="PageObjects\GameModesPageTests.cs" />
+    <Compile Include="PageObjects\MatchResultsRewardsScreenPageTests.cs" />
     <Compile Include="PageObjects\MulliganPageTests.cs" />
     <Compile Include="PageObjects\RewardsTabPageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +158,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GameModesTab\SkelligeTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionExceptionMessageBoxes\AfkGameLostSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\GameSessionExceptionMessageBoxes\LocalClientProblemSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GameSessionStates\EndMulliganMessageBoxSrc.png">

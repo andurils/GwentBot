@@ -22,6 +22,18 @@ namespace GwentBot.PageObjects.SupportObjects
             AutoItX.AutoItSetOption("PixelCoordMode", 2);
         }
 
+        internal void CheckAndClearGameSessionExceptionMessageBoxes()
+        {
+            if (gwentStateChecker.GetCurrentGameSessionExceptionMessageBoxes() !=
+                GameSessionExceptionMessageBoxes.NoMessageBoxes)
+            {
+                AutoItX.MouseClick("left", 427, 275);
+                new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService,
+                        new Game(new Deck("empty"), new User("empty")))
+                    .ClosePageStatistics();
+            }
+        }
+
         internal void CheckAndClearGlobalMessageBoxes()
         {
             var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
