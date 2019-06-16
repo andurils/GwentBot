@@ -304,10 +304,6 @@ namespace GwentBot.ComputerVision
                 var originalImgRoi = new Mat(localGameScreen, rectRoi);
                 var editImgRoi = GetNoiseFreeText(originalImgRoi, 3);
 
-                //TODO: Удалить камментарий
-                //using (new Window(editImgRoi))
-                //    Cv2.WaitKey();
-
                 var tempPos = PatternSearch(
                     editImgRoi,
                     new Mat(@"ComputerVision\PatternsForCV\GameSessionStates\SearchRival-Text.png"));

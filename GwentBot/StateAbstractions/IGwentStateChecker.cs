@@ -16,7 +16,7 @@ namespace GwentBot.StateAbstractions
         MatchSettings,
         CancelGameMessageBox,
         WaitingReadinessOpponent,
-        Unknown,
+        Unknown
     }
 
     internal enum GameSessionExceptionMessageBoxes
@@ -50,7 +50,7 @@ namespace GwentBot.StateAbstractions
         HeavyLoading,
         GameModesTab,
         MainMenu,
-        Unknown,
+        Unknown
     }
 
     internal enum GlobalMessageBoxes
@@ -74,7 +74,7 @@ namespace GwentBot.StateAbstractions
     {
         GameLoadingScreen,
         WelcomeScreen,
-        Unknown,
+        Unknown
     }
 
     internal interface IGwentStateChecker

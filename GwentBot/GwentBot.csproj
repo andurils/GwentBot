@@ -68,6 +68,8 @@
     <Compile Include="Bot.cs" />
     <Compile Include="ComputerVision\AnyWindowScreenShotCreator.cs" />
     <Compile Include="ComputerVision\GwentWindowScreenShotCreator.cs" />
+    <Compile Include="GameInput\AutoitInputDeviceEmulator.cs" />
+    <Compile Include="GameInput\IInputDeviceEmulator.cs" />
     <Compile Include="Model\Deck.cs" />
     <Compile Include="Model\Game.cs" />
     <Compile Include="Model\User.cs" />
