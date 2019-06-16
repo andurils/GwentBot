@@ -730,6 +730,20 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GlobalMessageBoxes.ErrorSearchingOpponent, result);
         }
 
+        [TestMethod]
+        public void GetCurrentGlobalMessageBoxes_ServerOverloadedSrc_IdentifierServerOverloaded()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalMessageBoxes\ServerOverloadedSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GlobalMessageBoxes.ServerOverloaded, result);
+        }
+
         #endregion GlobalMessageBoxes Checks
 
         #region GameSessionExceptionMessageBoxes

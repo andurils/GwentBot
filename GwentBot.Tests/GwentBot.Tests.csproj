@@ -265,6 +265,9 @@
     <Content Include="ComputerVision\GlobalMessageBoxes\ErrorSearchingOpponentSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\GlobalMessageBoxes\ServerOverloadedSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\Notifications\FriendlyDuelSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

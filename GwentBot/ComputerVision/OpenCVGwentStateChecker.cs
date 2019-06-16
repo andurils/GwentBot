@@ -208,6 +208,12 @@ namespace GwentBot.ComputerVision
                     @"ComputerVision\PatternsForCV\GlobalMessageBoxes\ErrorSearchingOpponent-Text.png",
                     new Rect(300, 180, 270, 120)))
                     return GlobalMessageBoxes.ErrorSearchingOpponent;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalMessageBoxes\ServerOverloaded-Text.png",
+                    new Rect(310, 170, 240, 130)))
+                    return GlobalMessageBoxes.ServerOverloaded;
             }
 
             return GlobalMessageBoxes.NoMessageBoxes;

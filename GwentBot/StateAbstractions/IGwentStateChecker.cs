@@ -58,6 +58,7 @@ namespace GwentBot.StateAbstractions
         ErrorSearchingOpponent,
         ErrorConnectingToService,
         ConnectionLost,
+        ServerOverloaded,
         NoMessageBoxes
     }
 
