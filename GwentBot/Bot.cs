@@ -43,13 +43,10 @@ namespace GwentBot
                                 pageFactory
                                     .CheckAndClearGameSessionExceptionMessageBoxes();
 
-                                pageFactory.StartGame().GotoGameModesPage();
-
                                 var gameSess = cv.GetCurrentGameSessionStates();
                                 GameStatusChanged?.Invoke(gameSess.ToString());
                                 if (gameSess != GameSessionStates.Unknown)
                                 {
-                                    GameStatusChanged?.Invoke("Switch");
                                     switch (gameSess)
                                     {
                                         case GameSessionStates.SessionPageOpen:
@@ -72,6 +69,7 @@ namespace GwentBot
                                             break;
                                     }
                                 }
+                                pageFactory.StartGame()?.GotoGameModesPage();
                             }
 
                             var gameModes = new GameModesPage(cv, new DefaultWaitingService())

@@ -60,7 +60,7 @@ namespace GwentBot.PageObjects.SupportObjects
         {
             if (gwentStateChecker.GetCurrentStartGameStates() !=
                StartGameStates.GameLoadingScreen)
-                throw new Exception($"Это не страница {GetType()}");
+                return null;
 
             return new GameLoadingScreenPage(gwentStateChecker, waitingService)
                 .GotoWelcomeScreen()
