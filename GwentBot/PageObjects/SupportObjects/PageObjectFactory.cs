@@ -1,4 +1,5 @@
-﻿using AutoIt;
+﻿using System;
+using AutoIt;
 using GwentBot.ComputerVision;
 using GwentBot.Model;
 using GwentBot.PageObjects.Abstract;
@@ -53,6 +54,17 @@ namespace GwentBot.PageObjects.SupportObjects
                     new Game(new Deck("empty"), new User("empty")))
                     .ClosePageStatistics();
             }
+        }
+
+        internal MainMenuPage StartGame()
+        {
+            if (gwentStateChecker.GetCurrentStartGameStates() !=
+               StartGameStates.GameLoadingScreen)
+                throw new Exception($"Это не страница {GetType()}");
+
+            return new GameLoadingScreenPage(gwentStateChecker, waitingService)
+                .GotoWelcomeScreen()
+                .GotoMainMenu();
         }
     }
 }

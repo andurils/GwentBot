@@ -43,6 +43,8 @@ namespace GwentBot
                                 pageFactory
                                     .CheckAndClearGameSessionExceptionMessageBoxes();
 
+                                pageFactory.StartGame().GotoGameModesPage();
+
                                 var gameSess = cv.GetCurrentGameSessionStates();
                                 GameStatusChanged?.Invoke(gameSess.ToString());
                                 if (gameSess != GameSessionStates.Unknown)

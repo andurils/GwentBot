@@ -77,6 +77,7 @@
     <Compile Include="PageObjects\ArenaModePage.cs" />
     <Compile Include="PageObjects\Elements\NotificationsElement.cs" />
     <Compile Include="PageObjects\FriendlyGameMatchSettingsPage.cs" />
+    <Compile Include="PageObjects\GameLoadingScreenPage.cs" />
     <Compile Include="PageObjects\GameModesPage.cs" />
     <Compile Include="PageObjects\GameSessionPage.cs" />
     <Compile Include="PageObjects\MainMenuPage.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="PageObjects\MulliganPage.cs" />
     <Compile Include="PageObjects\RewardsTabPage.cs" />
     <Compile Include="PageObjects\SupportObjects\DefaultWaitingService.cs" />
+    <Compile Include="PageObjects\WelcomeScreen.cs" />
     <Compile Include="StateAbstractions\IGwentStateChecker.cs" />
     <Compile Include="ComputerVision\IWindowScreenShotCreator.cs" />
     <Compile Include="ComputerVision\OpenCvGwentStateChecker.cs" />
