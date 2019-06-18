@@ -19,15 +19,15 @@ namespace GwentBot.GameInput
 
         public void MouseClick(int x, int y, int numClicks = 1, string button = "left")
         {
-            int randDelley = new Random().Next(100, 250);
+            var randDelley = new Random();
             int randSpeed = new Random().Next(8, 12);
 
             MouseMove(x, y);
-            Thread.Sleep(randDelley);
+            Thread.Sleep(randDelley.Next(100, 250));
             AutoItX.MouseClick(button, x, y, numClicks, randSpeed);
-            Thread.Sleep(randDelley);
+            Thread.Sleep(randDelley.Next(300, 600));
 
-            int randX = new Random().Next(300, 600);
+            int randX = new Random().Next(327, 527);
             int randY = new Random().Next(500, 530);
             MouseMove(randX, randY);
         }

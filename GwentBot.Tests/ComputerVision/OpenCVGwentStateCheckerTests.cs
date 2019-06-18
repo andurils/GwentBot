@@ -689,6 +689,20 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         [TestMethod]
+        public void GetCurrentGlobalMessageBoxes_ConnectionErrorSrc_IdentifierConnectionError()
+        {
+            //arrage
+            var gameScreenshotPath = @"ComputerVision\GlobalMessageBoxes\ConnectionErrorSrc.png";
+            var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
+
+            //act
+            var result = stateChecker.GetCurrentGlobalMessageBoxes();
+
+            //assert
+            Assert.AreEqual(GlobalMessageBoxes.ConnectionError, result);
+        }
+
+        [TestMethod]
         public void GetCurrentGlobalMessageBoxes_ConnectionLostSrc_IdentifierConnectionLost()
         {
             //arrage

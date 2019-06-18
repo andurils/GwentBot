@@ -214,6 +214,12 @@ namespace GwentBot.ComputerVision
                     @"ComputerVision\PatternsForCV\GlobalMessageBoxes\ServerOverloaded-Text.png",
                     new Rect(310, 170, 240, 130)))
                     return GlobalMessageBoxes.ServerOverloaded;
+
+                if (GenericCheck(
+                    gameScreen,
+                    @"ComputerVision\PatternsForCV\GlobalMessageBoxes\ConnectionError-Text.png",
+                    new Rect(310, 170, 240, 130)))
+                    return GlobalMessageBoxes.ConnectionError;
             }
 
             return GlobalMessageBoxes.NoMessageBoxes;

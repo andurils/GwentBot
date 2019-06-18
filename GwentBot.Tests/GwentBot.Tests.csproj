@@ -256,6 +256,9 @@
     <Content Include="ComputerVision\FriendlyGameStartStates\CancelGameMessageBoxSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\GlobalMessageBoxes\ConnectionErrorSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ComputerVision\GlobalMessageBoxes\ConnectionLostSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
