@@ -1,6 +1,6 @@
 ﻿using System;
-using AutoIt;
 using GwentBot.ComputerVision;
+using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
@@ -10,17 +10,16 @@ namespace GwentBot.PageObjects.SupportObjects
     internal class PageObjectFactory
     {
         protected readonly IGwentStateChecker gwentStateChecker;
+        protected readonly IInputDeviceEmulator inputEmulator;
         protected readonly IWaitingService waitingService;
 
         public PageObjectFactory()
         {
             var screenShotCreator = new GwentWindowScreenShotCreator();
             gwentStateChecker = new OpenCvGwentStateChecker(screenShotCreator);
+            inputEmulator = new AutoitInputDeviceEmulator();
 
             this.waitingService = new DefaultWaitingService();
-
-            AutoItX.AutoItSetOption("MouseCoordMode", 2);
-            AutoItX.AutoItSetOption("PixelCoordMode", 2);
         }
 
         internal void CheckAndClearGameSessionExceptionMessageBoxes()
@@ -28,8 +27,8 @@ namespace GwentBot.PageObjects.SupportObjects
             if (gwentStateChecker.GetCurrentGameSessionExceptionMessageBoxes() !=
                 GameSessionExceptionMessageBoxes.NoMessageBoxes)
             {
-                AutoItX.MouseClick("left", 427, 275);
-                new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService,
+                inputEmulator.MouseClick(427, 275);
+                new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService, inputEmulator,
                         new Game(new Deck("empty"), new User("empty")))
                     .ClosePageStatistics();
             }
@@ -40,7 +39,7 @@ namespace GwentBot.PageObjects.SupportObjects
             var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
             if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
             {
-                AutoItX.MouseClick("left", 427, 275);
+                inputEmulator.MouseClick(427, 275);
             }
         }
 
@@ -49,8 +48,8 @@ namespace GwentBot.PageObjects.SupportObjects
             if (gwentStateChecker.GetCurrentGameSessionStates() ==
                 GameSessionStates.OpponentSurrenderedMessageBox)
             {
-                AutoItX.MouseClick("left", 427, 275);
-                new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService,
+                inputEmulator.MouseClick(427, 275);
+                new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService, inputEmulator,
                     new Game(new Deck("empty"), new User("empty")))
                     .ClosePageStatistics();
             }
@@ -62,7 +61,7 @@ namespace GwentBot.PageObjects.SupportObjects
                StartGameStates.GameLoadingScreen)
                 return null;
 
-            return new GameLoadingScreenPage(gwentStateChecker, waitingService)
+            return new GameLoadingScreenPage(gwentStateChecker, waitingService, inputEmulator)
                 .GotoWelcomeScreen()
                 .GotoMainMenu();
         }

@@ -1,7 +1,7 @@
-﻿using AutoIt;
-using GwentBot.PageObjects.Abstract;
+﻿using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using System;
+using GwentBot.GameInput;
 using GwentBot.Model;
 
 namespace GwentBot.PageObjects
@@ -9,33 +9,35 @@ namespace GwentBot.PageObjects
     internal class FriendlyGameMatchSettingsPage : PageObject
     {
         internal FriendlyGameMatchSettingsPage(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator) :
+            base(stateChecker, waitingService, inputEmulator)
         {
         }
 
         internal MainMenuPage CancelFriendlyGame()
         {
-            AutoItX.MouseClick("left", 428, 457);
+            inputEmulator.MouseClick(428, 457);
             do
             {
                 waitingService.Wait(1);
-            } while (gwentStateChecker.GetCurrentFriendlyGameStartStates() !=
+            } while (stateChecker.GetCurrentFriendlyGameStartStates() !=
                 FriendlyGameStartStates.CancelGameMessageBox);
-            AutoItX.Send("{ENTER}");
-            return new MainMenuPage(gwentStateChecker, waitingService);
+            inputEmulator.Send("{ENTER}");
+            return new MainMenuPage(stateChecker, waitingService, inputEmulator);
         }
 
         internal MulliganPage StartGame()
         {
-            AutoItX.MouseClick("left", 430, 201);
+            inputEmulator.MouseClick(430, 201);
             Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
-            return new MulliganPage(gwentStateChecker, waitingService, game);
+            return new MulliganPage(stateChecker, waitingService, inputEmulator, game);
         }
 
         protected override bool VerifyingPage()
         {
-            return gwentStateChecker.GetCurrentFriendlyGameStartStates() ==
+            return stateChecker.GetCurrentFriendlyGameStartStates() ==
                 FriendlyGameStartStates.MatchSettings;
         }
 
@@ -44,7 +46,7 @@ namespace GwentBot.PageObjects
             do
             {
                 waitingService.Wait(1);
-            } while (gwentStateChecker.GetCurrentFriendlyGameStartStates() ==
+            } while (stateChecker.GetCurrentFriendlyGameStartStates() ==
             FriendlyGameStartStates.LoadingMatchSettings);
 
             base.WaitingGameReadiness();

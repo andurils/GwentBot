@@ -1,4 +1,4 @@
-﻿using AutoIt;
+﻿using GwentBot.GameInput;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 
@@ -7,26 +7,28 @@ namespace GwentBot.PageObjects.Elements
     internal class NotificationsElement : PageObject
     {
         internal NotificationsElement(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator) :
+            base(stateChecker, waitingService, inputEmulator)
         {
         }
 
         internal FriendlyGameMatchSettingsPage AcceptFriendlyDuel()
         {
             AcceptAnyNotification();
-            return new FriendlyGameMatchSettingsPage(gwentStateChecker, waitingService);
+            return new FriendlyGameMatchSettingsPage(stateChecker, waitingService, inputEmulator);
         }
 
         internal RewardsTabPage AcceptRewards()
         {
             AcceptAnyNotification();
-            return new RewardsTabPage(gwentStateChecker, waitingService);
+            return new RewardsTabPage(stateChecker, waitingService, inputEmulator);
         }
 
         internal Notifications CheckReceivedNotifications()
         {
-            return gwentStateChecker.GetCurrentNotifications();
+            return stateChecker.GetCurrentNotifications();
         }
 
         protected override bool VerifyingPage()
@@ -36,7 +38,7 @@ namespace GwentBot.PageObjects.Elements
 
         private void AcceptAnyNotification()
         {
-            AutoItX.MouseClick("left", 823, 66);
+            inputEmulator.MouseClick(823, 66);
         }
     }
 }

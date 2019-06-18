@@ -1,4 +1,4 @@
-﻿using AutoIt;
+﻿using GwentBot.GameInput;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 
@@ -7,20 +7,22 @@ namespace GwentBot.PageObjects
     internal class ArenaModePage : PageObject
     {
         public ArenaModePage(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator) :
+            base(stateChecker, waitingService, inputEmulator)
         {
         }
 
         internal MainMenuPage GotoMainMenuPage()
         {
-            AutoItX.MouseClick("left", 428, 457);
-            return new MainMenuPage(gwentStateChecker, waitingService);
+            inputEmulator.MouseClick(428, 457);
+            return new MainMenuPage(stateChecker, waitingService, inputEmulator);
         }
 
         protected override bool VerifyingPage()
         {
-            return gwentStateChecker.GetCurrentGlobalGameStates() ==
+            return stateChecker.GetCurrentGlobalGameStates() ==
                 GlobalGameStates.ArenaModeTab;
         }
     }

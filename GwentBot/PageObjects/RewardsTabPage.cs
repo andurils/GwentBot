@@ -1,4 +1,4 @@
-﻿using AutoIt;
+﻿using GwentBot.GameInput;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 
@@ -7,20 +7,22 @@ namespace GwentBot.PageObjects
     internal class RewardsTabPage : PageObject
     {
         internal RewardsTabPage(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator) :
+            base(stateChecker, waitingService, inputEmulator)
         {
         }
 
         internal MainMenuPage CloseRewardsTab()
         {
-            AutoItX.MouseClick("left", 427, 453);
-            return new MainMenuPage(gwentStateChecker, waitingService);
+            inputEmulator.MouseClick(427, 453);
+            return new MainMenuPage(stateChecker, waitingService, inputEmulator);
         }
 
         protected override bool VerifyingPage()
         {
-            return gwentStateChecker.GetCurrentNotifications() ==
+            return stateChecker.GetCurrentNotifications() ==
                 Notifications.RewardsTab;
         }
     }

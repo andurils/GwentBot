@@ -4,6 +4,7 @@ using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using GwentBot.GameInput;
 
 namespace GwentBot.Tests.PageObjects
 {
@@ -23,9 +24,12 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
 
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
+
             var mainMenuPage = new MainMenuPage(
                 gwentStateChecker.Object,
-                waitingService.Object);
+                waitingService.Object,
+                inputEmulator.Object);
             // Act
             Notifications result = mainMenuPage.Notifications
                 .CheckReceivedNotifications();
@@ -54,10 +58,13 @@ namespace GwentBot.Tests.PageObjects
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
             // Act
             new MainMenuPage(
                 gwentStateChecker.Object,
-                waitingService.Object);
+                waitingService.Object,
+                inputEmulator.Object);
             // Assert  - Expects exception
         }
 
@@ -70,7 +77,10 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
 
-            return new MainMenuPage(gwentStateChecker.Object, waitingService.Object);
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
+
+            return new MainMenuPage(
+                gwentStateChecker.Object, waitingService.Object, inputEmulator.Object);
         }
     }
 }

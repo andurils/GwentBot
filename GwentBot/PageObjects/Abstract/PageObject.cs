@@ -1,24 +1,31 @@
 ﻿using AutoIt;
 using GwentBot.StateAbstractions;
 using System;
+using GwentBot.GameInput;
 
 namespace GwentBot.PageObjects.Abstract
 {
     internal abstract class PageObject
     {
-        protected readonly IGwentStateChecker gwentStateChecker;
+        protected readonly IInputDeviceEmulator inputEmulator;
+        protected readonly IGwentStateChecker stateChecker;
         protected readonly IWaitingService waitingService;
 
         /// <summary>
         /// Ожидает валидного состояния игры 30 секунд. Если состояние валидно создает новый объект.
         /// Если 30 секунд состояние игры не валидно выбрасывает исключение.
         /// </summary>
-        /// <param name="gwentStateChecker">Любой класс реализующий IGwentStateChecker</param>
+        /// <param name="stateChecker">Любой класс реализующий IGwentStateChecker</param>
         /// <param name="waitingService">Класс инкапсулирующий метод ожидания</param>
-        public PageObject(IGwentStateChecker gwentStateChecker, IWaitingService waitingService)
+        /// <param name="inputEmul">Класс эмуляции устройств ввода</param>
+        public PageObject(
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator)
         {
-            this.gwentStateChecker = gwentStateChecker;
+            this.stateChecker = stateChecker;
             this.waitingService = waitingService;
+            this.inputEmulator = inputEmulator;
 
             WaitingGameReadiness();
 

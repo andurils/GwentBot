@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoIt;
+using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
@@ -15,8 +15,11 @@ namespace GwentBot.PageObjects
         private bool? iWonCoin = null;
 
         internal MulliganPage(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService, Game game) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator,
+            Game game) :
+            base(stateChecker, waitingService, inputEmulator)
         {
             this.game = game;
             game.IWonCoin = iWonCoin;
@@ -24,33 +27,33 @@ namespace GwentBot.PageObjects
 
         internal GameSessionPage EndMulligan()
         {
-            if (gwentStateChecker.GetCurrentGameSessionStates() ==
+            if (stateChecker.GetCurrentGameSessionStates() ==
                 GameSessionStates.OpponentSurrenderedMessageBox)
             {
-                return new GameSessionPage(gwentStateChecker, waitingService, game);
+                return new GameSessionPage(stateChecker, waitingService, inputEmulator, game);
             }
 
-            AutoItX.MouseClick("left", 375, 451);
+            inputEmulator.MouseClick(375, 451);
             for (int tick = 0; tick < 30; tick++)
             {
-                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                if (stateChecker.GetCurrentGameSessionStates() ==
                    GameSessionStates.EndMulliganMessageBox)
                     break;
                 waitingService.Wait(1);
             }
-            AutoItX.Send("{ENTER}");
-            return new GameSessionPage(gwentStateChecker, waitingService, game);
+            inputEmulator.Send("{ENTER}");
+            return new GameSessionPage(stateChecker, waitingService, inputEmulator, game);
         }
 
         internal GameSessionPage HideMulganPage()
         {
-            AutoItX.MouseClick("left", 484, 451);
-            return new GameSessionPage(gwentStateChecker, waitingService, game);
+            inputEmulator.MouseClick(484, 451);
+            return new GameSessionPage(stateChecker, waitingService, inputEmulator, game);
         }
 
         protected override bool VerifyingPage()
         {
-            return gwentStateChecker
+            return stateChecker
                 .GetCurrentGameSessionStates() == GameSessionStates.Mulligan;
         }
 
@@ -58,7 +61,7 @@ namespace GwentBot.PageObjects
         {
             for (int tick = 0; tick < 5; tick++)
             {
-                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                if (stateChecker.GetCurrentGameSessionStates() ==
                    GameSessionStates.SearchRival)
                     break;
             }
@@ -66,18 +69,18 @@ namespace GwentBot.PageObjects
             do
             {
                 waitingService.Wait(1);
-            } while (gwentStateChecker.GetCurrentGameSessionStates() ==
+            } while (stateChecker.GetCurrentGameSessionStates() ==
                      GameSessionStates.SearchRival);
 
             for (int tick = 0; tick < 15; tick++)
             {
-                var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
+                var globalMessageBoxes = stateChecker.GetCurrentGlobalMessageBoxes();
                 if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
                 {
                     throw new Exception($"Это не страница {GetType()}");
                 }
 
-                if (gwentStateChecker.GetCurrentGlobalGameStates() ==
+                if (stateChecker.GetCurrentGlobalGameStates() ==
                    GlobalGameStates.HeavyLoading)
                     break;
                 waitingService.Wait(1);
@@ -86,18 +89,18 @@ namespace GwentBot.PageObjects
             do
             {
                 waitingService.Wait(1);
-            } while (gwentStateChecker.GetCurrentGlobalGameStates() ==
+            } while (stateChecker.GetCurrentGlobalGameStates() ==
                      GlobalGameStates.HeavyLoading);
 
             for (int tick = 0; tick < 15; tick++)
             {
-                var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
+                var globalMessageBoxes = stateChecker.GetCurrentGlobalMessageBoxes();
                 if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
                 {
                     throw new Exception($"Это не страница {GetType()}");
                 }
 
-                switch (gwentStateChecker.GetCurrentCoinTossStates())
+                switch (stateChecker.GetCurrentCoinTossStates())
                 {
                     case CoinTossStates.CoinWon:
                         iWonCoin = true;
@@ -114,7 +117,7 @@ namespace GwentBot.PageObjects
 
             for (int tick = 0; tick < 5; tick++)
             {
-                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                if (stateChecker.GetCurrentGameSessionStates() ==
                     GameSessionStates.SessionPageOpen)
                     break;
                 waitingService.Wait(1);
@@ -122,14 +125,14 @@ namespace GwentBot.PageObjects
 
             do
             {
-                var globalMessageBoxes = gwentStateChecker.GetCurrentGlobalMessageBoxes();
+                var globalMessageBoxes = stateChecker.GetCurrentGlobalMessageBoxes();
                 if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
                 {
                     throw new Exception($"Это не страница {GetType()}");
                 }
 
                 waitingService.Wait(1);
-            } while (gwentStateChecker.GetCurrentGameSessionStates() ==
+            } while (stateChecker.GetCurrentGameSessionStates() ==
                      GameSessionStates.SessionPageOpen);
 
             base.WaitingGameReadiness(seconds);

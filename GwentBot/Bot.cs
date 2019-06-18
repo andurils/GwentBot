@@ -3,6 +3,7 @@ using GwentBot.PageObjects;
 using GwentBot.PageObjects.SupportObjects;
 using System;
 using System.Threading.Tasks;
+using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.StateAbstractions;
 
@@ -20,6 +21,7 @@ namespace GwentBot
 
             var screenShotCreator = new GwentWindowScreenShotCreator();
             var cv = new OpenCvGwentStateChecker(screenShotCreator);
+            var inputEmulator = new AutoitInputDeviceEmulator();
 
             var pageFactory = new PageObjectFactory();
 
@@ -50,20 +52,20 @@ namespace GwentBot
                                     switch (gameSess)
                                     {
                                         case GameSessionStates.SessionPageOpen:
-                                            new GameSessionPage(cv, new DefaultWaitingService(),
+                                            new GameSessionPage(cv, new DefaultWaitingService(), inputEmulator,
                                                     new Game(new Deck(""), new User("")))
                                                 .GiveUp()
                                                 .ClosePageStatistics();
                                             break;
 
                                         case GameSessionStates.MatchResultsScreen:
-                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(),
+                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(), inputEmulator,
                                                     new Game(new Deck(""), new User("")))
                                                 .ClosePageStatistics();
                                             break;
 
                                         case GameSessionStates.MatchRewardsScreen:
-                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(),
+                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(), inputEmulator,
                                                     new Game(new Deck(""), new User("")))
                                                 .ClosePageStatistics();
                                             break;
@@ -72,7 +74,7 @@ namespace GwentBot
                                 pageFactory.StartGame()?.GotoGameModesPage();
                             }
 
-                            var gameModes = new GameModesPage(cv, new DefaultWaitingService())
+                            var gameModes = new GameModesPage(cv, new DefaultWaitingService(), inputEmulator)
                                 .GotoSeasonalGameMode()
                                 .EndMulligan()
                                 .GiveUp()

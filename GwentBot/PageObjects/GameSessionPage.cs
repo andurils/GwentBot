@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoIt;
+using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
@@ -11,8 +11,11 @@ namespace GwentBot.PageObjects
         internal readonly Game game;
 
         internal GameSessionPage(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService, Game game) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator,
+            Game game) :
+            base(stateChecker, waitingService, inputEmulator)
         {
             this.game = game;
         }
@@ -21,7 +24,7 @@ namespace GwentBot.PageObjects
         {
             get
             {
-                return gwentStateChecker.GetCurrentGameSessionStates() ==
+                return stateChecker.GetCurrentGameSessionStates() ==
                     GameSessionStates.MyTurnPlay;
             }
         }
@@ -30,17 +33,18 @@ namespace GwentBot.PageObjects
         {
             var gameSessionState = GameSessionStates.Unknown;
 
-            if (gwentStateChecker.GetCurrentGameSessionStates() ==
+            if (stateChecker.GetCurrentGameSessionStates() ==
                 GameSessionStates.OpponentSurrenderedMessageBox)
             {
-                AutoItX.MouseClick("left", 427, 275);
-                return new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService, game);
+                inputEmulator.MouseClick(427, 275);
+                return new MatchResultsRewardsScreenPage(
+                    stateChecker, waitingService, inputEmulator, game);
             }
 
             int seconds = 30;
             for (; seconds != 0; seconds--)
             {
-                gameSessionState = gwentStateChecker.GetCurrentGameSessionStates();
+                gameSessionState = stateChecker.GetCurrentGameSessionStates();
                 if ((gameSessionState == GameSessionStates.MyTurnPlay ||
                      gameSessionState == GameSessionStates.EnemyTurnPlay ||
                      gameSessionState == GameSessionStates.OpponentChangesCards))
@@ -50,13 +54,13 @@ namespace GwentBot.PageObjects
             if (seconds == 0)
                 throw new Exception($"Это не страница {GetType()}");
 
-            AutoItX.Send("{ESC}");
+            inputEmulator.Send("{ESC}");
 
             seconds = 30;
             for (; seconds != 0; seconds--)
 
             {
-                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                if (stateChecker.GetCurrentGameSessionStates() ==
                    GameSessionStates.GiveUpMessageBox)
                     break;
                 waitingService.Wait(1);
@@ -64,14 +68,15 @@ namespace GwentBot.PageObjects
             if (seconds == 0)
                 throw new Exception($"Это не страница {GetType()}");
 
-            AutoItX.Send("{ENTER}");
+            inputEmulator.Send("{ENTER}");
 
-            return new MatchResultsRewardsScreenPage(gwentStateChecker, waitingService, game);
+            return new MatchResultsRewardsScreenPage(
+                stateChecker, waitingService, inputEmulator, game);
         }
 
         protected override bool VerifyingPage()
         {
-            return gwentStateChecker.GetCurrentGameSessionStates() !=
+            return stateChecker.GetCurrentGameSessionStates() !=
                 GameSessionStates.Unknown;
         }
     }

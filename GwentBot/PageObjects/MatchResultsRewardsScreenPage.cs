@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using AutoIt;
+using GwentBot.GameInput;
 
 namespace GwentBot.PageObjects
 {
@@ -15,40 +15,43 @@ namespace GwentBot.PageObjects
         internal readonly Game game;
 
         public MatchResultsRewardsScreenPage(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService, Game game) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator,
+            Game game) :
+            base(stateChecker, waitingService, inputEmulator)
         {
             this.game = game;
         }
 
         internal GameModesPage ClosePageStatistics()
         {
-            var resultsPage = gwentStateChecker.GetCurrentGameSessionStates();
+            var resultsPage = stateChecker.GetCurrentGameSessionStates();
             switch (resultsPage)
             {
                 case GameSessionStates.MatchResultsScreen:
-                    game.MatchResultsScreenBitmap = gwentStateChecker.GetGameScreenshotBitmap();
+                    game.MatchResultsScreenBitmap = stateChecker.GetGameScreenshotBitmap();
                     ClickNextButton();
                     break;
 
                 case GameSessionStates.MatchRewardsScreen:
-                    game.MatchRewardsScreenBitmap = gwentStateChecker.GetGameScreenshotBitmap();
+                    game.MatchRewardsScreenBitmap = stateChecker.GetGameScreenshotBitmap();
                     SaveLogExpImage(game.MatchRewardsScreenBitmap);
                     ClickNextButton();
-                    return new GameModesPage(gwentStateChecker, waitingService);
+                    return new GameModesPage(stateChecker, waitingService, inputEmulator);
             }
 
             bool? onlineGame = null;
             for (int tick = 0; tick < 10; tick++)
             {
-                if (gwentStateChecker.GetCurrentGameSessionStates() ==
+                if (stateChecker.GetCurrentGameSessionStates() ==
                     GameSessionStates.MatchRewardsScreen)
                 {
                     onlineGame = true;
                     break;
                 }
 
-                if (gwentStateChecker.GetCurrentGlobalGameStates() ==
+                if (stateChecker.GetCurrentGlobalGameStates() ==
                     GlobalGameStates.HeavyLoading)
                 {
                     onlineGame = false;
@@ -60,7 +63,7 @@ namespace GwentBot.PageObjects
             switch (onlineGame)
             {
                 case true:
-                    game.MatchRewardsScreenBitmap = gwentStateChecker.GetGameScreenshotBitmap();
+                    game.MatchRewardsScreenBitmap = stateChecker.GetGameScreenshotBitmap();
                     SaveLogExpImage(game.MatchRewardsScreenBitmap);
                     ClickNextButton();
                     break;
@@ -69,20 +72,20 @@ namespace GwentBot.PageObjects
                     throw new Exception($"Это не страница {GetType()}");
             }
 
-            return new GameModesPage(gwentStateChecker, waitingService);
+            return new GameModesPage(stateChecker, waitingService, inputEmulator);
         }
 
         protected override bool VerifyingPage()
         {
-            return (gwentStateChecker.GetCurrentGameSessionStates() ==
+            return (stateChecker.GetCurrentGameSessionStates() ==
                     GameSessionStates.MatchResultsScreen) ||
-                   (gwentStateChecker.GetCurrentGameSessionStates() ==
+                   (stateChecker.GetCurrentGameSessionStates() ==
                    GameSessionStates.MatchRewardsScreen);
         }
 
         private void ClickNextButton()
         {
-            AutoItX.MouseClick("left", 427, 453);
+            inputEmulator.MouseClick(427, 453);
         }
 
         private void SaveLogExpImage(byte[] bitmapByte)

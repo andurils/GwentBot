@@ -1,4 +1,4 @@
-﻿using AutoIt;
+﻿using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
@@ -8,41 +8,43 @@ namespace GwentBot.PageObjects
     internal class GameModesPage : PageObject
     {
         public GameModesPage(
-            IGwentStateChecker gwentStateChecker, IWaitingService waitingService) :
-            base(gwentStateChecker, waitingService)
+            IGwentStateChecker stateChecker,
+            IWaitingService waitingService,
+            IInputDeviceEmulator inputEmulator) :
+            base(stateChecker, waitingService, inputEmulator)
         {
         }
 
         internal MulliganPage GotoClassicGameMode()
         {
-            AutoItX.MouseClick("left", 427, 194);
+            inputEmulator.MouseClick(427, 194);
             Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
-            return new MulliganPage(gwentStateChecker, waitingService, game);
+            return new MulliganPage(stateChecker, waitingService, inputEmulator, game);
         }
 
         internal MainMenuPage GotoMainMenuPage()
         {
-            AutoItX.MouseClick("left", 427, 453);
-            return new MainMenuPage(gwentStateChecker, waitingService);
+            inputEmulator.MouseClick(427, 453);
+            return new MainMenuPage(stateChecker, waitingService, inputEmulator);
         }
 
         internal MulliganPage GotoSeasonalGameMode()
         {
-            AutoItX.MouseClick("left", 242, 194);
+            inputEmulator.MouseClick(242, 194);
             Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
-            return new MulliganPage(gwentStateChecker, waitingService, game);
+            return new MulliganPage(stateChecker, waitingService, inputEmulator, game);
         }
 
         internal MulliganPage GotoTrainingGameMode()
         {
-            AutoItX.MouseClick("left", 616, 195);
+            inputEmulator.MouseClick(616, 195);
             Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
-            return new MulliganPage(gwentStateChecker, waitingService, game);
+            return new MulliganPage(stateChecker, waitingService, inputEmulator, game);
         }
 
         protected override bool VerifyingPage()
         {
-            return gwentStateChecker.GetCurrentGlobalGameStates() ==
+            return stateChecker.GetCurrentGlobalGameStates() ==
                 GlobalGameStates.GameModesTab;
         }
     }

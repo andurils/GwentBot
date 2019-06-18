@@ -5,6 +5,7 @@ using GwentBot.StateAbstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using GwentBot.GameInput;
 
 namespace GwentBot.Tests.PageObjects
 {
@@ -22,11 +23,14 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
 
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
+
             // Act
             var arenaModePage = new GameSessionPage(
                 gwentStateChecker.Object,
-                waitingService.Object
-                , new Game(new Deck("sdf"), new User("sdf")));
+                waitingService.Object,
+                inputEmulator.Object,
+                new Game(new Deck("sdf"), new User("sdf")));
 
             // Assert
             Assert.IsNotNull(arenaModePage);
@@ -44,11 +48,14 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
 
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
+
             // Act
             new GameSessionPage(
                 gwentStateChecker.Object,
-                waitingService.Object
-                , new Game(new Deck("sdf"), new User("sdf")));
+                waitingService.Object,
+                inputEmulator.Object,
+                new Game(new Deck("sdf"), new User("sdf")));
             // Assert  - Expects exception
         }
 
@@ -63,11 +70,14 @@ namespace GwentBot.Tests.PageObjects
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
 
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
+
             // Act
             var arenaModePage = new GameSessionPage(
                 gwentStateChecker.Object,
-                waitingService.Object
-                , new Game(new Deck("sdf"), new User("sdf")));
+                waitingService.Object,
+                inputEmulator.Object,
+                new Game(new Deck("sdf"), new User("sdf")));
 
             // Assert
             Assert.IsNotNull(arenaModePage);

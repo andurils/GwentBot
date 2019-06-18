@@ -11,5 +11,7 @@ namespace GwentBot.GameInput
         void MouseClick(int x, int y, int numClicks = 1, string button = "left");
 
         void MouseMove(int x, int y);
+
+        void Send(string sendText, int mode = 0);
     }
 }

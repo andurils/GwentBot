@@ -1,4 +1,5 @@
 ﻿using System;
+using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
@@ -21,11 +22,14 @@ namespace GwentBot.Tests.PageObjects
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
             // Act
             var result = new MatchResultsRewardsScreenPage(
                 gwentStateChecker.Object,
-                waitingService.Object
-                , new Game(new Deck("sdf"), new User("sdf")));
+                waitingService.Object,
+                inputEmulator.Object,
+                new Game(new Deck("sdf"), new User("sdf")));
             // Assert
             Assert.IsNotNull(result);
         }
@@ -40,11 +44,14 @@ namespace GwentBot.Tests.PageObjects
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
             // Act
             var result = new MatchResultsRewardsScreenPage(
                 gwentStateChecker.Object,
-                waitingService.Object
-                , new Game(new Deck("sdf"), new User("sdf")));
+                waitingService.Object,
+                inputEmulator.Object,
+                new Game(new Deck("sdf"), new User("sdf")));
             // Assert
             Assert.IsNotNull(result);
         }

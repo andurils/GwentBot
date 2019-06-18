@@ -10,27 +10,32 @@ namespace GwentBot.GameInput
 {
     internal class AutoitInputDeviceEmulator : IInputDeviceEmulator
     {
+        public AutoitInputDeviceEmulator()
+        {
+            AutoItX.AutoItSetOption("MouseCoordMode", 2);
+            AutoItX.AutoItSetOption("PixelCoordMode", 2);
+        }
+
         public void MouseClick(int x, int y, int numClicks = 1, string button = "left")
         {
-            throw new NotImplementedException();
+            AutoItX.MouseClick(button, x, y, numClicks);
+
+            int randX = new Random().Next(300, 600);
+            int randY = new Random().Next(500, 530);
+            MouseMove(randX, randY);
         }
 
         public void MouseMove(int x, int y)
         {
-            var setupPoints = new List<Point>()
-            {
-                new Point(0, 0),
-                new Point(600, 100),
-                new Point(100, 600),
-                new Point(600, 600)
-            };
-
-            var pointsList = GetCurve(setupPoints);
-            foreach (var point in pointsList)
-            {
-                AutoItX.MouseMove(point.X, point.Y, 3);
-            }
+            AutoItX.MouseMove(x, y);
         }
+
+        public void Send(string sendText, int mode)
+        {
+            AutoItX.Send(sendText, mode);
+        }
+
+        #region Bezier curve method
 
         private int Factorial(int n)
         {
@@ -83,5 +88,7 @@ namespace GwentBot.GameInput
             public int X { get; }
             public int Y { get; }
         }
+
+        #endregion Bezier curve method
     }
 }

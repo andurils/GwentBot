@@ -1,4 +1,5 @@
 ﻿using System;
+using GwentBot.GameInput;
 using GwentBot.PageObjects;
 using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
@@ -20,10 +21,13 @@ namespace GwentBot.Tests.PageObjects
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
             // Act
             var result = new RewardsTabPage(
                 gwentStateChecker.Object,
-                waitingService.Object);
+                waitingService.Object,
+                inputEmulator.Object);
             // Assert
             Assert.IsNotNull(result);
         }
@@ -39,10 +43,13 @@ namespace GwentBot.Tests.PageObjects
 
             var waitingService = new Mock<IWaitingService>();
             waitingService.Setup(o => o.Wait(It.IsAny<int>()));
+
+            var inputEmulator = new Mock<IInputDeviceEmulator>();
             // Act
             new RewardsTabPage(
                 gwentStateChecker.Object,
-                waitingService.Object);
+                waitingService.Object,
+                inputEmulator.Object);
             // Assert - Expects exception
         }
     }
