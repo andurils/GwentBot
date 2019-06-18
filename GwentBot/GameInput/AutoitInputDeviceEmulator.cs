@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoIt;
 
@@ -18,7 +19,13 @@ namespace GwentBot.GameInput
 
         public void MouseClick(int x, int y, int numClicks = 1, string button = "left")
         {
-            AutoItX.MouseClick(button, x, y, numClicks);
+            int randDelley = new Random().Next(100, 250);
+            int randSpeed = new Random().Next(8, 12);
+
+            MouseMove(x, y);
+            Thread.Sleep(randDelley);
+            AutoItX.MouseClick(button, x, y, numClicks, randSpeed);
+            Thread.Sleep(randDelley);
 
             int randX = new Random().Next(300, 600);
             int randY = new Random().Next(500, 530);
