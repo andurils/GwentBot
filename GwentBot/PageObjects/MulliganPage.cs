@@ -59,12 +59,16 @@ namespace GwentBot.PageObjects
 
         protected override void WaitingGameReadiness(int seconds = 30)
         {
-            for (int tick = 0; tick < 5; tick++)
+            int tick = 10;
+            for (; tick != 0; tick--)
             {
                 if (stateChecker.GetCurrentGameSessionStates() ==
-                   GameSessionStates.SearchRival)
+                    GameSessionStates.SearchRival)
                     break;
+                waitingService.Wait(1);
             }
+            if (tick == 0)
+                throw new Exception($"Это не страница {GetType()}");
 
             do
             {
@@ -72,19 +76,16 @@ namespace GwentBot.PageObjects
             } while (stateChecker.GetCurrentGameSessionStates() ==
                      GameSessionStates.SearchRival);
 
-            for (int tick = 0; tick < 15; tick++)
+            tick = 10;
+            for (; tick != 0; tick--)
             {
-                var globalMessageBoxes = stateChecker.GetCurrentGlobalMessageBoxes();
-                if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
-                {
-                    throw new Exception($"Это не страница {GetType()}");
-                }
-
                 if (stateChecker.GetCurrentGlobalGameStates() ==
                    GlobalGameStates.HeavyLoading)
                     break;
                 waitingService.Wait(1);
             }
+            if (tick == 0)
+                throw new Exception($"Это не страница {GetType()}");
 
             do
             {
@@ -92,48 +93,19 @@ namespace GwentBot.PageObjects
             } while (stateChecker.GetCurrentGlobalGameStates() ==
                      GlobalGameStates.HeavyLoading);
 
-            for (int tick = 0; tick < 15; tick++)
+            tick = 10;
+            for (; tick != 0; tick--)
             {
-                var globalMessageBoxes = stateChecker.GetCurrentGlobalMessageBoxes();
-                if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
-                {
-                    throw new Exception($"Это не страница {GetType()}");
-                }
+                var coinState = stateChecker.GetCurrentCoinTossStates();
+                if (coinState != CoinTossStates.Unknown & coinState != CoinTossStates.StartToss)
+                    iWonCoin = coinState == CoinTossStates.CoinWon ? true : false;
 
-                switch (stateChecker.GetCurrentCoinTossStates())
-                {
-                    case CoinTossStates.CoinWon:
-                        iWonCoin = true;
-                        break;
-
-                    case CoinTossStates.CoinLost:
-                        iWonCoin = false;
-                        break;
-                }
                 if (iWonCoin != null)
                     break;
                 waitingService.Wait(1);
             }
-
-            for (int tick = 0; tick < 5; tick++)
-            {
-                if (stateChecker.GetCurrentGameSessionStates() ==
-                    GameSessionStates.SessionPageOpen)
-                    break;
-                waitingService.Wait(1);
-            }
-
-            do
-            {
-                var globalMessageBoxes = stateChecker.GetCurrentGlobalMessageBoxes();
-                if (globalMessageBoxes != GlobalMessageBoxes.NoMessageBoxes)
-                {
-                    throw new Exception($"Это не страница {GetType()}");
-                }
-
-                waitingService.Wait(1);
-            } while (stateChecker.GetCurrentGameSessionStates() ==
-                     GameSessionStates.SessionPageOpen);
+            if (tick == 0)
+                throw new Exception($"Это не страница {GetType()}");
 
             base.WaitingGameReadiness(seconds);
         }

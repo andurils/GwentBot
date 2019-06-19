@@ -19,7 +19,9 @@ namespace GwentBot.Tests.PageObjects
             var gwentStateChecker = new Mock<IGwentStateChecker>();
             gwentStateChecker.Setup(o => o.GetCurrentCoinTossStates())
                 .Returns(CoinTossStates.CoinWon);
-            gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
+            gwentStateChecker.SetupSequence(o => o.GetCurrentGameSessionStates())
+                .Returns(GameSessionStates.SearchRival)
+                .Returns(GameSessionStates.Mulligan)
                 .Returns(GameSessionStates.Mulligan);
             gwentStateChecker.Setup(o => o.GetCurrentGlobalMessageBoxes())
                 .Returns(GlobalMessageBoxes.NoMessageBoxes);
@@ -77,7 +79,9 @@ namespace GwentBot.Tests.PageObjects
             var gwentStateChecker = new Mock<IGwentStateChecker>();
             gwentStateChecker.Setup(o => o.GetCurrentCoinTossStates())
                 .Returns(CoinTossStates.CoinLost);
-            gwentStateChecker.Setup(o => o.GetCurrentGameSessionStates())
+            gwentStateChecker.SetupSequence(o => o.GetCurrentGameSessionStates())
+                .Returns(GameSessionStates.SearchRival)
+                .Returns(GameSessionStates.Mulligan)
                 .Returns(GameSessionStates.Mulligan);
             gwentStateChecker.Setup(o => o.GetCurrentGlobalMessageBoxes())
                 .Returns(GlobalMessageBoxes.NoMessageBoxes);
