@@ -10,7 +10,7 @@ namespace GwentBot.GameInput
 {
     internal class WinApiInputDeviceEmulator : IInputDeviceEmulator
     {
-        public void MouseClick(int x, int y, int numClicks = 1, string button = "left")
+        public void MouseClick(int x, int y, bool moveAfterClick = true, int numClicks = 1, string button = "left")
         {
             throw new NotImplementedException();
         }

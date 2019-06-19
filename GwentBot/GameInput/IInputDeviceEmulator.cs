@@ -8,7 +8,7 @@ namespace GwentBot.GameInput
 {
     internal interface IInputDeviceEmulator
     {
-        void MouseClick(int x, int y, int numClicks = 1, string button = "left");
+        void MouseClick(int x, int y, bool moveAfterClick = true, int numClicks = 1, string button = "left");
 
         void MouseMove(int x, int y);
 

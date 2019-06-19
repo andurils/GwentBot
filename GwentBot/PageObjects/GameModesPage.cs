@@ -17,7 +17,7 @@ namespace GwentBot.PageObjects
 
         internal MulliganPage GotoClassicGameMode()
         {
-            inputEmulator.MouseClick(427, 194);
+            inputEmulator.MouseClick(427, 194, false);
             Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
             return new MulliganPage(stateChecker, waitingService, inputEmulator, game);
         }
@@ -30,14 +30,14 @@ namespace GwentBot.PageObjects
 
         internal MulliganPage GotoSeasonalGameMode()
         {
-            inputEmulator.MouseClick(242, 194);
+            inputEmulator.MouseClick(242, 194, false);
             Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
             return new MulliganPage(stateChecker, waitingService, inputEmulator, game);
         }
 
         internal MulliganPage GotoTrainingGameMode()
         {
-            inputEmulator.MouseClick(616, 195);
+            inputEmulator.MouseClick(616, 195, false);
             Game game = new Game(new Deck("DefaultGame"), new User("MyName"));
             return new MulliganPage(stateChecker, waitingService, inputEmulator, game);
         }

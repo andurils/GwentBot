@@ -17,7 +17,8 @@ namespace GwentBot.GameInput
             AutoItX.AutoItSetOption("PixelCoordMode", 2);
         }
 
-        public void MouseClick(int x, int y, int numClicks = 1, string button = "left")
+        public void MouseClick(
+            int x, int y, bool moveAfterClick = true, int numClicks = 1, string button = "left")
         {
             var randDelley = new Random();
             int randSpeed = new Random().Next(8, 12);
@@ -27,9 +28,12 @@ namespace GwentBot.GameInput
             AutoItX.MouseClick(button, x, y, numClicks, randSpeed);
             Thread.Sleep(randDelley.Next(300, 600));
 
-            int randX = new Random().Next(327, 527);
-            int randY = new Random().Next(500, 530);
-            MouseMove(randX, randY);
+            if (moveAfterClick)
+            {
+                int randX = new Random().Next(327, 527);
+                int randY = new Random().Next(500, 530);
+                MouseMove(randX, randY);
+            }
         }
 
         public void MouseMove(int x, int y)
