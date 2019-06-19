@@ -2,10 +2,12 @@
 using GwentBot.PageObjects;
 using GwentBot.PageObjects.SupportObjects;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.StateAbstractions;
+using GwentBot.WorkWithProcess;
 
 namespace GwentBot
 {
@@ -86,6 +88,11 @@ namespace GwentBot
                         }
 
                         //IsWork = false;
+                    }
+                    else
+                    {
+                        if (GwentProcessStarter.WindowExists() == false)
+                            GwentProcessStarter.StartProcess();
                     }
                 }
                 GameStatusChanged?.Invoke("Не работаю");

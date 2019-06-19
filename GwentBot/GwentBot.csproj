@@ -95,6 +95,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkWithProcess\AnyProcessInformation.cs" />
     <Compile Include="WorkWithProcess\GwentProcessInformation.cs" />
+    <Compile Include="WorkWithProcess\GwentProcessStarter.cs" />
     <Compile Include="WorkWithProcess\IProcessInformation.cs" />
   </ItemGroup>
   <ItemGroup>
