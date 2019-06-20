@@ -100,8 +100,19 @@ namespace GwentBot.PageObjects
             Bitmap cropBitmap = reciveBitmap.Clone(levelAndExpRect, reciveBitmap.PixelFormat);
             var now = DateTime.Now;
 
+            string directory = "";
+            if (Directory.Exists(@"Z:\SharedFolderVM"))
+                directory = @"Z:\SharedFolderVM";
+            else if (Directory.Exists("ImgLog"))
+                directory = "ImgLog";
+            else
+            {
+                Directory.CreateDirectory("ImgLog");
+                directory = "ImgLog";
+            }
+
             cropBitmap
-                .Save($"TestImg/{now.Day}.{now.Month}.{now.Year} {now.Hour}-{now.Minute}-{now.Second}.bmp");
+                .Save($@"{directory}\{now.Day}.{now.Month}.{now.Year}-{now.Hour}.{now.Minute}.{now.Second}.bmp");
         }
     }
 }

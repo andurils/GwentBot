@@ -32,9 +32,9 @@ namespace GwentBot
                 GameStatusChanged?.Invoke("Работаю");
                 while (IsWork)
                 {
-                    if (screenShotCreator.IsGameWindowFullVisible())
+                    try
                     {
-                        try
+                        if (screenShotCreator.IsGameWindowFullVisible())
                         {
                             if (cv.GetCurrentGlobalGameStates() !=
                                 GlobalGameStates.GameModesTab)
@@ -81,18 +81,18 @@ namespace GwentBot
                                 .EndMulligan()
                                 .GiveUp()
                                 .ClosePageStatistics();
-                        }
-                        catch (Exception e)
-                        {
-                            GameStatusChanged?.Invoke(e.Message + e.StackTrace);
-                        }
 
-                        //IsWork = false;
+                            //IsWork = false;
+                        }
+                        else
+                        {
+                            if (GwentProcessStarter.WindowExists() == false)
+                                GwentProcessStarter.StartProcess();
+                        }
                     }
-                    else
+                    catch (Exception e)
                     {
-                        if (GwentProcessStarter.WindowExists() == false)
-                            GwentProcessStarter.StartProcess();
+                        GameStatusChanged?.Invoke(e.Message + e.StackTrace);
                     }
                 }
                 GameStatusChanged?.Invoke("Не работаю");
