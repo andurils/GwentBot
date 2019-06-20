@@ -8,11 +8,19 @@ using GwentBot.GameInput;
 using GwentBot.Model;
 using GwentBot.StateAbstractions;
 using GwentBot.WorkWithProcess;
+using NLog;
 
 namespace GwentBot
 {
     public class Bot
     {
+        private Logger logger;
+
+        public Bot()
+        {
+            logger = LogManager.GetCurrentClassLogger();
+        }
+
         public event Action<string> GameStatusChanged;
 
         private bool IsWork { get; set; }
@@ -92,7 +100,8 @@ namespace GwentBot
                     }
                     catch (Exception e)
                     {
-                        GameStatusChanged?.Invoke(e.Message + e.StackTrace);
+                        GameStatusChanged?.Invoke(e.Message);
+                        logger.Error(e.Message + e.StackTrace);
                     }
                 }
                 GameStatusChanged?.Invoke("Не работаю");
