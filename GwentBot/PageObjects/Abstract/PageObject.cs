@@ -10,6 +10,7 @@ namespace GwentBot.PageObjects.Abstract
         protected readonly IInputDeviceEmulator inputEmulator;
         protected readonly IGwentStateChecker stateChecker;
         protected readonly IWaitingService waitingService;
+        private static TimeSpan lastTimeCreationNewPage;
 
         /// <summary>
         /// Ожидает валидного состояния игры 30 секунд. Если состояние валидно создает новый объект.
@@ -31,6 +32,21 @@ namespace GwentBot.PageObjects.Abstract
 
             AutoItX.AutoItSetOption("MouseCoordMode", 2);
             AutoItX.AutoItSetOption("PixelCoordMode", 2);
+            lastTimeCreationNewPage = DateTime.Now.TimeOfDay;
+        }
+
+        public static bool IsPagesTooLongNotChanged()
+        {
+            if (lastTimeCreationNewPage == default(TimeSpan))
+                return false;
+
+            var result = false;
+            var timeNow = DateTime.Now.TimeOfDay;
+            var timeDifference = timeNow - lastTimeCreationNewPage;
+            if (timeDifference > new TimeSpan(0, 5, 0))
+                result = true;
+
+            return result;
         }
 
         protected abstract bool VerifyingPage();

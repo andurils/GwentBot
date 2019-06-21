@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GwentBot.GameInput;
 using GwentBot.Model;
+using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using GwentBot.WorkWithProcess;
 using NLog;
@@ -44,6 +45,12 @@ namespace GwentBot
                     {
                         if (screenShotCreator.IsGameWindowFullVisible())
                         {
+                            if (PageObject.IsPagesTooLongNotChanged())
+                            {
+                                if (GwentProcessStarter.CloseProcess())
+                                    GwentProcessStarter.StartProcess();
+                            }
+
                             if (cv.GetCurrentGlobalGameStates() !=
                                 GlobalGameStates.GameModesTab)
                             {

@@ -18,7 +18,7 @@ namespace GwentBot.GameInput
         }
 
         public void MouseClick(
-            int x, int y, bool moveAfterClick = true, int numClicks = 1, string button = "left")
+            int x, int y, bool moveWithoutDelayAfterClick = true, int numClicks = 1, string button = "left")
         {
             var randDelley = new Random();
             int randSpeed = new Random().Next(8, 12);
@@ -28,11 +28,21 @@ namespace GwentBot.GameInput
             AutoItX.MouseClick(button, x, y, numClicks, randSpeed);
             Thread.Sleep(randDelley.Next(300, 600));
 
-            if (moveAfterClick)
+            if (moveWithoutDelayAfterClick)
             {
                 int randX = new Random().Next(327, 527);
                 int randY = new Random().Next(500, 530);
                 MouseMove(randX, randY);
+            }
+            else
+            {
+                Task.Run(() =>
+                {
+                    Thread.Sleep(3000);
+                    int randX = new Random().Next(327, 527);
+                    int randY = new Random().Next(500, 530);
+                    MouseMove(randX, randY);
+                });
             }
         }
 

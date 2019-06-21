@@ -21,7 +21,11 @@ namespace GwentBot.WorkWithProcess
         internal static bool CloseProcess()
         {
             AutoItX.AutoItSetOption("WinTitleMatchMode", 3);
-            return AutoItX.WinClose("Gwent") == 1 ? true : false;
+            bool result = AutoItX.WinClose("Gwent") == 1 ? true : false;
+            if (result)
+                AutoItX.WinWaitClose("Gwent");
+
+            return result;
         }
 
         internal static bool StartProcess()
