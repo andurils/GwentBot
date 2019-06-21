@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using AutoIt;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace GwentBot.WorkWithProcess
 {
@@ -36,7 +38,11 @@ namespace GwentBot.WorkWithProcess
                 "workingDir",
                 null);
 
+            if (programPath == string.Empty)
+                programPath = ConfigurationManager.AppSettings.Get("GamePath");
+
             AutoItX.Run(programPath.ToString(), workingDir.ToString());
+            AutoItX.AutoItSetOption("WinTitleMatchMode", 3);
             AutoItX.WinWait("Gwent");
             AutoItX.WinActivate("Gwent");
 
