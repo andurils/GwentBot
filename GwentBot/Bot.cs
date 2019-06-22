@@ -101,6 +101,7 @@ namespace GwentBot
                         }
                         else
                         {
+                            GwentProcessStarter.CloseCrashReport();
                             if (GwentProcessStarter.WindowExists() == false)
                                 GwentProcessStarter.StartProcess();
                         }

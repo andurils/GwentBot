@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using AutoIt;
 using System.Configuration;
 using System.Collections.Specialized;
+using System.Threading;
 
 namespace GwentBot.WorkWithProcess
 {
@@ -15,7 +16,26 @@ namespace GwentBot.WorkWithProcess
         internal static bool CloseCrashReport()
         {
             AutoItX.AutoItSetOption("WinTitleMatchMode", 3);
-            return AutoItX.WinClose("Crash Report") == 1 ? true : false;
+
+            bool result = false;
+            var crashReport = "Crash Report";
+            var fatalError = "Fatal error";
+
+            if (AutoItX.WinExists(crashReport) == 1)
+            {
+                AutoItX.WinClose(crashReport);
+                AutoItX.WinWaitClose(crashReport);
+                result = true;
+            }
+
+            if (AutoItX.WinExists(fatalError) == 1)
+            {
+                AutoItX.WinClose(fatalError);
+                AutoItX.WinWaitClose(fatalError);
+                result = true;
+            }
+
+            return result;
         }
 
         internal static bool CloseProcess()
@@ -24,6 +44,7 @@ namespace GwentBot.WorkWithProcess
             bool result = AutoItX.WinClose("Gwent") == 1 ? true : false;
             if (result)
                 AutoItX.WinWaitClose("Gwent");
+            Thread.Sleep(10000);
 
             return result;
         }
