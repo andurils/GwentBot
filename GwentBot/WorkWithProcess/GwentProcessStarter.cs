@@ -8,6 +8,7 @@ using AutoIt;
 using System.Configuration;
 using System.Collections.Specialized;
 using System.Threading;
+using GwentBot.PageObjects.Abstract;
 
 namespace GwentBot.WorkWithProcess
 {
@@ -71,7 +72,11 @@ namespace GwentBot.WorkWithProcess
             AutoItX.WinWait("Gwent");
             AutoItX.WinActivate("Gwent");
 
-            return AutoItX.WinExists("Gwent") == 1 ? true : false;
+            bool result = AutoItX.WinExists("Gwent") == 1 ? true : false;
+            if (result)
+                PageObject.ResetLastCreationTimePage();
+
+            return result;
         }
 
         internal static bool WindowExists()

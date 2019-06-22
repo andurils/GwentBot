@@ -49,6 +49,11 @@ namespace GwentBot.PageObjects.Abstract
             return result;
         }
 
+        public static void ResetLastCreationTimePage()
+        {
+            lastTimeCreationNewPage = default(TimeSpan);
+        }
+
         protected abstract bool VerifyingPage();
 
         protected virtual void WaitingGameReadiness(int seconds = 30)
