@@ -39,9 +39,6 @@
     <OutputPath>bin\UnitTestsRun\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonotoneTheme">
-      <HintPath>..\..\..\..\Desktop\Monotone\MonotoneTheme.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
