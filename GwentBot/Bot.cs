@@ -64,29 +64,19 @@ namespace GwentBot
 
                                 var gameSess = cv.GetCurrentGameSessionStates();
                                 GameStatusChanged?.Invoke(gameSess.ToString());
+
                                 if (gameSess != GameSessionStates.Unknown)
                                 {
-                                    switch (gameSess)
-                                    {
-                                        case GameSessionStates.SessionPageOpen:
-                                            new GameSessionPage(cv, new DefaultWaitingService(), inputEmulator,
-                                                    new Game(new Deck(""), new User("")))
-                                                .GiveUp()
-                                                .ClosePageStatistics();
-                                            break;
-
-                                        case GameSessionStates.MatchResultsScreen:
-                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(), inputEmulator,
-                                                    new Game(new Deck(""), new User("")))
-                                                .ClosePageStatistics();
-                                            break;
-
-                                        case GameSessionStates.MatchRewardsScreen:
-                                            new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(), inputEmulator,
-                                                    new Game(new Deck(""), new User("")))
-                                                .ClosePageStatistics();
-                                            break;
-                                    }
+                                    if (gameSess == GameSessionStates.MatchResultsScreen ||
+                                       gameSess == GameSessionStates.MatchRewardsScreen)
+                                        new MatchResultsRewardsScreenPage(cv, new DefaultWaitingService(), inputEmulator,
+                                                new Game(new Deck(""), new User("")))
+                                            .ClosePageStatistics();
+                                    else
+                                        new GameSessionPage(cv, new DefaultWaitingService(), inputEmulator,
+                                            new Game(new Deck(""), new User("")))
+                                        .GiveUp()
+                                        .ClosePageStatistics();
                                 }
                                 pageFactory.StartGame()?.GotoGameModesPage();
                             }
@@ -97,7 +87,6 @@ namespace GwentBot
                                 .GiveUp()
                                 .ClosePageStatistics();
 
-                            //IsWork = false;
                         }
                         else
                         {
@@ -109,7 +98,8 @@ namespace GwentBot
                     catch (Exception e)
                     {
                         GameStatusChanged?.Invoke(e.Message);
-                        logger.Error(e.Message + e.StackTrace);
+                        if (!e.Message.Contains("Это не страница"))
+                            logger.Error(e.Message + e.StackTrace);
                     }
                 }
                 GameStatusChanged?.Invoke("Не работаю");
