@@ -46,6 +46,8 @@ namespace GwentBot.PageObjects
             do
             {
                 waitingService.Wait(1);
+                if (PageObject.IsPagesTooLongNotChanged())
+                    break;
             } while (stateChecker.GetCurrentFriendlyGameStartStates() ==
             FriendlyGameStartStates.LoadingMatchSettings);
 
