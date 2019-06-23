@@ -15,7 +15,7 @@ namespace GwentBot
 {
     public class Bot
     {
-        private Logger logger;
+        private readonly Logger logger;
 
         public Bot()
         {
@@ -90,7 +90,6 @@ namespace GwentBot
                         }
                         else
                         {
-                            GwentProcessStarter.CloseCrashReport();
                             if (GwentProcessStarter.WindowExists() == false)
                                 GwentProcessStarter.StartProcess();
                         }

@@ -53,7 +53,6 @@ namespace GwentBot.WorkWithProcess
         internal static bool StartProcess()
         {
             AutoItX.AutoItSetOption("WinTitleMatchMode", 3);
-            CloseCrashReport();
 
             var programPath = Registry.GetValue(
                 @"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\GOG.com\Games\1971477531",
@@ -64,25 +63,27 @@ namespace GwentBot.WorkWithProcess
                 "workingDir",
                 null);
 
-            if (programPath == string.Empty)
+            if (programPath.ToString() == string.Empty)
                 programPath = ConfigurationManager.AppSettings.Get("GamePath");
 
-            AutoItX.Run(programPath.ToString(), workingDir.ToString());
-            AutoItX.AutoItSetOption("WinTitleMatchMode", 3);
-            AutoItX.WinWait("Gwent");
-            AutoItX.WinActivate("Gwent");
+            do
+            {
+                CloseCrashReport();
+                AutoItX.Run(programPath.ToString(), workingDir.ToString());
+                AutoItX.WinWait("Gwent");
+                CloseCrashReport();
+                AutoItX.WinActivate("Gwent");
 
-            bool result = AutoItX.WinExists("Gwent") == 1 ? true : false;
-            if (result)
-                PageObject.ResetLastCreationTimePage();
+            } while (!WindowExists());
 
-            return result;
+            PageObject.ResetLastCreationTimePage();
+
+            return WindowExists();
         }
 
         internal static bool WindowExists()
         {
             AutoItX.AutoItSetOption("WinTitleMatchMode", 3);
-            var dsf = AutoItX.WinExists("Gwent");
             return AutoItX.WinExists("Gwent") == 1 ? true : false;
         }
     }
