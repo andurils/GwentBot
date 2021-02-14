@@ -9,14 +9,39 @@ using AutoIt;
 
 namespace GwentBot.GameInput
 {
+    /// <summary>
+    /// AutoIt  
+    /// 脚本程序 用来在Windows GUI（用户界面）中进行自动操作。通过它可以组合使用模拟键击、鼠标移动和窗口/控件操作等来实现自动化任务
+    /// 其他 http://blog.sina.com.cn/s/articlelist_1070064257_1_1.html
+    /// AutoItSetOption说明 http://blog.sina.com.cn/s/blog_3fc7e2810100lfv3.html
+    /// </summary>
     internal class AutoitInputDeviceEmulator : IInputDeviceEmulator
     {
         public AutoitInputDeviceEmulator()
         {
+            //调整Autoit各种函数/参数的运作方式.
+
+            //设置用于鼠标函数的坐标参照,可以是绝对位置也可以是相对当前激活窗口的坐标位置.
+            //0 = 相对激活窗口的坐标
+            //1 = 屏幕的绝对位置(默认)
+            //2 = 相对激活窗口客户区的坐标
             AutoItX.AutoItSetOption("MouseCoordMode", 2);
+
+            //设置用于象素函数的坐标参照,可以是绝对位置也可以是相对当前激活窗口的坐标位置.
+            //0 = 相对激活窗口的坐标
+            //1 = 屏幕的绝对位置(默认)
+            //2 = 相对激活窗口客户区的坐标
             AutoItX.AutoItSetOption("PixelCoordMode", 2);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="moveWithoutDelayAfterClick"></param>
+        /// <param name="numClicks"></param>
+        /// <param name="button"></param>
         public void MouseClick(
             int x, int y, bool moveWithoutDelayAfterClick = true, int numClicks = 1, string button = "left")
         {
@@ -56,7 +81,7 @@ namespace GwentBot.GameInput
             AutoItX.Send(sendText, mode);
         }
 
-        #region Bezier curve method
+        #region Bezier curve method  贝塞尔曲线
 
         private int Factorial(int n)
         {

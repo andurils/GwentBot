@@ -15,8 +15,9 @@ namespace GwentBot.PageObjects.Abstract
         /// <summary>
         /// Ожидает валидного состояния игры 30 секунд. Если состояние валидно создает новый объект.
         /// Если 30 секунд состояние игры не валидно выбрасывает исключение.
+        /// 等待有效的游戏状态30秒钟。 如果游戏状态在30秒内未有效抛出异常。状态有效，则创建一个新对象。
         /// </summary>
-        /// <param name="stateChecker">Любой класс реализующий IGwentStateChecker</param>
+        /// <param name="stateChecker"> IGwentStateChecker 实现类</param>
         /// <param name="waitingService">Класс инкапсулирующий метод ожидания</param>
         /// <param name="inputEmul">Класс эмуляции устройств ввода</param>
         public PageObject(

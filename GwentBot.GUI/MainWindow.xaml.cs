@@ -21,9 +21,14 @@ namespace GwentBot.GUI
                 });
             };
         }
-
+        /// <summary>
+        /// 启用游戏
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtStart_Click(object sender, RoutedEventArgs e)
         {
+            // 异步开始工作
             gBot.StartWorkAsync();
         }
 

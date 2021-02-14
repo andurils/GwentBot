@@ -32,13 +32,14 @@ namespace GwentBot
 
             var screenShotCreator = new GwentWindowScreenShotCreator();
             var cv = new OpenCvGwentStateChecker(screenShotCreator);
-            var inputEmulator = new AutoitInputDeviceEmulator();
+            var inputEmulator = new AutoitInputDeviceEmulator();   //脚本输入模拟
 
             var pageFactory = new PageObjectFactory();
 
             await Task.Run(() =>
             {
-                GameStatusChanged?.Invoke("Работаю");
+                //GameStatusChanged?.Invoke("Работаю");
+                GameStatusChanged?.Invoke("Start Work");
                 while (IsWork)
                 {
                     try
@@ -97,11 +98,12 @@ namespace GwentBot
                     catch (Exception e)
                     {
                         GameStatusChanged?.Invoke(e.Message);
-                        if (!e.Message.Contains("Это не страница"))
+                        if (!e.Message.Contains("This is not a page")) //Это не страница
                             logger.Error(e.Message + e.StackTrace);
                     }
                 }
-                GameStatusChanged?.Invoke("Не работаю");
+                //GameStatusChanged?.Invoke("Не работаю");
+                GameStatusChanged?.Invoke("Stop Work");
             });
         }
 

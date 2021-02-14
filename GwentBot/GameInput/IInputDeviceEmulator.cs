@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GwentBot.GameInput
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal interface IInputDeviceEmulator
     {
         void MouseClick(int x, int y, bool moveWithoutDelayAfterClick = true, int numClicks = 1, string button = "left");

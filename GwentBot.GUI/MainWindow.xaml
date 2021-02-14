@@ -8,9 +8,11 @@
         Title="MainWindow" Height="150" Width="200" Background="DimGray" ResizeMode="NoResize">
     <Grid>
         <StackPanel>
-            <Button Name="btStart" Height="70" Click="BtStart_Click">Старт</Button>
-            <Button Name="btCheckVisability" Click="Button_Click">Проверить видимость игры</Button>
-            <TextBlock Name="tbGlobalStateList"></TextBlock>
+            <!--游戏开始-->
+            <Button Name="btStart" Height="70" Click="BtStart_Click">start</Button>
+            <!--检查游戏版本-->
+            <Button Name="btCheckVisability" Click="Button_Click">stop</Button>
+            <TextBlock Name="tbGlobalStateList" Height="33" Margin="0,0,-0.4,0" TextWrapping="Wrap"></TextBlock>
         </StackPanel>
     </Grid>
 </Window>

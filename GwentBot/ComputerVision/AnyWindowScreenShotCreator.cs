@@ -41,7 +41,10 @@ namespace GwentBot.ComputerVision
 
             return workAreaRect;
         }
-
+        /// <summary>
+        /// 游戏是否全屏
+        /// </summary>
+        /// <returns></returns>
         public bool IsGameWindowFullVisible()
         {
             if (false == WorkingProcessInformation.IsGameWindowActive())
