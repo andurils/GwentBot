@@ -260,10 +260,11 @@ namespace GwentBot.ComputerVision
                     Rect.Empty))
                     return StartGameStates.GameLoadingScreen;
 
+                // 基于1600*900 分辨率 ROI区域 710, 55, 155, 45
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\StartGameStates\WelcomeScreen-HelloText.png",
-                    new Rect(330, 10, 200, 70)))
+                    new Rect(710, 55, 155, 45)))
                     return StartGameStates.WelcomeScreen;
             }
             return StartGameStates.Unknown;
@@ -395,16 +396,21 @@ namespace GwentBot.ComputerVision
         #region OpenCVGeneralmethods
 
         /// <summary>
-        /// Обобщенный метод для проверок состояний
+        /// 状态检查的通用方法
+        /// Обобщенный метод для проверок состояний 
         /// </summary>
-        /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
-        /// <param name="patternPath">Шаблон</param>
-        /// <param name="gameScreenRoi">Область интереса в которой ищется шаблон. Если искать нужно
+        /// <param name="gameScreen">游戏截图 用于模板检索 Изображение в котором нужно искать шаблон</param>
+        /// <param name="patternPath">模板路径 Шаблон</param>
+        /// <param name="gameScreenRoi">游戏截图ROI（region of interest），感兴趣区域 
+        /// 搜索模式的感兴趣区域。 如果您需要搜索整个图像，则传入Rect.Empty
+        /// Область интереса в которой ищется шаблон. Если искать нужно
         /// по всему изображение нужно передать Rect.Empty</param>
-        /// <returns>Результат поиска патерна в изображении</returns>
+        /// <returns>搜索图像中图案的结果 Результат поиска патерна в изображении</returns>
         private bool GenericCheck(Mat gameScreen, string patternPath, Rect gameScreenRoi)
         {
             var fullRectGameScreen = new Rect(0, 0, gameScreen.Width, gameScreen.Height);
+            // Mat OpenCV基本图像容器
+            // 新建一个mat，把整张游戏截屏图像加载到里面去。
             using (var localGameScreen = new Mat(gameScreen, fullRectGameScreen))
             {
                 if (gameScreenRoi != Rect.Empty)
@@ -519,17 +525,22 @@ namespace GwentBot.ComputerVision
         }
 
         /// <summary>
+        /// 使用给定的模式 搜索图像特定部分中(ROI)的对象
         /// Ищет объекты в определенной части изображения по заданному шаблону.
         /// </summary>
-        /// <param name="gameScreen">Изображение в котором нужно искать шаблон</param>
-        /// <param name="temp">Шаблон</param>
-        /// <param name="regionOfInterest">Область интереса в которой ищется шаблон</param>
-        /// <param name="thresHold">Допустимая погрешность</param>
-        /// <returns>Возвращает координаты найденного шаблона. Координаты приведены к координатам
+        /// <param name="gameScreen">游戏截屏 Изображение в котором нужно искать шаблон</param>
+        /// <param name="temp">模板信息 Mat  Шаблон</param>
+        /// <param name="regionOfInterest">搜索模式的感兴趣区域ROI  Область интереса в которой ищется шаблон</param>
+        /// <param name="thresHold">容许误差 / 阈值 Допустимая погрешность</param>
+        /// <returns>
+        /// 返回找到的模板的坐标，返回截图的坐标信息
+        /// 如果找不到模板，它将返回Rect.Empty
+        /// Возвращает координаты найденного шаблона. Координаты приведены к координатам
         /// gameScreen. Если шаблон не найден то вернется Rect.Empty</returns>
         private Rect PatternSearchRoi(Mat gameScreen, Mat temp, Rect regionOfInterest, double thresHold = 0.95)
         {
             if (regionOfInterest != Rect.Empty)
+                // 若指定ROI，把roi内的图像加载到gameScreen。
                 gameScreen = new Mat(gameScreen, regionOfInterest);
 
             Rect tempPos = PatternSearch(gameScreen, temp, thresHold);

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwentBot.GUI", "GwentBot.GU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwentBot.Tests", "GwentBot.Tests\GwentBot.Tests.csproj", "{CC183D3A-FB48-4256-9AA2-44C015462999}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCVDemo", "OpenCVDemo\OpenCVDemo.csproj", "{B4E8B0CB-87B2-44E1-AA14-1516B3880B01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CC183D3A-FB48-4256-9AA2-44C015462999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC183D3A-FB48-4256-9AA2-44C015462999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC183D3A-FB48-4256-9AA2-44C015462999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E8B0CB-87B2-44E1-AA14-1516B3880B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E8B0CB-87B2-44E1-AA14-1516B3880B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E8B0CB-87B2-44E1-AA14-1516B3880B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E8B0CB-87B2-44E1-AA14-1516B3880B01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

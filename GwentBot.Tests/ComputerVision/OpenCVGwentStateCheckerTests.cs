@@ -10,6 +10,8 @@ namespace GwentBot.Tests.ComputerVision
     [TestClass]
     public class OpenCvGwentStateCheckerTests
     {
+        const string Locale = "zh-cn";
+
         [TestMethod]
         public void GetGameScreenshotBitmap_AlwaysUnknownSrc_AlwaysUnknownSrc()
         {
@@ -463,13 +465,16 @@ namespace GwentBot.Tests.ComputerVision
 
         #endregion GlobalGameStates Checks
 
-        #region StartGameStates Checks
+        #region StartGameStates Checks  游戏启动状态监测
 
+        /// <summary>
+        /// 游戏加载页
+        /// </summary>
         [TestMethod]
         public void GetCurrentStartGameStates_GameLoadingScreenSrc_IdentifierGameLoadingScreen()
         {
             //arrage
-            var gameScreenshotPath = @"ComputerVision\StartGameStates\GameLoadingScreen.png";
+            var gameScreenshotPath = $@"ComputerVision\{Locale}\StartGameStates\GameLoadingScreen.png";
             var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
             //act
@@ -479,6 +484,9 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(StartGameStates.GameLoadingScreen, result);
         }
 
+        /// <summary>
+        /// 未知图片
+        /// </summary>
         [TestMethod]
         public void GetCurrentStartGameStates_UnknownSrc_IdentifierUnknown()
         {
@@ -493,11 +501,14 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(StartGameStates.Unknown, result);
         }
 
+        /// <summary>
+        /// 游戏欢迎页
+        /// </summary>
         [TestMethod]
         public void GetCurrentStartGameStates_WelcomeScreenSrc_IdentifierWelcomeScreen()
         {
             //arrage
-            var gameScreenshotPath = @"ComputerVision\StartGameStates\WelcomeScreen.png";
+            var gameScreenshotPath = $@"ComputerVision\{Locale}\StartGameStates\WelcomeScreen.png";
             var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
             //act

@@ -290,6 +290,15 @@
     <Content Include="ComputerVision\TestSrcImg\AlwaysUnknownSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ComputerVision\zh-cn\StartGameStates\2021-02-15_1723_1.png" />
+    <Content Include="ComputerVision\zh-cn\StartGameStates\bk_GameLoadingScreen.png" />
+    <Content Include="ComputerVision\zh-cn\StartGameStates\bk_WelcomeScreen.png" />
+    <Content Include="ComputerVision\zh-cn\StartGameStates\GameLoadingScreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\zh-cn\StartGameStates\WelcomeScreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
