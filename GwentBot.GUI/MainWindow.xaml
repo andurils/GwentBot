@@ -5,14 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GwentBot.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="150" Width="200" Background="DimGray" ResizeMode="NoResize">
+        Title="MainWindow" Height="300" Width="400" Background="DimGray" ResizeMode="CanMinimize" >
     <Grid>
         <StackPanel>
             <!--游戏开始-->
-            <Button Name="btStart" Height="70" Click="BtStart_Click">start</Button>
-            <!--检查游戏版本-->
-            <Button Name="btCheckVisability" Click="Button_Click">stop</Button>
-            <TextBlock Name="tbGlobalStateList" Height="33" Margin="0,0,-0.4,0" TextWrapping="Wrap"></TextBlock>
+            <Button x:Name="btStart" Height="40" Click="BtStart_Click" Margin="0,0,0,0" Content="start"/>
+            <!--游戏结束-->
+            <Button x:Name="btCheckVisability" Click="Button_Click" Height="35"   Content="stop" Margin="0,0,0,0"/>
+            <!--游戏结束-->
+            <Button x:Name="btSetTopMost" Click="btSetTopMost_Click" Height="35"   Content="置顶" Margin="0,0,0,0"/>
+            
+            <TextBlock x:Name="tbGlobalStateList" Height="283" Margin="0,0,0,0" TextWrapping="Wrap"/>
         </StackPanel>
     </Grid>
 </Window>

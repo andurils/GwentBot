@@ -10,12 +10,14 @@ using GwentBot.PageObjects.Abstract;
 using GwentBot.StateAbstractions;
 using GwentBot.WorkWithProcess;
 using NLog;
+using System.Text;
 
 namespace GwentBot
 {
     public class Bot
     {
         private readonly Logger logger;
+        private StringBuilder LogText;
 
         public Bot()
         {
@@ -36,16 +38,19 @@ namespace GwentBot
 
             var pageFactory = new PageObjectFactory();
 
+            LogText = new StringBuilder();
+
             await Task.Run(() =>
             {
-                //GameStatusChanged?.Invoke("Работаю");
-                GameStatusChanged?.Invoke("Start Work");
+                LogText.Append($"{DateTime.Now.ToString("s")}:  Start Work");
+                GameStatusChanged?.Invoke(LogText.ToString());
                 while (IsWork)
-                {
+                { 
                     try
                     {
                         if (screenShotCreator.IsGameWindowFullVisible())
-                        {
+                        { 
+                            // 页面监测 是否长时间未变化
                             if (PageObject.IsPagesTooLongNotChanged())
                             {
                                 if (GwentProcessStarter.CloseProcess())
@@ -102,8 +107,8 @@ namespace GwentBot
                             logger.Error(e.Message + e.StackTrace);
                     }
                 }
-                //GameStatusChanged?.Invoke("Не работаю");
-                GameStatusChanged?.Invoke("Stop Work");
+                LogText.Append($"{DateTime.Now.ToString("s")}:  Stop Work");
+                GameStatusChanged?.Invoke(LogText.ToString());
             });
         }
 

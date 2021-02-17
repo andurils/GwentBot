@@ -36,6 +36,10 @@ namespace GwentBot.PageObjects.Abstract
             lastTimeCreationNewPage = DateTime.Now.TimeOfDay;
         }
 
+        /// <summary>
+        /// 页面是否长时间未改变
+        /// </summary>
+        /// <returns></returns>
         public static bool IsPagesTooLongNotChanged()
         {
             if (lastTimeCreationNewPage == default(TimeSpan))
@@ -50,6 +54,9 @@ namespace GwentBot.PageObjects.Abstract
             return result;
         }
 
+        /// <summary>
+        /// 重置页面最新创建时间
+        /// </summary>
         public static void ResetLastCreationTimePage()
         {
             lastTimeCreationNewPage = default(TimeSpan);

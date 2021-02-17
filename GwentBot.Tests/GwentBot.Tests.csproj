@@ -101,49 +101,114 @@
     <Content Include="ComputerVision\CoinTossStates\СoinWonSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\MonsterTable.png">
+    <Content Include="ComputerVision\en\CoinTossStates\CoinLostSrc.png" />
+    <Content Include="ComputerVision\en\CoinTossStates\StartTossSrc.png" />
+    <Content Include="ComputerVision\en\CoinTossStates\СoinWonSrc.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\CancelGameMessageBoxSrc.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\LoadingMatchSettingsSrc\MonsterTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\LoadingMatchSettingsSrc\NilfgaardTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\LoadingMatchSettingsSrc\NorthTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\LoadingMatchSettingsSrc\ScoiataelTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\LoadingMatchSettingsSrc\SkelligeTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\MatchSettings\MonsterTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\MatchSettings\NorthTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\MatchSettings\SkelligeTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\WaitingReadinessOpponentSrc\MonsterTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NilfgaardTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NorthTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\WaitingReadinessOpponentSrc\ScoiataelTable.png" />
+    <Content Include="ComputerVision\en\FriendlyGameStartStates\WaitingReadinessOpponentSrc\SkelligeTable.png" />
+    <Content Include="ComputerVision\en\GameModesTab\MonsterTableSrc.png" />
+    <Content Include="ComputerVision\en\GameModesTab\NilfgaardTable.png" />
+    <Content Include="ComputerVision\en\GameModesTab\NorthTableSrc.png" />
+    <Content Include="ComputerVision\en\GameModesTab\ScoiataelTable.png" />
+    <Content Include="ComputerVision\en\GameModesTab\SkelligeTable.png" />
+    <Content Include="ComputerVision\en\GameSessionExceptionMessageBoxes\AfkGameLostSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionExceptionMessageBoxes\LocalClientProblemSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\EndMulliganMessageBoxSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\EnemyTurnPlaySrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\GiveUpMessageBoxSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\LosingAlertSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MatchResultsScreenSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MatchRewardsScreenSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MulliganSrc-MonsterTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MulliganSrc-NilfgaardTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MulliganSrc-NorthTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MulliganSrc-ScoiataelTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MulliganSrc-SkelligeTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\MyTurnPlaySrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\OpponentChangesCardsSrc-MonsterTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\OpponentChangesCardsSrc-NilfgaardTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\OpponentChangesCardsSrc-NorthTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\OpponentChangesCardsSrc-ScoiataelTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\OpponentChangesCardsSrc-SkelligeTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\OpponentSurrenderedMessageBoxSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\SearchRival\MonsterTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\SearchRival\NilfgaardTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\SearchRival\NorthTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\SearchRival\ScoiataelTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\SearchRival\SkelligeTable.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\SessionPageOpenSrc.png" />
+    <Content Include="ComputerVision\en\GameSessionStates\WinAlertSrc.png" />
+    <Content Include="ComputerVision\en\GlobalGameStates\ArenaModeTabSrc.png" />
+    <Content Include="ComputerVision\en\GlobalGameStates\GameModesTabSrc.png" />
+    <Content Include="ComputerVision\en\GlobalGameStates\HeavyLoadingSrc.png" />
+    <Content Include="ComputerVision\en\GlobalGameStates\MainMenuSrc.png" />
+    <Content Include="ComputerVision\en\GlobalMessageBoxes\ConnectionErrorSrc.png" />
+    <Content Include="ComputerVision\en\GlobalMessageBoxes\ConnectionLostSrc.png" />
+    <Content Include="ComputerVision\en\GlobalMessageBoxes\ErrorConnectingToServiceSrc.png" />
+    <Content Include="ComputerVision\en\GlobalMessageBoxes\ErrorSearchingOpponentSrc.png" />
+    <Content Include="ComputerVision\en\GlobalMessageBoxes\ServerOverloadedSrc.png" />
+    <Content Include="ComputerVision\en\Notifications\FriendlyDuelSrc.png" />
+    <Content Include="ComputerVision\en\Notifications\ReceivedRewardSrc.png" />
+    <Content Include="ComputerVision\en\Notifications\RewardsTabSrc.png" />
+    <Content Include="ComputerVision\en\StartGameStates\GameLoadingScreen.png" />
+    <Content Include="ComputerVision\en\StartGameStates\WelcomeScreen.png" />
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\LoadingMatchSettingsSrc\MonsterTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\NilfgaardTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\LoadingMatchSettingsSrc\NilfgaardTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\NorthTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\LoadingMatchSettingsSrc\NorthTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\ScoiataelTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\LoadingMatchSettingsSrc\ScoiataelTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\LoadingMatchSettingsSrc\SkelligeTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\LoadingMatchSettingsSrc\SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\MonsterTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\MatchSettings\MonsterTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\NorthTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\MatchSettings\NorthTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\MatchSettings\SkelligeTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\MatchSettings\SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\MonsterTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\WaitingReadinessOpponentSrc\MonsterTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NilfgaardTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NilfgaardTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NorthTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\WaitingReadinessOpponentSrc\NorthTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\ScoiataelTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\WaitingReadinessOpponentSrc\ScoiataelTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\WaitingReadinessOpponentSrc\SkelligeTable.png">
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\WaitingReadinessOpponentSrc\SkelligeTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GameModesTab\MonsterTableSrc.png">
@@ -242,19 +307,34 @@
     <Content Include="ComputerVision\GameSessionStates\WinAlertSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\GlobalGameStates\ArenaModeTabSrc.png">
+    <Content Include="ComputerVision\zh-cn\GameModesTab\MonsterTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\GlobalGameStates\GameModesTabSrc.png">
+    <Content Include="ComputerVision\zh-cn\GameModesTab\NilfgaardTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\GlobalGameStates\HeavyLoadingSrc.png">
+    <Content Include="ComputerVision\zh-cn\GameModesTab\NorthTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\GlobalGameStates\MainMenuSrc.png">
+    <Content Include="ComputerVision\zh-cn\GameModesTab\ScoiataelTable.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\FriendlyGameStartStates\CancelGameMessageBoxSrc.png">
+    <Content Include="ComputerVision\zh-cn\GameModesTab\SkelligeTable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\zh-cn\GlobalGameStates\ArenaModeTabSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\zh-cn\GlobalGameStates\GameModesTabSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\zh-cn\GlobalGameStates\HeavyLoadingSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\zh-cn\GlobalGameStates\MainMenuSrc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ComputerVision\zh-cn\FriendlyGameStartStates\CancelGameMessageBoxSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\GlobalMessageBoxes\ConnectionErrorSrc.png">
@@ -272,19 +352,13 @@
     <Content Include="ComputerVision\GlobalMessageBoxes\ServerOverloadedSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\Notifications\FriendlyDuelSrc.png">
+    <Content Include="ComputerVision\zh-cn\Notifications\FriendlyDuelSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\Notifications\ReceivedRewardSrc.png">
+    <Content Include="ComputerVision\zh-cn\Notifications\ReceivedRewardSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ComputerVision\Notifications\RewardsTabSrc.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ComputerVision\StartGameStates\GameLoadingScreen.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ComputerVision\StartGameStates\WelcomeScreen.png">
+    <Content Include="ComputerVision\zh-cn\Notifications\RewardsTabSrc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ComputerVision\TestSrcImg\AlwaysUnknownSrc.png">

@@ -11,8 +11,12 @@ namespace OpenCVDemo
     {
         static void Main(string[] args)
         {
-            Mat panda = new Mat(@"Images/test01.png", ImreadModes.AnyColor);
-            Rect roi = new Rect(710, 55, 155, 45);//首先要用个rect确定我们的兴趣区域在哪
+            //Mat panda = new Mat(@"Images/test01.png", ImreadModes.AnyColor);
+            //Rect roi = new Rect(710, 55, 155, 45);//首先要用个rect确定我们的兴趣区域在哪
+
+            Mat panda = new Mat(@"Images/test02.png", ImreadModes.AnyColor);
+            Rect roi = new Rect(332, 685, 100, 100);//首先要用个rect确定我们的兴趣区域在哪
+
             Mat ImageROI = new Mat(panda, roi);//新建一个mat，把roi内的图像加载到里面去。
             Cv2.ImShow("ROI 兴趣区域", ImageROI);
             //Cv2.ImShow("滚滚", panda);

@@ -42,7 +42,7 @@ namespace GwentBot.ComputerVision
             return workAreaRect;
         }
         /// <summary>
-        /// 游戏是否全屏
+        /// 游戏是否在窗口中全部可见
         /// </summary>
         /// <returns></returns>
         public bool IsGameWindowFullVisible()

@@ -178,10 +178,11 @@ namespace GwentBot.ComputerVision
                 if (CheckGgsGameModesTab(gameScreen))
                     return GlobalGameStates.GameModesTab;
 
+                // 按照 1600*900 设置ROI
                 if (GenericCheck(
                     gameScreen,
                     @"ComputerVision\PatternsForCV\GlobalGameStates\MainMenu-OutButton.png",
-                    new Rect(758, 428, 90, 45)))
+                    new Rect(1515, 815, 72, 72)))
                     return GlobalGameStates.MainMenu;
             }
             return GlobalGameStates.Unknown;
@@ -381,11 +382,18 @@ namespace GwentBot.ComputerVision
             {
                 if (CheckFgssMatchSettings(gameScreen))
                     return false;
+                // 更新1600*900分辨率
+                //var tempPos = PatternSearchRoi(
+                //    localGameScreen,
+                //    new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.png"),
+                //    new Rect(1015, 718, 40, 40));
 
+                //采用默认硬币进行判断
                 var tempPos = PatternSearchRoi(
                     localGameScreen,
-                    new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DeckDropDownArrow.png"),
-                    new Rect(500, 360, 50, 40));
+                    new Mat(@"ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DefaultCoin.png"),
+                    new Rect(332, 685, 100, 100));
+
 
                 return (tempPos != Rect.Empty);
             }

@@ -108,6 +108,9 @@
     <Compile Include="WorkWithProcess\IProcessInformation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ComputerVision\PatternsForCV\GlobalGameStates\GameModesTab-DefaultCoin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

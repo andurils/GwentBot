@@ -12,6 +12,7 @@ namespace GwentBot.GUI
         public MainWindow()
         {
             InitializeComponent();
+            Topmost = false;  //不置顶
             gBot = new Bot();
             gBot.GameStatusChanged += (string msg) =>
             {
@@ -35,6 +36,12 @@ namespace GwentBot.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             gBot.StopWork();
+        }
+
+        private void btSetTopMost_Click(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = !this.Topmost;
+            this.btSetTopMost.Content = this.Topmost?"取消置顶":"置顶";
         }
     }
 }

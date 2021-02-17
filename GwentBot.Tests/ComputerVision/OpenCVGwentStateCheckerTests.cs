@@ -12,6 +12,9 @@ namespace GwentBot.Tests.ComputerVision
     {
         const string Locale = "zh-cn";
 
+        /// <summary>
+        /// 未知图片测试
+        /// </summary>
         [TestMethod]
         public void GetGameScreenshotBitmap_AlwaysUnknownSrc_AlwaysUnknownSrc()
         {
@@ -321,7 +324,7 @@ namespace GwentBot.Tests.ComputerVision
 
         #endregion CoinTossStates Checks
 
-        #region GlobalGameStates Checks
+        #region GlobalGameStates Checks 游戏全局状态监测
 
         //[TestMethod]
         //public void GetCurrentGlobalGameStates_GameModesTabSrc_IdentifierMainMenu()
@@ -337,11 +340,14 @@ namespace GwentBot.Tests.ComputerVision
         //    Assert.AreEqual(GlobalGameStates.MainMenu, result);
         //}
 
+        /// <summary>
+        /// 废弃模式   TODO
+        /// </summary>
         [TestMethod]
         public void GetCurrentGlobalGameStates_ArenaModeTabSrc_IdentifierArenaModeTab()
         {
             //arrage
-            var gameScreenshotPath = @"ComputerVision\GlobalGameStates\ArenaModeTabSrc.png";
+            var gameScreenshotPath = $@"ComputerVision\{Locale}\GlobalGameStates\ArenaModeTabSrc.png";
             var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
             //act
@@ -351,11 +357,14 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GlobalGameStates.ArenaModeTab, result);
         }
 
+        /// <summary>
+        /// GG  TODO
+        /// </summary>
         [TestMethod]
         public void GetCurrentGlobalGameStates_FriendlyDuelSrc_MainMenu()
         {
             //arrage
-            var gameScreenshotPath = @"ComputerVision\Notifications\FriendlyDuelSrc.png";
+            var gameScreenshotPath = $@"ComputerVision\{Locale}\Notifications\FriendlyDuelSrc.png";
             var stateChecker = CreationOpenCvGwentStateChecker(gameScreenshotPath);
 
             //act
@@ -366,11 +375,11 @@ namespace GwentBot.Tests.ComputerVision
         }
 
         [DataTestMethod]
-        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\MonsterTable.png")]
-        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png")]
-        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\NorthTable.png")]
-        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png")]
-        [DataRow(@"ComputerVision\FriendlyGameStartStates\MatchSettings\SkelligeTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\FriendlyGameStartStates\MatchSettings\MonsterTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\FriendlyGameStartStates\MatchSettings\NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\FriendlyGameStartStates\MatchSettings\NorthTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\FriendlyGameStartStates\MatchSettings\ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\FriendlyGameStartStates\MatchSettings\SkelligeTable.png")]
         public void GetCurrentGlobalGameStates_FriendlyGameStartStatesSrc_IdentifierUnknown(string srcPath)
         {
             //arrage
@@ -384,13 +393,17 @@ namespace GwentBot.Tests.ComputerVision
             Assert.AreEqual(GlobalGameStates.Unknown, result);
         }
 
+        /// <summary>
+        /// 识别游戏模式选项  更新使用默认硬币
+        /// </summary>
+        /// <param name="srcPath"></param>
         [DataTestMethod]
-        [DataRow(@"ComputerVision\GlobalGameStates\GameModesTabSrc.png")]
-        [DataRow(@"ComputerVision\GameModesTab\MonsterTableSrc.png")]
-        [DataRow(@"ComputerVision\GameModesTab\NilfgaardTable.png")]
-        [DataRow(@"ComputerVision\GameModesTab\NorthTableSrc.png")]
-        [DataRow(@"ComputerVision\GameModesTab\ScoiataelTable.png")]
-        [DataRow(@"ComputerVision\GameModesTab\SkelligeTable.png")]
+        //[DataRow(@"ComputerVision\" + Locale + @"\GlobalGameStates\GameModesTabSrc.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\GameModesTab\MonsterTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\GameModesTab\NilfgaardTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\GameModesTab\NorthTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\GameModesTab\ScoiataelTable.png")]
+        [DataRow(@"ComputerVision\" + Locale + @"\GameModesTab\SkelligeTable.png")]
         public void GetCurrentGlobalGameStates_GameModesTabSrc_IdentifierGameModesTab(string srcPath)
         {
             //arrage
